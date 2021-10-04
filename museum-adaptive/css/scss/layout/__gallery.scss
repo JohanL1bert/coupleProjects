@@ -15,12 +15,18 @@
         padding-top: 75px;
     }
     &__img{
-        
+        margin: 12px 0;
+        max-width: 100%;
     }
 }
 
-
-.gallery__img{
+.gallery{
+    &__items{
+        display: flex;
+        column-gap: 36px;
+    }
+}
+/* .gallery__img{
     &:first-child{
         margin: 0 32px -110px 0;
 
@@ -68,4 +74,30 @@
         margin-left: 32px;
     }
 
+}
+ */
+
+@media (max-width: 1024px){
+    .gallery{
+        &__name{
+            @include gallery-name_24;
+        }
+    }
+
+}
+
+@media (max-width: 768px){
+    .gallery{
+        &__name{
+            @include gallery-name_68;
+        }
+        &__right{
+            display: none;
+        }
+    }
+    
+}
+
+@media (max-width: 420px){
+    
 }

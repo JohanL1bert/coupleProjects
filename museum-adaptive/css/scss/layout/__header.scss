@@ -34,9 +34,9 @@
         display: flex;
         justify-content: space-between;
         text-align: center;
+        gap: 54px;
     }
     &__item{
-        padding-left: 54px;
 
     }
     &__link{
@@ -56,4 +56,52 @@
 
 h1{
     display: none;
+}
+
+@media (max-width: 1074px) {
+    .header__items{
+        gap: 30px;
+    }
+} 
+
+@media (max-width: 1024px){
+    .container{
+        margin: 0 auto;
+        max-width: 983px;
+    }
+    .header{
+        &__louvre{
+            @include header-louvre_24;
+        }
+        &__nav{
+            display: none;
+        }
+        &__logo{
+            margin-bottom: 27px;
+        }
+    }
+
+}
+
+@media (max-width: 768px){
+    .header{
+        &__louvre{
+            @include header-louvre_68;
+            margin-bottom: 0;
+        }
+    }
+
+    
+}
+
+@media (max-width: 420px){
+    .header{
+        &__louvre{
+            @include header-louvre_20;
+        }
+        &__img{
+            width: 29px;
+        }
+    }
+    
 }

@@ -1,6 +1,6 @@
 .tickets{
     &__inner{
-
+        margin-bottom: 70px;
     }
     &__name{
         color: $color-text-brown;
@@ -18,6 +18,7 @@
         margin-bottom: 75px;
     }
 
+
 }
 
 .tickets{
@@ -27,14 +28,24 @@
         
     }
     &__img{
+        &-wrapper{
+            max-width: 720px;
+            height: 440px;
+        }
+        &-mobile{
+            display: none;
+        }
+        width: 100%;
         margin-bottom: 75px;
 
     }
     &__type{
-        padding-right: 120px;
+        max-width: 270px;
+        height: 211px;
 
     }
     &__amount{
+
 
     }
 }
@@ -84,6 +95,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 175px;
+        height: 50px;
+        cursor: pointer;
         &-text{
             font-family: 'Roboto';
             font-size: 22px;
@@ -162,6 +176,10 @@
 
 }
 
+.tickets_img-low{
+    display: none
+}
+
 label{
     @include radio-button-style;
 }
@@ -178,3 +196,212 @@ input[type="button"]{
 .amount__total{
     margin-top: 50px 0 60px 0;
 }
+
+@media (max-width: 1231px){
+    .tickets__type{
+        display: none;
+    }
+    .tickets__amount{
+        padding-right: 29px;
+    }
+}
+
+@media (max-width: 1447px){
+    .container{
+        margin: 0 auto;
+        max-width: 1224px;
+    }
+    .amount{
+        padding-right: 2px;
+    }
+}
+
+@media (max-width: 1024px){
+    .tickets{
+        &__name{
+            @include tickets-name_24;
+            margin: 75px 0 20px 0;
+        }
+        &__rectangle{
+            margin-bottom: 60px;
+        }
+        &__inner{
+            margin-bottom: 63px;
+        }
+    .amount{
+        padding-right: 12px;
+        &__name{
+            margin: 0 0;
+        }
+        &__basic{
+            margin: 0 0;
+        }
+        &__senior{
+            margin: 0 0;
+        }
+        &__total{
+            margin: 23px 0 0 0;
+        }
+        &__btn{
+            margin-top: 70px;
+        }
+    .basic{
+        &__name{
+            margin: 27px 0 0 0;
+        }
+        &__group{
+            margin-top: 14px;
+            width: 172px;
+            height: 45px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .senior{
+        &__name{
+            margin: 29px 0 0 0;
+        }
+        &__group{
+            margin-top: 14px;
+            width: 172px;
+            height: 45px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        }
+     }
+    }
+
+}
+
+@media (max-width: 768px){
+    .senior{
+        &__group{
+            margin-top: 10px;
+        }
+    }
+    .tickets{
+        &__img{
+            display: none;
+            &-mobile{
+                display: block
+            }
+        }
+        &__name{
+            @include tickets-name_68;
+            margin-bottom: 20px;
+        }
+        &__rectangle{
+            margin-bottom: 40px;
+        }
+    .amount{
+        padding-right: 21px;
+        &__name{
+            margin: 0 0 10px 0;
+            }
+        &__total{
+            margin: 34px 0 0 0;
+        }
+        &__btn{
+            margin-top: 40px;
+        }
+        }
+    }
+    
+}
+
+@media (max-width: 680px){
+    .tickets{
+        &__wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        &__img-wrapper{
+            margin: auto;
+        }
+        &__amount{
+            margin: auto;
+        }
+    }
+}
+
+@media (max-width: 645px){
+    .tickets{
+        &__wrapper{
+            flex-direction: column;
+        }
+    .amount{
+        &__name{
+            margin-left: 0;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .basic{
+        margin-left: 0;
+    }
+    }
+}
+
+@media (max-width: 485px){
+    .tickets__img-mobile{
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 420px){
+    .tickets{
+        &__name{
+            @include tickets-name_20;
+        }
+        &__img-mobile{
+            display: none;
+        }
+        &_img-low{
+            display: block;
+        }
+        &__img{
+            &-wrapper{
+                height: 200px;
+            }
+        }
+        &__amount{
+            margin: 0 60px 0 80px;
+        }
+    }
+    .amount{
+        &__name{
+            font-family: 'Roboto';
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 19px;
+            letter-spacing: 0em;
+            text-align: center;
+            margin: 0 0 6px 0;
+        }
+        &__total{
+            @include basic-senour-name_20;
+        }
+    }
+    .basic{
+        &__name{
+            margin: 0;
+            @include basic-senour-name_20;
+        }
+        &__group{
+
+        }
+    }
+    .senior{
+        &__name{
+            @include basic-senour-name_20;
+        }
+    }
+    
+}
+

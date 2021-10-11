@@ -8,6 +8,8 @@
     <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
     <link rel="stylesheet" href="./css/scss/normalize.css">
     <link rel="stylesheet" href="./css/scss/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 </head>
 <body>
     <header class="header">
@@ -74,20 +76,36 @@
                             </button>
                         </div>
                         <div class="welcome__picture">
-                            <img class="welcome__img" src="./assets/img/welcome/mona_backgorund.png" alt="">
+                            <div class="welcome__img-wrapper">
+                                <div class="welcome__img-item">
+                                    <img class="welcome__img" src="./assets/img/welcome/welcome_slider/1.png" alt="">
+                                </div>
+                                <div class="welcome__img-item">
+                                    <img class="welcome__img" src="./assets/img/welcome/welcome_slider/2.jpg" alt="">
+                                </div>
+                                <div class="welcome__img-item">
+                                    <img class="welcome__img" src="./assets/img/welcome/welcome_slider/3.jpg" alt="">
+                                </div>
+                                <div class="welcome__img-item">
+                                    <img class="welcome__img" src="./assets/img/welcome/welcome_slider/4.jpg" alt="">
+                                </div>
+                                <div class="welcome__img-item">
+                                    <img class="welcome__img" src="./assets/img/welcome/welcome_slider/5.jpg" alt="">
+                                </div>
+                            </div>
                             <div class="welcome__bottom">
                                 <div class="welcome__slider">
                                     <div class="welcome__slider-num">
-                                        <span class="num__item">02</span>
+                                        <span class="num__item">01</span>
                                         <span class="num__stick">|</span>
                                         <span class="num__item">05</span>
                                     </div>
                                     <div class="welcome__carousel carousel">
-                                        <span class="carousel__item"></span>
-                                        <span class="carousel__item"></span>
-                                        <span class="carousel__item"></span>
-                                        <span class="carousel__item"></span>
-                                        <span class="carousel__item"></span>
+                                        <span class="carousel__item active" id="0"></span>
+                                        <span class="carousel__item" id="1"></span>
+                                        <span class="carousel__item" id="2"></span>
+                                        <span class="carousel__item" id="3"></span>
+                                        <span class="carousel__item" id="4"></span>
                                     </div>
                                     <div class="welcome__arrows">
                                         <button class="arrows__left">
@@ -229,7 +247,15 @@
                         <div class="explore__rectangle"></div>
                     </div>
                     <div class="img__explore-wrapper">
-                        <img class="explore__img-left" src="./assets/img/explore/fixcomponent.png" alt="">
+                        <div class="explore__before">
+                            <img class="explore__img-left" src="./assets/img/explore/swiper/before.jpg" alt="">
+                        </div>
+                        <div class="explore__after">
+                            <img class="explore__img-right" src="./assets/img/explore/swiper/right_img.png" alt="">
+                        </div>
+                        <div class="explore__slider">
+                            <img class="explore__img-slider" src="./assets/img/explore/swiper/explore_slider.png" alt="">
+                        </div>
                         <img class="explore__img-adaptive" src="./assets/img/explore/adaptive_420/Picture explore.png" alt="">
 <!--                         <img class="explore__slider" src="#" alt="">
                         <img class="explore__img-right" src="#" alt=""> -->
@@ -237,7 +263,7 @@
                 </div>
             </div>
         </section>
-<!--         <section class="video">
+        <section class="video">
             <div class="container">
                 <div class="journey__inner">
                     <div class="journey__info">
@@ -253,7 +279,8 @@
                     <div class="journey__video">
                         <div class="journey__wrapper">
                             <div class="journey__img-wrapper">
-                                <img class="journey__img" src="./assets/img/journey/backgorund_player.png" alt="">
+                                <!-- <img class="journey__img" src="./assets/img/journey/backgorund_player.png" alt=""> -->
+                                <video class="journey__video-main" src="./assets/video/journey/video0.mp4"></video>
                                 <img class="journey__arrow" src="./assets/img/journey/video_arrow.png" alt="">
                             </div>
                             <div class="img__line">
@@ -261,13 +288,13 @@
                                     <img class="img__arrow" src="./assets/img/journey/arrow__group.png" alt="">
                                 </button>
                                 <div class="img__line-wrapper">
-                                    <input class="img__line-video" type="range" min="1" max="100" value="20">
+                                    <input class="img__line-video" name="playVideo" type="range" min="1" max="100" value="20">
                                 </div>
                                 <button class="img__btn-sound">
                                     <img class="img__sound" src="./assets/img/journey/volume.png" alt="">
                                 </button>
                                 <div class="img__sound-wrapper">
-                                    <input class="img__sound-line" type="range" min="1" max="100" value="50">
+                                    <input class="img__sound-line" name="playSound" type="range" min="1" max="100" value="50">
                                 </div>
                                 <button class="img__btn-line">
                                     <img class="img__exit" src="./assets/img/journey/Frame.png" alt="">
@@ -285,19 +312,31 @@
                         <div class="iframe__wrapper">
                             <iframe class="iframe__responsive" width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
+                        <div class="iframe__wrapper">
+                            <iframe class="iframe__responsive" width="452" height="254" src="https://www.youtube.com/embed/2OR0OCr6uRE" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="iframe__wrapper">
+                            <iframe class="iframe__responsive" width="452" height="254" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
                     <div class="journey__slider">
-                        <span class="slider__arrow"></span>
-                        <span class="slider__item"></span>
-                        <span class="slider__item"></span>
-                        <span class="slider__item"></span>
-                        <span class="slider__item"></span>
-                        <span class="slider__item"></span>
-                        <span class="slider__arrow"></span>
+                        <button class="slider__button-left">
+                            <img class="slider__left" src="./assets/svg/video_slider/slider/mini-arrows-left.svg" alt="">
+                        </button>
+                        <div class="slider__wrapper">
+                            <span class="slider__item slider__item-active" id="10"></span>
+                            <span class="slider__item" id="20"></span>
+                            <span class="slider__item" id="30"></span>
+                            <span class="slider__item" id="40"></span>
+                            <span class="slider__item" id="50"></span>
+                        </div>
+                        <button class="slider__button-right">
+                            <img class="slider__right" src="./assets/svg/video_slider/slider/mini-arrows-right.svg" alt="">
+                        </button>
                     </div>
                 </div>
             </div>
-        </section> -->
+        </section>
         <section class="gallery">
             <div class="container">
                 <div class="gallery__inner">
@@ -306,22 +345,22 @@
                     </h2>
                     <div class="gallery__items">
                         <div class="gallery__left">
-                            <img class="gallery__img" src="./assets/img/gallery/gallery1_1.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery2_1.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery3_1.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery4_1.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery2_1.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery3_1.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery4_1.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/gallery1_1.png" alt="">
                         </div>
                         <div class="gallery__center">
-                            <img class="gallery__img" src="./assets/img/gallery/gallery1_2.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery2_2.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery3_2.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery4_2.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/gallery1_2.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery2_2.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery3_2.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery4_2.png" alt="">
                         </div>
                         <div class="gallery__right">
-                            <img class="gallery__img" src="./assets/img/gallery/galery1_3.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery2_3.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery3_3.png" alt="">
-                            <img class="gallery__img" src="./assets/img/gallery/galery4_3.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery1_3.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery2_3.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery3_3.png" alt="">
+                            <img class="gallery__img scroll-img" src="./assets/img/gallery/galery4_3.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -382,7 +421,7 @@
                                 </div>
                             </div>
                             <p class="amount__total">
-                                Total €220
+                                Total €<span class="amount__price">0</span>
                             </p>
                             <button class="amount__btn">
                                 <span class="amount__btn-text">
@@ -434,7 +473,8 @@
                         </div>
                     </div>
                     <div class="frame__img-wrapper">
-                        <img class="frame__img" src="./assets/img/contacts/map.png" alt="">
+                        <div class="frame__img"><iframe width='960px' height='620px' src="https://api.mapbox.com/styles/v1/johanl1bert/ckul6kxjt5ice17s0ljaklk5s.html?title=false&access_token=pk.eyJ1Ijoiam9oYW5sMWJlcnQiLCJhIjoiY2t1aThsbHE2MDd0eDJycnZqejB5ZzM0YiJ9.wqFeNJhisPEqtpRpKgZb8Q&zoomwheel=false#16.00/48.8613501/2.3361676" title="Basic" style="border:none;"></iframe></div>
+                        <!-- <img class="frame__img" src="./assets/img/contacts/map.png" alt=""> -->
                     </div>
                 </div>
             </div>
@@ -522,6 +562,12 @@
                 </div>
         </div>
     </footer>
+    <script src="./js/welcome_slider.js"></script>
+    <script src="./js/video.js"></script>
+    <script src="./js/video_slider.js"></script>
+    <script src="./js/explore_slider.js"></script>
+    <script src="./js/gallery.js"></script>
+    <script src="./js/tickets.js"></script>
     <script src="./js/index.js"></script>
 </body>
 </html>

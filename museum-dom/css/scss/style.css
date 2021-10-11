@@ -267,6 +267,11 @@ h1 {
   background-color: #FFFFFF;
   width: 16px;
   height: 16px;
+  cursor: pointer;
+}
+
+.carousel__item.active {
+  background-color: #D2B183;
 }
 
 .welcome__upper {
@@ -323,11 +328,14 @@ h1 {
   justify-content: flex-end;
 }
 
-.welcome__img {
-  max-width: 1000px;
+.welcome__img-wrapper {
+  /*             display: flex;
+            max-width: 1100px;
+            height: 762px; */
 }
 
 .arrows__left {
+  cursor: pointer;
   background-color: #030303;
   border: none;
 }
@@ -337,12 +345,17 @@ h1 {
 }
 
 .arrows__right {
+  cursor: pointer;
   background-color: #030303;
   border: none;
 }
 
 .arrows__right:focus {
   outline-style: none;
+}
+
+#tns1-iw {
+  width: 1000px;
 }
 
 @media (max-width: 1024px) {
@@ -412,7 +425,6 @@ h1 {
     letter-spacing: 5px;
     text-align: center;
     margin-top: 0;
-    max-width: 328px;
   }
   .welcome__description {
     font-family: 'Roboto';
@@ -422,7 +434,6 @@ h1 {
     line-height: 23px;
     letter-spacing: 2px;
     text-align: left;
-    max-width: 332px;
   }
   .welcome__button {
     display: none;
@@ -727,11 +738,32 @@ h1 {
 
 .journey__items {
   margin-top: 55px;
+  overflow: hidden;
+}
+
+.journey__slider {
+  margin: 50px auto 0;
+  display: flex;
+  justify-content: center;
 }
 
 .video {
   display: flex;
   justify-content: space-between;
+}
+
+.slider__wrapper {
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.slider__item {
+  background-color: grey;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
 }
 
 .journey__wrapper {
@@ -744,12 +776,21 @@ h1 {
   top: 3500px;
 }
 
+.journey__arrow-active {
+  display: none;
+}
+
 .journey__img {
   display: block;
   width: 100%;
 }
 
+.journey__video-main {
+  width: 100%;
+}
+
 .img__line {
+  margin: -6px 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -817,11 +858,31 @@ h1 {
 }
 
 .iframe__wrapper {
-  overflow: hidden;
   position: relative;
-  min-height: 560px;
   width: 80%;
   margin: 0 auto;
+}
+
+.slider__item-active {
+  background-color: #17696e;
+}
+
+.slider__button-left {
+  border: none;
+  outline: none;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+.slider__button-right {
+  border: none;
+  outline: none;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+.journey__video-main-active {
+  height: 940px;
 }
 
 .explore {
@@ -869,10 +930,6 @@ h1 {
   color: #CAAA7D;
 }
 
-.explore__img-left {
-  width: 100%;
-}
-
 .picture__explore {
   margin-right: 60px;
   max-width: 660px;
@@ -881,12 +938,50 @@ h1 {
 .img__explore-wrapper {
   margin-top: 75px;
   margin-bottom: 75px;
-  width: 720px;
+  max-width: 720px;
   height: 700px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
 
 .explore__img-adaptive {
   display: none;
+}
+
+.explore__before {
+  position: absolute;
+  overflow: hidden;
+  width: 70%;
+  height: 100%;
+  z-index: 2;
+}
+
+.explore__slider {
+  position: absolute;
+  top: 0;
+  left: 70%;
+  z-index: 15;
+  /*         position: absolute;
+        left: 70%;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background-color: white;
+        z-index: 10;
+        &::after{
+            content: "";
+            position: absolute;
+            left: 70%;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, 
+            rgba(255, 255, 255, 0) 60%,
+            rgba(white,1) 51.5%); 
+        } */
 }
 
 @media (max-width: 1024px) {
@@ -1014,6 +1109,13 @@ h1 {
 .gallery__img {
   margin: 12px 0;
   max-width: 100%;
+  /*         transform: translateY(100px); */
+  transition: 0.3s ease-in-out;
+}
+
+.scroll-img {
+  transition: 0.8s ease 0s;
+  transform: translate(0, 200px);
 }
 
 .gallery__items {
@@ -1238,6 +1340,7 @@ h1 {
   background-color: #FFFFFF;
   border: none;
   right: -5px;
+  cursor: pointer;
 }
 
 .basic__btn-field {
@@ -1256,6 +1359,7 @@ h1 {
   background-color: #FFFFFF;
   border: none;
   left: -5px;
+  cursor: pointer;
 }
 
 .senior {
@@ -1288,6 +1392,7 @@ h1 {
   background-color: #FFFFFF;
   border: none;
   right: -5px;
+  cursor: pointer;
 }
 
 .senior__field {
@@ -1306,6 +1411,7 @@ h1 {
   background-color: #FFFFFF;
   border: none;
   left: -5px;
+  cursor: pointer;
 }
 
 .tickets_img-low {

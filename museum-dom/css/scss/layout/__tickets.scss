@@ -127,6 +127,7 @@
     &__btn-minus{
         @include button-border;
         right: -5px;
+        cursor: pointer;
     }
     &__btn-field{
         height: 33px;
@@ -139,6 +140,7 @@
     &__btn-plus{
         @include button-border;
         left: -5px;
+        cursor: pointer;
     }
 
 }
@@ -160,6 +162,7 @@
     &__btn-minus{
         @include button-border;
         right: -5px;
+        cursor: pointer;
     }
     &__field{
         height: 33px;
@@ -172,6 +175,7 @@
     &__btn-plus{
         @include button-border;
         left: -5px;
+        cursor: pointer;
     }
 
 }

@@ -38,23 +38,46 @@ const changeNumberItem = () => {
     return getNumber;
 };
 
-//FIXME: Пролетает между 4 и 1
+
 const prevSlide = () => {
+    //FIXME: Уничтожить эту простыню коду
     numberSlide = changeNumberItem();
-    numberSlide = numberSlide - 1;
-    if (numberSlide == 0) {
+    console.log(numberSlide);
+    if (numberSlide == 1) {
         numberItem.textContent = '05';
         welcomeSlider.goTo('prev');
         removeClassListActive();
         getSliderSpan(numberSlide = 4);
         return;
     }
-
-
-    removeClassListActive();
-    getSliderSpan(numberSlide - 1);
-    welcomeSlider.goTo('prev');
-    numberItem.textContent = '0' + `${numberSlide - 1}`;
+    if (numberSlide == 5) {
+        numberItem.textContent = '04';
+        welcomeSlider.goTo('prev');
+        removeClassListActive();
+        getSliderSpan(numberSlide = 3);
+        return;
+    }
+    if (numberSlide == 4) {
+        numberItem.textContent = '03';
+        welcomeSlider.goTo('prev');
+        removeClassListActive();
+        getSliderSpan(numberSlide = 2);
+        return;
+    }
+    if (numberSlide == 3) {
+        numberItem.textContent = '02';
+        welcomeSlider.goTo('prev');
+        removeClassListActive();
+        getSliderSpan(numberSlide = 1);
+        return;
+    }
+    if (numberSlide == 2) {
+        numberItem.textContent = '01';
+        welcomeSlider.goTo('prev');
+        removeClassListActive();
+        getSliderSpan(numberSlide = 0);
+        return;
+    }
 }
 
 const nextSlide = () => {

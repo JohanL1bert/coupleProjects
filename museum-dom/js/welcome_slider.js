@@ -42,7 +42,7 @@ const changeNumberItem = () => {
 const prevSlide = () => {
     //FIXME: Уничтожить эту простыню коду
     numberSlide = changeNumberItem();
-    console.log(numberSlide);
+
     if (numberSlide == 1) {
         numberItem.textContent = '05';
         welcomeSlider.goTo('prev');

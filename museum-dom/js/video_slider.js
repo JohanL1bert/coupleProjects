@@ -57,8 +57,6 @@ const prevVideo = () => {
 }
 
 const nextVideo = () => {
-/*     let getSlideAction = checkSliderAction();
-    plusDots(getSlideAction); */
     sliderVideo.goTo('next');
 }
 

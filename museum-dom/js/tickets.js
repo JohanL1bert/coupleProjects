@@ -6,17 +6,6 @@ const seniorCount = document.querySelector('.senior__field');
 const basicButton = document.querySelector('.basic__group');
 const basicCount = document.querySelector('.basic__btn-field');
 
-//const ticketsType = document.querySelector('.tickets__type > div');
-
-
-//Тестовая версия
-/* let seniourMinus = 0;
-let seniorPlus = 0; */
-
-
-/* pemanent = 20 / 10
-temporary = 25 / 12.5
-combined = 40 / 20 */
 
 let numb = 0;
 let inputNumberSeniour = 0;
@@ -76,7 +65,7 @@ minusBasic.addEventListener('click', () => {
 })
 
 
-/* console.log(ticketsType.childNodes[1].className); */
+
 
 
 

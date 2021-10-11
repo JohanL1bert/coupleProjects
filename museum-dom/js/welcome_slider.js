@@ -3,7 +3,7 @@ const welcomeWrapper = document.querySelector('.welcome__img-wrapper');
 //Текст контент работает
 
 
-// 06 = 01   00 = 05
+
 let numberSlide;
 
 const carouselItem = document.querySelectorAll('.carousel__item');
@@ -43,7 +43,6 @@ const prevSlide = () => {
     numberSlide = changeNumberItem();
     numberSlide = numberSlide - 1;
     if (numberSlide == 0) {
-        //console.log('numberSlide', `${numberSlide}`)
         numberItem.textContent = '05';
         welcomeSlider.goTo('prev');
         removeClassListActive();
@@ -59,7 +58,6 @@ const prevSlide = () => {
 }
 
 const nextSlide = () => {
-    //console.log(welcomeSlider.getInfo());
     numberSlide = changeNumberItem();
 
     if (numberSlide == 5) {

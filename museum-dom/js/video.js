@@ -33,25 +33,6 @@ const removeButton = () => {
     }
 }
 
-/* videoMain.addEventListener('click', () => {
-    if (playButton.className == 'journey__arrow') {
-        playButton.classList.add('journey__arrow-active');
-        togglePlay();
-    } else {
-        playButton.classList.remove('journey__arrow-active');
-        togglePlay();
-    }
-}); */
-
-/* playButton.addEventListener('click', () => {
-    if (playButton.className == 'journey__arrow') {
-        playButton.classList.add('journey__arrow-active');
-        togglePlay();
-    } else {
-        playButton.classList.remove('journey__arrow-active');
-        togglePlay();
-    }
-}) */
 
 
 const videoButtonUpdate = () => {

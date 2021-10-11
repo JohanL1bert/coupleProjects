@@ -1,0 +1,549 @@
+@mixin red-line{
+    border: none;
+    background-color: $color-line-red;
+    height: 2px;
+}
+
+@mixin black-virtual-name{
+    color: #000000;
+}
+
+@mixin black-virtual-desc{
+    color: #000000;
+}
+
+@mixin radio-button-style{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin tickets__name{
+    font-family: 'Roboto';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 33px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin amount__name-font{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin contacts__name-font{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin contacts__desc-font{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin footer-font{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 22px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin button-border{
+    position: relative;
+    width: 38px;
+    height: 38px;
+    background-color: $color-white-text;
+    border: none;
+}
+
+@mixin welcome-num{
+    color: $color-white-text;
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+
+@mixin welcome-header_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90px;
+    letter-spacing: 5px;
+    text-align: left; 
+}
+
+@mixin welcome-description_24{
+    font-family: 'Roboto';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin welcome-btn_24{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 23px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+@mixin header-louvre_24{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin virtual-header_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin palace-name_24{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px;
+    letter-spacing: 3px;
+    text-align: left;
+}
+
+@mixin palace-tour_24{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin palace-google_24{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin explore-name_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin explore-description_24{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 39px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin gallery-name_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin tickets-name_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin contacts-name_24{
+    font-family: 'Forum';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin frame-name_24{
+    font-family: 'Roboto';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin contacts-description_24{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin footer-louvre_24{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin footer-link_24{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 26px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin picture-description_24{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 35px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin footer-bottom_24{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 22px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin header-louvre_68{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 50px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin welcome-header_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: center;
+    
+    
+}
+
+@mixin welcome-description_68{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 23px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin virtual-header_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin palace-name_68{
+    font-family: 'Forum';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 3px;
+    text-align: left;
+}
+
+@mixin palace-tour_68{
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    
+}
+
+@mixin palace-google_68{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    
+}
+
+@mixin picture-exploer_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin gallery-name_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin tickets-name_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin contacts-name_68{
+    font-family: 'Forum';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin frame-name_68{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin contacts-description_68{
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin footer-bottom_68{
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 22px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin welcome-header_20{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+@mixin welcome-description_20{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 2px;
+    text-align: left;
+}
+
+@mixin header-louvre_20{
+    font-family: 'Forum';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin virtual-header_20{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin explore-name_20{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin tickets-name_20{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin basic-senour-name_20{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin contacts-name_20{
+    font-family: 'Forum';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin frame-name_20{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin frame-description_20{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin footer-louvre_20{
+    font-family: 'Forum';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 5px;
+    text-align: left;
+}
+
+@mixin footer-list_20{
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 19px;
+    letter-spacing: 2px;
+    text-align: left;
+    
+    
+}

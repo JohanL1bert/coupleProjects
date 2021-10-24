@@ -1,5 +1,4 @@
-import greeting from "../greetings/greet.js";
-
+import {filter} from '../greetings/greet.js';
 
 
 const body = document.querySelector('body');
@@ -9,8 +8,10 @@ const slideNext = document.querySelector('.slide-next');
 
 let globalBackgroundValue;
 
+
 const filterDay = () => {
-    const timeDay = greeting();
+    const timeDay =  filter();
+    console.log(timeDay)
     const getReg = timeDay.match(/\w+/gi)[1];
     return getReg;
 }
@@ -32,7 +33,7 @@ const createBg = (timeDay, number) => {
     const img = new Image();
     img.src = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg')`;
     img.onLoad = () => {
-        body.style.backgroundImage = img.src;
+        body.style.backgroundImage = img.src.slice(22,);
     }
     img.onLoad();
 }

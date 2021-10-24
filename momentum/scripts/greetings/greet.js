@@ -6,23 +6,44 @@ const dateObj = () => {
     return new Date()
 }
 
-const filter = () => {
+export const filter = () => {
     const getDate = dateObj();
     const time = getDate.getHours() + "." + getDate.getMinutes();
 
     if (time >= 6.00 && time <= 11.59) {
         return "Good morning";
-    } else if(time >= 12.00 && time <= 17.59) {
+    } else if (time >= 12.00 && time <= 17.59) {
         return 'Good afternoon';
     } else if (time >= 18.00 && time <= 23.59) {
         return "Good evening";
-    } else if (time >= 0.00 && time <= 5.59){
+    } else if (time >= 0.00 && time <= 5.59) {
         return "Good night";
     }
 }
 
-const greeting = () => {
-    const getGreeting = filter();
+const filterRus = () => {
+    const getDate = dateObj();
+    const time = getDate.getHours() + "." + getDate.getMinutes();
+
+    if (time >= 6.00 && time <= 11.59) {
+        return "Доброе утро";
+    } else if (time >= 12.00 && time <= 17.59) {
+        return 'Добрый день';
+    } else if (time >= 18.00 && time <= 23.59) {
+        return "Добрый вечер";
+    } else if (time >= 0.00 && time <= 5.59) {
+        return "Спокойной ночи";
+    }
+}
+
+export const greeting = (lang) => {
+    let getGreeting;
+    if (lang == 'en') {
+        getGreeting = filter();
+    } else {
+        getGreeting = filterRus();
+    }
+
     greetingSelector.innerHTML = getGreeting;
     return getGreeting;
 }
@@ -41,8 +62,8 @@ const setLocalStorage = () => {
     localStorage.setItem('name', `${name}`);
 }
 
-const getLocalStorage = () => {    
-    if(localStorage.getItem('name')) {
+const getLocalStorage = () => {
+    if (localStorage.getItem('name')) {
         const getName = localStorage.getItem('name');
         inputName.value = `${getName}`;
     }
@@ -51,8 +72,6 @@ const getLocalStorage = () => {
 window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
 
-
-export default greeting;
 
 
 

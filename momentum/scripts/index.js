@@ -1,5 +1,5 @@
 import timeCallback from './calendar_time/calendar_time.js';
-import greeting from './greetings/greet.js';
+import {greeting} from './greetings/greet.js';
 import {getJsonData, quoteBtn} from './quotes/quotes_generator.js';
 import {toggleLanguage, languageChoice} from './settings/setting.js';
 import {toggleSwitchBg, checkCloseBtn, settingBtn, closeBtn} from './settings/seting_popup.js';
@@ -39,8 +39,8 @@ languageChoice.addEventListener('click', () => {
 
 
 const globalTimeCallback = () => {
-    timeCallback();
-    greeting()
+    timeCallback(language);
+    greeting(language)
 }
 
 //TimeChange and day

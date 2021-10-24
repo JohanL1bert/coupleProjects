@@ -11,17 +11,17 @@ const getTime = () => {
     timeClass.innerHTML = timeNow;
 }
 
-const getDate = () => {
+const getDate = (lang) => {
     const date = dateObj();
 
     const options = { weekday: 'long', month: 'long', day: 'numeric'}
-    const fullDate = date.toLocaleString('en', options);
+    const fullDate = date.toLocaleString(`${lang}`, options);
     dateClass.innerHTML = fullDate;
 }
 
-const timeCallback = () => {
+const timeCallback = (lang) => {
     getTime();
-    getDate();
+    getDate(lang);
 }
 
 export default timeCallback;

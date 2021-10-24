@@ -24,9 +24,13 @@ const playDuration = document.querySelector('.play-duration');
 let isPlay = false;
 let stateSound = 0;
 
+console.log(playList)
+console.log(audio)
 
 const playAudio = () => {
     btnPlayState();
+    console.log(audio.src)
+    console.log(playList[stateSound].src)
     audio.src = playList[stateSound].src;
     audio.play();
     isPlay = true;

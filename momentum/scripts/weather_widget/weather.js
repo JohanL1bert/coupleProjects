@@ -36,7 +36,6 @@ export const getWeather = async(lang) => {
 //setTimeout(getWeather, 1000);
 
 const descriptionWeather = (data, lang) => {  
-    console.log(data)
     if (lang == 'en') {
         city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;

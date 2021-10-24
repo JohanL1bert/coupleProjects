@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="player">
+      <div class="player-wrapper">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
+        </div>
+        <div class="player-art">
+          <div class="image-wrapper">
+            <div class="image-inner">
+              <div class="image-border">
+                <img src="./assets/img/artCover/preyJanuary.png" class="image-animation active">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="player-settings">
+          <div class="play-time">
+            <div class="play-duration">00:00</div>
+            <div class="play-duration-change">00:00</div>
+          </div>
+          <div class="play-inner">
+            <input type="range" max="100" value="0" class="player-slider" >
+          </div>
+        </div>
+      </div>
+      <div class="play-sound">
+        <input type="range" max="100" value="0" class="slider-sound"></input>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+    <div class="weather">
+      <input type="text" class="city" />
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" />
+    </div>
+    <section class="settings">
+      <div class="settings-body">
+        <div class="settings-border">
+          <div class="settings-img">
+            <img src="./assets/svg/setting-icon.png" alt="" class="setting-icon">
+          </div>
+        </div>
+      </div>
+      <div class="popup">
+        <div class="popup-body">
+          <div class="popup-close">
+            <a href="#" class="close"></a>
+          </div>
+          <div class="popup-inner">
+            <div class="popup-name">
+              <h3 class="setting-name">
+                Settings:
+              </h3>
+            </div>
+            <div class="language-wrapper">
+              <div class="language-name">
+                Language:
+              </div>
+              <div class="language-btn">
+                <input type="checkbox" class="btn-toggle">
+              </div>
+            </div>
+            <div class="popup-background">
+              <div class="background-name">Backround image(default Github)</div>
+              <div class="radio-btn">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <button class="change-quote"></button>
+    <div>
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+  </footer>
+  <script type="module" src="./scripts/settings/seting_popup.js"></script>
+<!--   <script src="./scripts/quotes/quotes_generator.js"></script> -->
+  <script type="module" src="./scripts/audioplayer/player.js"></script>
+  <script type ="module" src="./scripts/background_img/bg_image.js"></script>
+  <script type="module" src="./scripts/index.js"></script>
+</body>
+</html>

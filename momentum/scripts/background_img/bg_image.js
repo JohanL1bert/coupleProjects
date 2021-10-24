@@ -24,24 +24,33 @@ const randomNumber = () => {
 const changeBg = () => {
     const timeDay = filterDay();
     const number = randomNumber();
-    body.style.backgroundImage = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg')`;
+    createBg(timeDay, number);
+}
+
+
+const createBg = (timeDay, number) => {
+    const img = new Image();
+    img.src = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg')`;
+    img.onLoad = () => {
+        body.style.backgroundImage = img.src;
+    }
+    img.onLoad();
 }
 
 changeBg();
 
-
 //Рандомный бэкграунд
 
 const getSlideNext = () => {
-    console.log(globalBackgroundValue)
     globalBackgroundValue++;
     const getDay = filterDay();
+    console.log(getDay)
     if (globalBackgroundValue > 20) {
         globalBackgroundValue = 1;
-        body.style.backgroundImage = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${getDay}/${globalBackgroundValue}.jpg')`;
+        createBg(getDay, globalBackgroundValue);
     }
 
-    body.style.backgroundImage = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${getDay}/${globalBackgroundValue}.jpg')`;
+    createBg(getDay, globalBackgroundValue);
 }
 
 const getSlidePrev = () => {
@@ -49,10 +58,10 @@ const getSlidePrev = () => {
     const getDay = filterDay();
     if (globalBackgroundValue < 1) {
         globalBackgroundValue = 20;
-        body.style.backgroundImage = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${getDay}/${globalBackgroundValue}.jpg')`;
+        createBg(getDay, globalBackgroundValue);
     }
 
-    body.style.backgroundImage = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${getDay}/${globalBackgroundValue}.jpg')`;
+    createBg(getDay, globalBackgroundValue);
 }
 
 

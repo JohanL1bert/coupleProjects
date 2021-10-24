@@ -36,11 +36,14 @@ export const getWeather = async(lang) => {
 //setTimeout(getWeather, 1000);
 
 const descriptionWeather = (data, lang) => {  
+    console.log(data)
     if (lang == 'en') {
+        city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;
         wind.textContent = `Wind speed: ${data.wind.speed} m/s`
         humidity.textContent = `Humidity: ${data.main.humidity}%`;
     } else {
+        city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;
         wind.textContent = `Скорость ветра: ${data.wind.speed} m/s`
         humidity.textContent = `Влажность: ${data.main.humidity}%`;

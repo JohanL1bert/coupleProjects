@@ -11,7 +11,6 @@ let globalBackgroundValue;
 
 const filterDay = () => {
     const timeDay =  filter();
-    console.log(timeDay)
     const getReg = timeDay.match(/\w+/gi)[1];
     return getReg;
 }
@@ -32,6 +31,7 @@ const changeBg = () => {
 const createBg = (timeDay, number) => {
     const img = new Image();
     img.src = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg')`;
+    console.log(img.src)
     img.onLoad = () => {
         body.style.backgroundImage = img.src.slice(22,);
     }

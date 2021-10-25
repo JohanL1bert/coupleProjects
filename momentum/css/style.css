@@ -299,6 +299,9 @@ body {
   transform: rotate(270deg);
 }
 
+.play-sound {
+  visibility: hidden;
+}
 
 .play-sound > input[type="range"] {
   width: 100px;
@@ -319,12 +322,17 @@ body {
   justify-content: center;
 }
 
+.player-settings {
+  visibility: hidden;
+}
+
 .image-wrapper {
   width: 120px;
   height: 169px;
 }
 
 .image-animation {
+  visibility: hidden;
   opacity: 0;
 }
 
@@ -333,6 +341,7 @@ body {
 }
 
 .image-border {
+  visibility: hidden;
   width: 126px;
   height: 130px;
   border: solid white;
@@ -343,6 +352,10 @@ body {
 .image-animation.active {
   transition: all 5s ease;
   opacity: 1;
+}
+
+.image-animation.active.second {
+  visibility: visible;
 }
 
 /* Кнопка Настройок*/
@@ -468,6 +481,7 @@ body {
   background-color: #707070;
   transition: background-color ease 0.3s;
 }
+
 .btn-toggle:before {
   content: "en ru";
   display: block;
@@ -501,8 +515,6 @@ body {
 
 .popup-background {
   margin-top: 15px;
-  display: flex;
-  justify-content: space-around;
 }
 
 .popup-active {
@@ -510,3 +522,37 @@ body {
   transition: all 1.s ease;
 }
 
+.radio-btn {
+  margin-top: 10px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* хайд  */
+.player-settings.active {
+  visibility: visible;
+}
+
+.image-border.active {
+  visibility: visible;
+
+}
+
+.play-sound.active {
+  visibility: visible;
+}
+
+.sound-wrapper {
+
+}
+
+.sound-mic {
+
+}
+
+.sound-img {
+  width: 10px;
+  height: 10px;
+}

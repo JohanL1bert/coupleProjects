@@ -13,7 +13,7 @@ const playerSettings = document.querySelector('.play-time');
 //Image animation
 const imageWrapper = document.querySelector('.image-animation');
 const audio = new Audio();
-
+audio.volume = 0.2;
 
 //Play Range
 const imageBorder = document.querySelector('.image-border');
@@ -21,14 +21,28 @@ const playRange = document.querySelector('.player-slider');
 
 const playDuration = document.querySelector('.play-duration');
 
+//Sound duraion
+const soundDuration = document.querySelector('.slider-sound');
+
 let isPlay = false;
 let stateSound = 0;
 
+//Памахити
+const activeStateList = () => {
+    rerenderActiveList();
+    playListSelector.childNodes[stateSound].classList.add('item-active');
 
+}
+
+const rerenderActiveList = () => {
+    playListSelector.childNodes.forEach(el => el.classList.remove('item-active'));
+}
+
+audio.src = playList[stateSound].src;
 const playAudio = () => {
     btnPlayState();
-    audio.src = playList[stateSound].src;
     audio.play();
+    activeStateList();
     isPlay = true;
 }
 
@@ -90,28 +104,30 @@ const nextMusic = () => {
     if (stateSound == 7) {
         stateSound = 0;
     } else {
-        stateSound ++;
+        stateSound++;
     }
     toggleBorder();
     changeSrcImg();
     trackDuration();
+    activeStateList();
     //Перерендер
     playAudioBtn();
-    
+
 }
 
 const prevMusic = () => {
     if (stateSound <= 0) {
         stateSound = 7;
     } else {
-        stateSound --;
+        stateSound--;
     }
     toggleBorder();
     changeSrcImg();
     trackDuration();
+    activeStateList();
     //Перенедр
     playAudioBtn();
-    
+
 }
 
 
@@ -119,33 +135,34 @@ next.addEventListener('click', nextMusic);
 prev.addEventListener('click', prevMusic);
 
 //Длительность и ренджи
-const showProgressBar = () => {
+const playMusicRange = (event) => {
+    const { currentTime, duration } = event.srcElement;
+    changeTimeMusic(currentTime, duration);
+    updateProgressBar(currentTime, duration);
 
 }
 
-const playMusicRange = (event) => {
-    const {duration, currentTime} = event.srcElement;
-    changeTimeMusic(currentTime, duration);
+const updateProgressBar = (currentTime, duration) => {
+    let val = Math.floor((100 / duration) * currentTime);
+    playRange.value = val;
 
 }
 
 const changeTimeMusic = (currentTime, duration) => {
-    console.log(currentTime)
     const minutes = Math.floor(currentTime / 60);
     const seconds = Math.floor(currentTime % 60);
-
 
     playDuration.textContent = `${'0' + minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
     //playDuration.textContent = progress;
 }
 
-//playMusicRange();
+
 audio.addEventListener('timeupdate', playMusicRange)
 
 
 
 const toggleBorder = () => {
-    if (imageWrapper.classList.contains('active')){
+    if (imageWrapper.classList.contains('active')) {
         imageWrapper.classList.remove('active');
         setTimeout(() => {
             imageWrapper.classList.add('active')
@@ -154,13 +171,20 @@ const toggleBorder = () => {
 }
 
 
-audio.addEventListener('ended', next)
+audio.addEventListener('ended', nextMusic);
 
 
-/* 
-    //Create img
-    const setImg = new Image();
-    setImg.src = `${playList[stateSound].img}`;
-    //set class to img
-    setImg.classList.add('image-animation');
-    imageWrapper.appendChild(setImg); */
+//sound Change
+
+const soundChange = (event) => {
+    let music = event.target.value / 100;
+    audio.volume = music;
+}
+
+const rangeSound = () => {
+    let result = Math.floor((playRange.value * audio.duration) / 100);
+    audio.currentTime = result;
+}
+
+soundDuration.addEventListener('change', soundChange);
+playRange.addEventListener('change', rangeSound);

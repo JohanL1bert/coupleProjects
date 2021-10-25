@@ -21,7 +21,7 @@
           <div class="image-wrapper">
             <div class="image-inner">
               <div class="image-border">
-                <img src="./assets/img/artCover/preyJanuary.png" class="image-animation active">
+                <img src="./assets/img/artCover/preyJanuary.png" class="image-animation">
               </div>
             </div>
           </div>
@@ -37,7 +37,12 @@
         </div>
       </div>
       <div class="play-sound">
-        <input type="range" max="100" value="0" class="slider-sound"></input>
+        <input type="range" max="100" value="20" class="slider-sound"></input>
+<!--         <div class="sound-wrapper">
+          <div class="sound-mic">
+            <img src="./assets/img/sound/unmute.png" alt="" class="sound-img">
+          </div>
+        </div> -->
       </div>
       <ul class="play-list"></ul>
     </div>
@@ -94,7 +99,18 @@
             <div class="popup-background">
               <div class="background-name">Backround image(default Github)</div>
               <div class="radio-btn">
-
+                <p class="github">
+                  Github:
+                  <input type="radio" class="radio-button" name="switcher" checked>
+                </p>
+                <p class="flick">
+                  FlickApi:
+                  <input type="radio" class="radio-button" name="switcher">
+                </p>
+                <p class="unplash">
+                  Unplash:
+                  <input type="radio" class="radio-button" name="switcher">
+                </p>
               </div>
             </div>
           </div>
@@ -109,8 +125,8 @@
       <div class="author"></div>
     </div>
   </footer>
-  <script type="module" src="./scripts/settings/seting_popup.js"></script>
-<!--   <script src="./scripts/quotes/quotes_generator.js"></script> -->
+<!--   <script type="module" src="./scripts/settings/seting_popup.js"></script> -->
+<script type="module" src="./scripts/settings/setting_checkbox.js"></script>
   <script type="module" src="./scripts/audioplayer/player.js"></script>
   <script type ="module" src="./scripts/background_img/bg_image.js"></script>
   <script type="module" src="./scripts/index.js"></script>

@@ -27,15 +27,18 @@ const changeBg = () => {
     createBg(timeDay, number);
 }
 
+//TODO: Filter for url server and url finding. Not need 
+const filterWord = (img) => {
+    return img.match(/(url).+/)[0];
+
+}
 
 const createBg = (timeDay, number) => {
     const img = new Image();
-    img.src = `url('https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg')`;
-    console.log(img.src)
-    img.onLoad = () => {
-        body.style.backgroundImage = img.src.slice(22,);
+    img.src = `https://raw.githubusercontent.com/JohanL1bert/ImageDay/main/images/${timeDay}/${number}.jpg`;
+    img.onload = () => {
+        body.style.backgroundImage = `url(${img.src})`;
     }
-    img.onLoad();
 }
 
 changeBg();
@@ -45,7 +48,6 @@ changeBg();
 const getSlideNext = () => {
     globalBackgroundValue++;
     const getDay = filterDay();
-    console.log(getDay)
     if (globalBackgroundValue > 20) {
         globalBackgroundValue = 1;
         createBg(getDay, globalBackgroundValue);

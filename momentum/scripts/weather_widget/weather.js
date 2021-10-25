@@ -13,29 +13,35 @@ const setLocalStorage = () => {
     if (city.value == '') {
         city.value = 'Minsk';
     }
+
     localStorage.setItem('city', `${city.value}`)
 }
 
 const getLocalStorage = () => {
-    if(localStorage.getItem('city')) {
+    if (localStorage.getItem('city')) {
         const getName = localStorage.getItem('city');
         city.value = `${getName}`;
     }
 }
 
 
-export const getWeather = async(lang) => {
+window.addEventListener('beforeunload', setLocalStorage);
+window.addEventListener('load', getLocalStorage);
+
+
+export const getWeather = async (lang) => {
     lang = lang;
-    const cityVal = city.value;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${'Minsk'}&lang=${lang}&appid=3dcea47eb95f064189c725e938950c79&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=3dcea47eb95f064189c725e938950c79&units=metric`;
     const response = await fetch(url);
     const data = await response.json();
-    descriptionWeather(data, lang);
+    if (data.cod === '400' || data.cod === '404') {
+        city.value = data.message;
+    } else {
+        descriptionWeather(data, lang);
+    }
 }
 
-//setTimeout(getWeather, 1000);
-
-const descriptionWeather = (data, lang) => {  
+const descriptionWeather = (data, lang) => {
     if (lang == 'en') {
         city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;
@@ -51,6 +57,3 @@ const descriptionWeather = (data, lang) => {
     temp.textContent = `${Math.floor(data.main.temp)}°C`
 }
 
-
-window.addEventListener('beforeunload', setLocalStorage);
-window.addEventListener('load', getLocalStorage);

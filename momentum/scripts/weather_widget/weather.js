@@ -45,12 +45,12 @@ const descriptionWeather = (data, lang) => {
     if (lang == 'en') {
         city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;
-        wind.textContent = `Wind speed: ${data.wind.speed} m/s`
+        wind.textContent = `Wind speed: ${Math.floor(data.wind.speed)} m/s`
         humidity.textContent = `Humidity: ${data.main.humidity}%`;
     } else {
         city.value = data.name;
         weatherDesc.textContent = `${data.weather[0].description}`;
-        wind.textContent = `Скорость ветра: ${data.wind.speed} m/s`
+        wind.textContent = `Скорость ветра: ${Math.floor(data.wind.speed)} m/s`
         humidity.textContent = `Влажность: ${data.main.humidity}%`;
     }
     weatherIcon.classList.add(`owf-${data.weather[0].id}`)

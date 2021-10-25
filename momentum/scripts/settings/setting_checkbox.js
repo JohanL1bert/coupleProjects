@@ -1,4 +1,4 @@
-const radioBtn = document.querySelectorAll('.radio-button');
+export const radioBtn = document.querySelectorAll('.radio-button');
 
 
 const checkArray = {
@@ -8,15 +8,14 @@ const checkArray = {
 }
 
 
-const checkBtn = () => {
+export const checkBtn = () => {
     let check;
     radioBtn.forEach((el, index) => {
         if (el.checked) {
             check = checkArray[index];
         }
     })
-    console.log(check) 
+    return check;
 }
 
 
-//checkBtn();

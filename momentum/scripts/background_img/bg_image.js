@@ -41,7 +41,6 @@ const createBg = (timeDay, number) => {
     }
 }
 
-changeBg();
 
 //Рандомный бэкграунд
 
@@ -72,3 +71,4 @@ slideNext.addEventListener('click', getSlideNext)
 
 slidePrev.addEventListener('click', getSlidePrev);
 
+export default changeBg;

@@ -32,17 +32,17 @@
             <div class="play-duration-change">00:00</div>
           </div>
           <div class="play-inner">
-            <input type="range" max="100" value="0" class="player-slider" >
+            <input type="range" max="100" value="0" class="player-slider" id="music" >
           </div>
         </div>
       </div>
       <div class="play-sound">
-        <input type="range" max="100" value="20" class="slider-sound"></input>
-<!--         <div class="sound-wrapper">
+        <input type="range" max="100" value="20" class="slider-sound" id="volume"></input>
+        <div class="sound-wrapper">
           <div class="sound-mic">
-            <img src="./assets/img/sound/unmute.png" alt="" class="sound-img">
+            <img src="./assets/img/sound/icon-active.png" alt="" class="sound-img">
           </div>
-        </div> -->
+        </div>
       </div>
       <ul class="play-list"></ul>
     </div>
@@ -107,7 +107,7 @@
                   FlickApi:
                   <input type="radio" class="radio-button" name="switcher">
                 </p>
-                <p class="unplash">
+                <p class="usnplash">
                   Unplash:
                   <input type="radio" class="radio-button" name="switcher">
                 </p>
@@ -125,10 +125,10 @@
       <div class="author"></div>
     </div>
   </footer>
-<!--   <script type="module" src="./scripts/settings/seting_popup.js"></script> -->
-<script type="module" src="./scripts/settings/setting_checkbox.js"></script>
+<!--   <script src="./scripts/background_img/api_bg.js"></script> -->
+<!--   <script type="module" src="./scripts/settings/setting_checkbox.js"></script> -->
   <script type="module" src="./scripts/audioplayer/player.js"></script>
-  <script type ="module" src="./scripts/background_img/bg_image.js"></script>
+<!--   <script type ="module" src="./scripts/background_img/bg_image.js"></script> -->
   <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

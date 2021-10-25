@@ -24,6 +24,10 @@ const playDuration = document.querySelector('.play-duration');
 //Sound duraion
 const soundDuration = document.querySelector('.slider-sound');
 
+//soundBtn 
+const soundActiveBtn = document.querySelector('.sound-img');
+let volumeBtn = document.getElementById('volume');
+
 let isPlay = false;
 let stateSound = 0;
 
@@ -148,7 +152,7 @@ const updateProgressBar = (currentTime, duration) => {
 
 }
 
-const changeTimeMusic = (currentTime, duration) => {
+const changeTimeMusic = (currentTime) => {
     const minutes = Math.floor(currentTime / 60);
     const seconds = Math.floor(currentTime % 60);
 
@@ -178,6 +182,15 @@ audio.addEventListener('ended', nextMusic);
 
 const soundChange = (event) => {
     let music = event.target.value / 100;
+    if (music == 0) {
+        soundActiveBtn.src = `./assets/img/sound/icon-mute.png`;
+    } else {
+        soundActiveBtn.src = `./assets/img/sound/icon-active.png`;
+    }
+    
+    let change = event.target.value;
+    console.log(change)
+    volumeBtn.style.background = `linear-gradient(to right, #d17878 ${change}%, #ffffff 20%, #fff 50%, #fff 100%)`;
     audio.volume = music;
 }
 
@@ -188,3 +201,33 @@ const rangeSound = () => {
 
 soundDuration.addEventListener('change', soundChange);
 playRange.addEventListener('change', rangeSound);
+
+
+const soundStateActive = (event) => {
+    if (!soundActiveBtn.classList.contains('active')) {
+        soundActiveBtn.classList.add('active');
+        audio.volume = 0;
+        soundDuration.value = 0;
+        volumeBtn.style.background = `linear-gradient(to right, #d17878 0%, #ffffff 20%, #fff 50%, #fff 100%)`;
+        soundActiveBtn.src = `./assets/img/sound/icon-mute.png`;
+    } else {
+        soundActiveBtn.classList.remove('active');
+        soundActiveBtn.src = `./assets/img/sound/icon-active.png`;
+    }
+}
+
+soundActiveBtn.addEventListener('click', soundStateActive);
+
+const getClickedSong = (event) => {
+    rerenderActiveList();
+    event.target.classList.add('item-active');
+    let index = Array.from(playListSelector.childNodes).indexOf(event.target);
+    stateSound = index;
+    playAudioBtn();
+    toggleBorder();
+    changeSrcImg();
+    trackDuration();
+    activeStateList();
+}
+
+playListSelector.childNodes.forEach(el => el.addEventListener('click', getClickedSong));

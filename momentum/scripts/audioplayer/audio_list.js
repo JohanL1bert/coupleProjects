@@ -19,13 +19,13 @@ const playList = [
     },
     {
         title: 'Rite of Passage',
-        src: '../assets/sounds/myMusic/P.T. Adamczyk - Rite Of Passage.mp3',
+        src: './assets/sounds/myMusic/P.T. Adamczyk - Rite Of Passage.mp3',
         duration: '05:34',
         img: './assets/img/artCover/cyberpunk2077.png'
     },
     {
         title: 'You Shall Never Have To Forgive Me',
-        src: '../assets/sounds/myMusic/P.T. Adamczyk - You Shall Never Have To Forgive Me Again.mp3',
+        src: './assets/sounds/myMusic/P.T. Adamczyk - You Shall Never Have To Forgive Me Again.mp3',
         duration: '03:16',
         img: './assets/img/artCover/cyberpunk2077NeverForgive.png'
     },

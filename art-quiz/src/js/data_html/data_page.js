@@ -1,7 +1,11 @@
 const dataHTML = {
   mainPage: ` 
     <div class="art__wrapper">
-      <div class="art__name"></div>
+      <div class="art__name">
+      <div class="art__box">
+      
+        </div>
+      </div>
       <div class="art__quiz">
         <div class="artist__quiz">
           <div class="artist__button">
@@ -15,11 +19,13 @@ const dataHTML = {
         </div>
       </div>
     </div>`,
+
   footer: `<div class="footer__wrapper">
         <div class="footer__logo"></div>
         <div class="footer__product">Johan Liebert</div>
         <div class="footer__github">2021</div>
         </div>`,
+
   settings: `        <div class="setting__wrapper">
   <div class="settiing__header">
     <div class="setting__inner">

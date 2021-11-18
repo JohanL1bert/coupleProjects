@@ -1,0 +1,41 @@
+.art {
+  margin-left: 700px;
+  &__wrapper {
+  }
+  &__name {
+  }
+  &__quiz {
+    display: flex;
+    justify-content: space-between;
+    max-width: 614px;
+    max-height: 62px;
+  }
+}
+
+.artist {
+  &__quiz {
+    max-width: 287px;
+    max-height: 62px;
+  }
+  &__button {
+    cursor: pointer;
+    @include button-color;
+    @include button-position-center;
+  }
+  &__text {
+    color: $white-color;
+  }
+}
+
+.picture {
+  &__quiz {
+  }
+  &__button {
+    cursor: pointer;
+    @include button-color;
+    @include button-position-center;
+  }
+  &__text {
+    color: $white-color;
+  }
+}

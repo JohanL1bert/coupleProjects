@@ -1,0 +1,14 @@
+@mixin button-color {
+  width: 283px;
+  height: 100px;
+  border-radius: 15%;
+  border: 2px solid $white-color;
+}
+
+@mixin button-position-center {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}

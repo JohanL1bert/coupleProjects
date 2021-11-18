@@ -8,12 +8,22 @@ class PrerenderPage {
   }
 
   renderPage() {
-    this.selector.artSection.insertAdjacentHTML(
+    this.selector.artSectionSel.insertAdjacentHTML(
       "afterbegin",
       `${this.page.mainPage}`
+    );
+    this.selector.footerSel.insertAdjacentHTML(
+      "afterbegin",
+      `${this.page.footer}`
     );
   }
 }
 
 const startPage = new PrerenderPage(dataHTML, selectors);
 startPage.renderPage();
+
+const settingElement = dataHTML.headerSettingSel;
+
+const openSetting = () => {};
+
+settingElement.addEventListener("click");

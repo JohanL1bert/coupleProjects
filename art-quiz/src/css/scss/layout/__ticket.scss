@@ -2,14 +2,27 @@
   &__inner {
   }
   &__box {
+    @include box-card;
+    height: 689px;
   }
   &__img {
+    position: relative;
   }
   &__status {
   }
+  &__image {
+    border-radius: 40px;
+  }
 }
 
-.winner__status {
+.winner {
+  &__status {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+  }
+  &__button {
+  }
 }
 
 .picture {
@@ -17,6 +30,14 @@
   }
   &__creature {
   }
-  &__button {
+  &__btn {
+    width: 400px;
+    height: 62px;
+    border-radius: 50px;
+    border: 2px solid;
+    border-color: $pink-color;
+    background-color: $pink-color;
+    cursor: pointer;
+    @include button-position-center;
   }
 }

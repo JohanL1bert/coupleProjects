@@ -1,0 +1,37 @@
+.point {
+  &__inner {
+  }
+  &__box {
+    @include box-card;
+  }
+  &__img {
+  }
+  &__status {
+  }
+  &__text {
+  }
+  &__number {
+  }
+  &__button {
+    display: flex;
+    width: 522px;
+    justify-content: space-around;
+  }
+  &__home {
+    cursor: pointer;
+    width: 210px;
+    height: 62px;
+    border: 2px solid $black-color;
+    border-radius: 50px;
+    @include button-position-center;
+  }
+  &__next {
+    cursor: pointer;
+    @include button-position-center;
+    width: 210px;
+    height: 62px;
+    border-radius: 50px;
+    border: 2px solid $pink-color;
+    background-color: $pink-color;
+  }
+}

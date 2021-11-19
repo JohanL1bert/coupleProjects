@@ -19,3 +19,20 @@
   border: 2px solid;
   border-radius: 35px;
 }
+
+@mixin button-plus-minus {
+  height: 36px;
+  width: 36px;
+  line-height: 36px;
+  cursor: pointer;
+  background-color: $pink-color;
+  text-align: center;
+  color: $black-color;
+  font-weight: bold;
+  font-size: 25px;
+  border-radius: 50%;
+  &:hover {
+    background-color: $white-color;
+    transition: 1s;
+  }
+}

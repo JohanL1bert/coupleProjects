@@ -5,12 +5,16 @@
   &__wrapper {
   }
   &__header {
+    display: flex;
+    justify-content: space-around;
   }
   &__inner {
+    display: flex;
   }
   &__arrow {
   }
   &__text {
+    color: $white-color;
   }
   &__close {
   }
@@ -23,6 +27,10 @@
 
 .volume {
   &__inner {
+    max-width: 492px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
   }
   &__line {
   }
@@ -32,6 +40,7 @@
   &__sound {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   &__off {
   }
@@ -50,13 +59,32 @@
     color: $white-color;
   }
   &__answer {
+    max-width: 227px;
+    height: 104px;
+    color: $white-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__bottom {
+    display: flex;
+    justify-content: space-evenly;
   }
   &__minus {
+    @include button-plus-minus;
+    line-height: 30px;
+    font-size: 35px;
   }
   &__text {
+    color: $white-color;
   }
   &__plus {
+    @include button-plus-minus;
   }
+}
+
+.aswer {
+  height: 27px;
 }
 
 .setting {

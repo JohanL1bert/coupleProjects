@@ -1,14 +1,15 @@
-body {
+/* body {
   background-color: black;
   background-image: url("../../assets/img/background/j-retrato-de-cardenal-rafael\ 1.png");
   background-repeat: no-repeat;
   background-position: top;
 }
-
+ */
 .main {
   height: 500px;
 }
 
 .container {
-  max-width: 900px;
+  margin: 0 auto;
+  max-width: 1200px;
 }

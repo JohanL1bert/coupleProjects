@@ -1,0 +1,36 @@
+.game {
+  &__over {
+    &__inner {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__box {
+    @include box-card;
+  }
+  &__img {
+  }
+  &__image {
+  }
+  &__text {
+  }
+  &__congrat {
+  }
+  &__button {
+    display: flex;
+    width: 522px;
+    justify-content: space-around;
+    &__no {
+      @include card-button;
+      @include button-position-center;
+      cursor: pointer;
+    }
+    &__yes {
+      @include card-button;
+      cursor: pointer;
+      @include button-position-center;
+      border: 0px;
+      background-color: $pink-color;
+    }
+  }
+}

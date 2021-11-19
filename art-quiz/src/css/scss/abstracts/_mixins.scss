@@ -36,3 +36,24 @@
     transition: 1s;
   }
 }
+
+@mixin card-button {
+  width: 210px;
+  height: 62px;
+  border: 2px solid $black-color;
+  border-radius: 35px;
+}
+
+@mixin box-card {
+  border-radius: 5%;
+  background-color: $white-color;
+  max-width: 522px;
+  height: 608px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  -webkit-box-shadow: 1px 8px 11px 1px rgba(34, 60, 80, 0.4);
+  -moz-box-shadow: 1px 8px 11px 1px rgba(34, 60, 80, 0.4);
+  box-shadow: 1px 8px 11px 1px rgba(34, 60, 80, 0.4);
+}

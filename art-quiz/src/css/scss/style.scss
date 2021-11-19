@@ -6,4 +6,10 @@
 @import "./layout/_header";
 @import "./layout/_art";
 @import "./layout/_settings";
+@import "./layout/_grand";
+@import "./layout/_game__over";
 @import "./layout/_footer";
+
+body {
+  background-color: black;
+}

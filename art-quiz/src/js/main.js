@@ -22,8 +22,10 @@ class PrerenderPage {
 const startPage = new PrerenderPage(dataHTML, selectors);
 startPage.renderPage();
 
-const settingElement = dataHTML.headerSettingSel;
+const settingElement = selectors.headerSettingSel;
 
-const openSetting = () => {};
+const openSetting = () => {
+  console.log(1);
+};
 
-settingElement.addEventListener("click");
+settingElement.addEventListener("click", openSetting);

@@ -10,13 +10,71 @@
     <header class="header">
       <div class="header__wrapper">
         <div class="header__setings">
-          <img class="setting__img" src="./assets/img/header/carbon_settings.png" alt="setting button">
+          <img
+            class="setting__img"
+            src="./assets/img/header/carbon_settings.png"
+            alt="setting button"
+          />
         </div>
       </div>
     </header>
     <main class="main">
       <section class="art"></section>
       <section class="settings">
+        <div class="setting__wrapper">
+          <div class="setting__header">
+            <div class="setting__inner">
+              <div class="setting__arrow"></div>
+              <div class="setting__text"></div>
+            </div>
+            <div class="button__close"></div>
+          </div>
+          <div class="setting__volume">
+            <div class="volume__inner">
+              <div class="volume__text">Volume</div>
+              <div class="volume__line"></div>
+              <div class="volume__sound">
+                <div class="volume__off">
+                  <img
+                    src="./assets/img/settings/soundOf.png"
+                    alt="icon volume off"
+                    class="volume__bottom"
+                  />
+                </div>
+                <div class="volume__on">
+                  <img
+                    src="./assets/img/settings/soundOn.png"
+                    alt="icon volume on"
+                    class="volume__up"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="time__inner">
+              <div class="time__game">
+                Time game
+                <div class="time__state">On</div>
+                <input type="checkbox" id="switch" />
+                <label for="switch" class="switch__time"></label>
+              </div>
+              <div class="time__answer">
+                Time to answer
+                <!--                 <div class="time__queti">Time to answer</div> -->
+                <div button="time__minus"></div>
+                <div class="time__text">20</div>
+                <div button="time__plus"></div>
+              </div>
+            </div>
+            <div class="setting__selection">
+              <div class="save__inner">
+                <div class="default__button">
+                  <div class="default__save">Default</div>
+                </div>
+                <div class="setting__button">
+                  <div class="setting__save">Save</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

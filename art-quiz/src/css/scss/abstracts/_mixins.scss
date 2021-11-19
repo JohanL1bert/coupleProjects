@@ -1,7 +1,7 @@
 @mixin button-color {
   width: 283px;
   height: 100px;
-  border-radius: 15%;
+  border-radius: 30px;
   border: 2px solid $white-color;
 }
 
@@ -11,4 +11,11 @@
   align-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+
+@mixin button-setting {
+  width: 283px;
+  height: 62px;
+  border: 2px solid;
+  border-radius: 35px;
 }

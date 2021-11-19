@@ -27,7 +27,7 @@ const dataHTML = {
         </div>`,
 
   settings: `        <div class="setting__wrapper">
-  <div class="settiing__header">
+  <div class="setting__header">
     <div class="setting__inner">
       <div class="setting__arrow"></div>
       <div class="setting__text"></div>

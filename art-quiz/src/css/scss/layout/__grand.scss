@@ -1,6 +1,9 @@
 .grand {
   &__inner {
   }
+  &__box {
+    @include box-card;
+  }
   &__start {
   }
   &__img {
@@ -10,5 +13,11 @@
   &__congratulations {
   }
   &__button {
+    width: 422px;
+    height: 62px;
+    border-radius: 50px;
+    border: 2px solid $pink-color;
+    background-color: $pink-color;
+    @include button-position-center;
   }
 }

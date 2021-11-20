@@ -2,5 +2,6 @@
   "mainPage": ".art",
   "footer": ".footer",
   "header": ".header__wrapper",
-  "categories": ".categories"
+  "categories": ".categories",
+  "setting": ".settings"
 }

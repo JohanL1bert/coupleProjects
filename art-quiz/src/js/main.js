@@ -1,32 +1,44 @@
-/* import dataHTML from "./data_html/data_page";
-import selectors from "./data_html/selector";
+import deleteNodes from "./renderDelete/deletePage";
+import renderCategory from "./setting";
+import pageRender from "./main_page/head__page";
+import dataHTML from "./data_html/data_page";
+import selectors2 from "./data_html/selector2.json";
 
-class PrerenderPage {
-  constructor(page, selector) {
-    this.page = page;
-    this.selector = selector;
+let categoryName;
+let buttonClick;
+const artistQuizBtn = document.querySelector(".artist__button");
+const pictureButton = document.querySelector(".picture__button");
+
+const filterClick = (nameBtn) => {
+  if (nameBtn === "artist__button") {
+    return "author";
   }
-
-  renderPage() {
-    this.selector.artSectionSel.insertAdjacentHTML(
-      "afterbegin",
-      `${this.page.mainPage}`
-    );
-    this.selector.footerSel.insertAdjacentHTML(
-      "afterbegin",
-      `${this.page.footer}`
-    );
-  }
-}
-
-const startPage = new PrerenderPage(dataHTML, selectors);
-startPage.renderPage();
-
-const settingElement = selectors.headerSettingSel;
-
-const openSetting = () => {
-  console.log(1);
+  return "picture";
 };
 
-settingElement.addEventListener("click", openSetting);
- */
+const renderMainPage = () => {
+  const fatherNode = document.querySelector(".categories");
+  const node = fatherNode.firstElementChild;
+  deleteNodes(node);
+  pageRender(dataHTML, selectors2);
+  const artistBtn = document.querySelector(".artist__button");
+  const pictureBtn = document.querySelector(".picture__button");
+  artistBtn.addEventListener("click", buttonClick);
+  pictureBtn.addEventListener("click", buttonClick);
+};
+
+buttonClick = (event) => {
+  const name = filterClick(event.srcElement.className);
+  const node = document.querySelector(".art");
+  const child = node.firstElementChild;
+  const header = document.querySelector(".header__wrapper");
+  const haderChild = header.firstElementChild;
+  deleteNodes(child, haderChild);
+  renderCategory(name);
+
+  categoryName = document.querySelector(".categories__name");
+  categoryName.addEventListener("click", renderMainPage);
+};
+
+artistQuizBtn.addEventListener("click", buttonClick);
+pictureButton.addEventListener("click", buttonClick);

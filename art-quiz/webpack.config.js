@@ -23,6 +23,7 @@ module.exports = {
     assetModuleFilename: `assets/[name][ext]`,
   },
   devServer: {
+    watchContentBase: true,
     static: path.resolve(__dirname, "dist"),
     open: true,
     compress: true,

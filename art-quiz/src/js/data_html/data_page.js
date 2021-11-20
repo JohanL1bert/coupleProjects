@@ -1,5 +1,6 @@
 const dataHTML = {
   mainPage: ` 
+  <div class="container">
     <div class="art__wrapper">
       <div class="art__name">
       <div class="art__box">
@@ -18,6 +19,7 @@ const dataHTML = {
           </div>
         </div>
       </div>
+    </div>
     </div>`,
 
   footer: `<div class="footer__wrapper">
@@ -80,6 +82,18 @@ const dataHTML = {
     <div class="illustration__category">
     </div
     </div>
+  </div>`,
+  header: `
+  <div class="container">
+  <div class="header__wrapper">
+    <div class="header__setings">
+      <img
+        class="setting__img"
+        src="./assets/img/header/carbon_settings.png"
+        alt="setting button"
+      />
+    </div>
+  </div>
   </div>`,
 };
 

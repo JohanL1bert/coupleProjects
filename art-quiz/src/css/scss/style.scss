@@ -4,7 +4,6 @@
 
 @import "./base/_container";
 @import "./layout/_header";
-@import "./layout/_art";
 @import "./layout/_settings";
 @import "./layout/_ticket";
 @import "./layout/_categories";
@@ -12,7 +11,4 @@
 @import "./layout/_game__over";
 @import "./layout/_point";
 @import "./layout/_footer";
-
-body {
-  background-color: black;
-}
+@import "./layout/_art";

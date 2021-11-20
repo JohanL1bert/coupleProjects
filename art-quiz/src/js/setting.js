@@ -2,13 +2,27 @@ import dataHTML from "./data_html/data_page";
 import selectors from "./data_html/selector";
 
 const templateCategory = async (promiseCat) => {
+  const portraintName = [
+    "Portrait",
+    "Landscape",
+    "Still Life",
+    "Graphic",
+    "Antique",
+    "Avant-Garde",
+    "Renaissance",
+    "Surrealism",
+    "Kitsch",
+    "Minimalism",
+    "Avangard",
+    "Industrial",
+  ];
   const newArrayTempalte = [];
   for (let i = 0; i < 12; i += 1) {
     const template = `
         <div class="illustration__box">
           <div class="illustration__heading">
-            <div class="illustration__name">Portrait</div>
-            <div class="illustration__score">0/10</div>
+            <div class="illustration__name">${portraintName[i]}</div>
+            <div class="illustration__score">Number</div>
           </div>
           <div class="illustration__image">
             <img src="${promiseCat[i]}" alt="" class="illustration__img">
@@ -20,7 +34,6 @@ const templateCategory = async (promiseCat) => {
   return newArrayTempalte;
 };
 
-const depend = "author";
 const getImageSetting = async (dep) => {
   let arrayDependency;
   if (dep === "author") {
@@ -74,21 +87,18 @@ const prerenderCategory = async (startedPageCat, selectorPage) => {
 
 const renderCard = (data, selector) => {
   for (let i = 0; i < 12; i += 1) {
-    console.log(data[i]);
     selector.insertAdjacentHTML("afterbegin", data[i]);
   }
 };
 
-const renderCategory = async () => {
-  const result = await prerenderCategory(
-    dataHTML.categories,
-    selectors.categoryStartedPage
-  );
-  console.log(result);
+const renderCategory = async (depend) => {
+  await prerenderCategory(dataHTML.categories, selectors.categoryStartedPage);
+
   const selectorToAppend = document.querySelector(".illustration__category");
   const arrImg = await getImageSetting(depend);
+  arrImg.reverse();
   await renderCard(arrImg, selectorToAppend);
   await templateCategory(arrImg);
 };
 
-renderCategory();
+export default renderCategory;

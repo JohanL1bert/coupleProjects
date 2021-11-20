@@ -61,6 +61,26 @@ const dataHTML = {
         <div class="save__default"></div>
       </div>
     </div>`,
+  categories: `   
+  <div class="container">
+  <div class="categories__inner">
+    <div class="categories__footer">
+      <div class="categories__text">
+        <div class="categories__heading">Art Quiz</div>
+        <div class="categories__name">Home</div>
+      </div>
+      <div class="categories__setting">
+        <img
+        class="setting__img"
+        src="./assets/img/header/carbon_settings.png"
+        alt="setting button"
+      />
+      </div>
+    </div>
+    <div class="illustration__category">
+    </div
+    </div>
+  </div>`,
 };
 
 export default dataHTML;

@@ -43,7 +43,7 @@ module.exports = {
           to: path.resolve(__dirname, "dist"),
           noErrorOnMissing: true,
           globOptions: {
-            ignore: ["**/index.html", "**/*.js", "**/*.sass", "**/*.woff2"],
+            ignore: ["**/index.html", "**/*.js", "**/*.scss", "**/*.woff2"],
           },
         },
       ],

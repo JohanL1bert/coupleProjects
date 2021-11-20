@@ -1,4 +1,4 @@
-import dataHTML from "./data_html/data_page";
+/* import dataHTML from "./data_html/data_page";
 import selectors from "./data_html/selector";
 
 class PrerenderPage {
@@ -29,3 +29,4 @@ const openSetting = () => {
 };
 
 settingElement.addEventListener("click", openSetting);
+ */

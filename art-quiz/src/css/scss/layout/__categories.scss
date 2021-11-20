@@ -24,15 +24,15 @@
 .illustration {
   &__category {
     margin-top: 125px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    row-gap: 10px;
+    column-gap: 0px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
   }
   &__box {
     height: 239px;
     max-width: 193px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
   &__heading {
     display: flex;
@@ -48,6 +48,7 @@
   &__image {
   }
   &__img {
+    height: 210px;
     filter: grayscale(100%);
     border-radius: 10px;
   }

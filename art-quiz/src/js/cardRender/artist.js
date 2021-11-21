@@ -24,7 +24,8 @@ const refreshPage = () => {
   deleteNodes(btnSelector);
   deleteNodes(picSelector);
   const { data, sel, obj } = dataObj;
-  const newValue = (obj.choice += 1);
+  obj.choice += 1;
+  const newValue = obj.choice;
   obj.choice = newValue;
   renderArtist(data, sel, obj, newValue);
 };

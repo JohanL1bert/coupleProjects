@@ -1,6 +1,5 @@
-/* const renderMethod = (selector, page) => {
-  startPage.renderPage();
+const renderHTML = (selector, html) => {
+  selector.map((el, index) => el.insertAdjacentHTML("afterbegin", html[index]));
 };
 
-export default renderMethod;
- */
+export default renderHTML;

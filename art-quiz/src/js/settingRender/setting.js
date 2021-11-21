@@ -18,7 +18,6 @@ const buttonState = (minus, plus, time) => {
         time.textContent = value;
       }
     } else if (time.textContent < 30 && time.textContent >= 5) {
-      console.log(time.textContent);
       value = +time.textContent;
       value += 5;
       time.textContent = value;

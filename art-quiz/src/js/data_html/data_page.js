@@ -4,7 +4,7 @@ const dataHTML = {
     <div class="art__wrapper">
       <div class="art__name">
       <div class="art__box">
-      
+        Art Quiz
         </div>
       </div>
       <div class="art__quiz">
@@ -132,6 +132,24 @@ const dataHTML = {
       />
     </div>
   </div>
+  </div>`,
+  questionPage: `        <div class="container">
+  <div class="picture__inner">
+    <div class="picture__timer">
+      <div class="picture__time">20</div>
+    </div>
+  <div class="picture__box">
+    <div class="picture__quest">
+      <p class="picture__text">Кто автор данной картини</p>
+    </div>
+    <img src="./assets/img/0full.jpg" alt="" class="picture" />
+  </div>
+  <div class="picture__authors">
+  </div>
+</div>`,
+  authorPage: `
+  <div class="authors__inner">
+    <div class="author">template</div>
   </div>`,
 };
 

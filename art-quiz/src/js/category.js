@@ -1,5 +1,27 @@
-import dataHTML from "./data_html/data_page";
 import selectors from "./data_html/selector";
+import filterPic from "./filterCategory";
+import renderArtist from "./cardRender/artist";
+import dataHTML from "./data_html/data_page";
+import selectors2 from "./data_html/selector2.json";
+import deleteNodes from "./renderDelete/deletePage";
+
+let choice;
+
+const getEventPic = async (event) => {
+  const { currentTarget } = event;
+  const picName = currentTarget.querySelector(
+    ".illustration__name"
+  ).textContent;
+  const obj = filterPic(picName);
+  renderArtist(dataHTML, selectors2, obj, choice);
+  const destroySelector = document.querySelector(".categories > div");
+  deleteNodes(destroySelector);
+};
+
+const callbackEvent = async () => {
+  const picCategory = document.querySelectorAll(".illustration__box");
+  picCategory.forEach((el) => el.addEventListener("click", getEventPic));
+};
 
 const templateCategory = async (promiseCat) => {
   const portraintName = [
@@ -92,6 +114,7 @@ const renderCard = (data, selector) => {
 };
 
 const renderCategory = async (depend) => {
+  choice = depend;
   await prerenderCategory(dataHTML.categories, selectors.categoryStartedPage);
 
   const selectorToAppend = document.querySelector(".illustration__category");
@@ -99,6 +122,7 @@ const renderCategory = async (depend) => {
   arrImg.reverse();
   await renderCard(arrImg, selectorToAppend);
   await templateCategory(arrImg);
+  await callbackEvent();
 };
 
 export default renderCategory;

@@ -1,9 +1,20 @@
 .ticket {
   &__inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($color: #000000, $alpha: 0.8);
   }
   &__box {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
     @include box-card;
     height: 689px;
+    width: 522px;
   }
   &__img {
     position: relative;
@@ -11,7 +22,9 @@
   &__status {
   }
   &__image {
-    border-radius: 40px;
+    width: 462px;
+    height: 416px;
+    border-radius: 25px;
   }
 }
 

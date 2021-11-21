@@ -1,9 +1,10 @@
 .header {
   &__wrapper {
-    float: right;
-    margin: 72px 72px 0 0;
+    height: 100px;
   }
   &__setings {
+    float: right;
+    margin: 52px 72px 0 0;
     cursor: pointer;
   }
 }

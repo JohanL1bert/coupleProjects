@@ -23,11 +23,20 @@ module.exports = {
     assetModuleFilename: `assets/[name][ext]`,
   },
   devServer: {
-    watchContentBase: true,
-    static: path.resolve(__dirname, "dist"),
+    static: [
+      {
+        watch: true,
+      },
+      {
+        directory: path.resolve(__dirname, "dist"),
+      },
+      {
+        directory: path.join(__dirname, "dist", "index.html"),
+      },
+    ],
     open: true,
     compress: true,
-    hot: true,
+    /*     hotOnly: true, */
     port: 8000,
   },
   plugins: [

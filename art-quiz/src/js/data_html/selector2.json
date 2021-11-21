@@ -3,5 +3,7 @@
   "footer": ".footer",
   "header": ".header__wrapper",
   "categories": ".categories",
-  "setting": ".settings"
+  "setting": ".settings",
+  "pictureQuestion": ".picture__question",
+  "authorQuetsion": ".picture__authors"
 }

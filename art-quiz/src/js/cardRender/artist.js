@@ -37,12 +37,12 @@ const refreshPage = () => {
     setLocalData(answerChoice, dataObj);
     answerChoice.length = 0;
     iterator = 0;
-    rightAnswer = 0;
     deleteNodes(btnSelector);
     if (iterator === 9) {
       renderGrand();
     } else {
       renderPointCard(rightAnswer, dataObj);
+      rightAnswer = 0;
     }
   } else {
     renderArtist(data, sel, obj, choice);

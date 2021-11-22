@@ -26,7 +26,8 @@ const renderCard = ({ author, name, imageNum, year }, status) => {
       <div class="picture__creature">${name}, ${year}</div>
       <div class="picture__btn">Next</div>
     </div>
-  </div>`;
+  </div>
+`;
 
   return template;
 };

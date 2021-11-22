@@ -57,3 +57,33 @@
   -moz-box-shadow: 1px 8px 11px 1px rgba(34, 60, 80, 0.4);
   box-shadow: 1px 8px 11px 1px rgba(34, 60, 80, 0.4);
 }
+
+@mixin innerCard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba($color: #000000, $alpha: 0.8);
+}
+
+@mixin box-setting {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  @include box-card;
+  height: 689px;
+  width: 522px;
+}
+
+@mixin button-text {
+  //styleName: Desktop - Button;
+  font-family: Gilroy;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -1.147661805152893px;
+  text-align: center;
+}

@@ -1,6 +1,7 @@
 import deleteNodes from "../renderDelete/deletePage";
 import renderCard from "./card";
 import renderHTML from "../renderDelete/renderPage";
+import renderGrand from "./card_data";
 
 let dataObj = {};
 
@@ -8,11 +9,16 @@ const refreshPage = () => {
   const { html, selector, obj, choice } = dataObj;
   const btnTicket = document.querySelector(".ticket__inner");
   const picWriter = document.querySelector(".writer > div");
-  deleteNodes(btnTicket);
-  deleteNodes(picWriter);
   const newValue = obj.choice + 1;
   obj.choice = newValue;
-  renderImage(html, selector, obj, choice);
+  if (obj.choice > 9) {
+    deleteNodes(btnTicket);
+    renderGrand();
+  } else {
+    renderImage(html, selector, obj, choice);
+    deleteNodes(btnTicket);
+    deleteNodes(picWriter);
+  }
 };
 
 const createListener = async (data) => {
@@ -82,7 +88,7 @@ const renderImage = async (html, selector, obj, choice) => {
   };
   const authorPicture = obj.author[obj.choice];
   const rightChoice = obj.array[obj.choice]; // 120
-  const templateString = `${authorPicture}. Какую картину нарисованал он?`;
+  const templateString = `Какую картину нарисовал ${authorPicture}?`;
   const templateHtml = html.writer.replace(/(SomeQuestion)/, templateString);
   const selectorWriter = document.querySelector(`${selector.writer}`);
   renderHTML([selectorWriter], [templateHtml]);
@@ -98,15 +104,3 @@ const renderImage = async (html, selector, obj, choice) => {
 };
 
 export default renderImage;
-
-/* const selectorWriter = document.querySelector(`${selector.writer}`);
-  renderHTML([selectorWriter], [templateHtml]); */
-
-/* <div class="writer__wrapper">
-<img
-  src="./assets/img/category/static.png"
-  alt=""
-  class="writer__img"
-/>
-</div>
-</div> */

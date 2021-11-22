@@ -14,3 +14,29 @@
 @import "./layout/_footer";
 @import "./layout/_art";
 @import "./layout/_writer";
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUpper {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.container {
+  animation: 1s ease-out slideInFromLeft;
+}
+
+.ticket__inner {
+  animation: 1s ease-out slideInUpper;
+}

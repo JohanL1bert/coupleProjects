@@ -98,5 +98,5 @@ artistQuizBtn.addEventListener("click", buttonClick);
 pictureButton.addEventListener("click", buttonClick);
 settingSelector.addEventListener("click", buttonSetting);
 
-window.addEventListener("beforeunload", setLocalStorage);
+window.addEventListener("load", setLocalStorage);
 window.addEventListener("load", getLocalStorage);

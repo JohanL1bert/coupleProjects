@@ -3,21 +3,36 @@ import renderCategory from "../category";
 import deleteNodes from "../renderDelete/deletePage";
 /* import mainPageWork from "../main"; */
 
-const homePage = () => {
+const homePage = (choice) => {
   const pointNode = document.querySelector(".point__inner");
-  const writeNode = document.querySelector(".writer > div");
-  deleteNodes(pointNode, writeNode);
+  if (choice == "author") {
+    const pictureNode = document.querySelector(".picture__question > div");
+    deleteNodes(pointNode, pictureNode);
+    window.location.reload();
+  } else {
+    const writeNode = document.querySelector(".writer > div");
+    deleteNodes(pointNode, writeNode);
+    window.location.reload();
+  }
+
   window.location.reload();
 };
 
 const categoryPage = (choice) => {
   const pointNode = document.querySelector(".point__inner");
-  const writeNode = document.querySelector(".writer > div");
-  deleteNodes(pointNode, writeNode);
-  renderCategory(choice);
+  if (choice == "author") {
+    const pictureNode = document.querySelector(".picture__question > div");
+    deleteNodes(pointNode, pictureNode);
+    renderCategory(choice);
+  } else {
+    const writeNode = document.querySelector(".writer > div");
+    deleteNodes(pointNode, writeNode);
+    renderCategory(choice);
+  }
 };
 
 const renderPointCard = (number, data) => {
+  const { choice } = data;
   const template = `
     <div class="point__inner">
     <div class="point__box">
@@ -44,8 +59,8 @@ const renderPointCard = (number, data) => {
 
   const home = document.querySelector(".point__home");
   const next = document.querySelector(".point__next");
-  home.addEventListener("click", homePage);
-  next.addEventListener("click", () => categoryPage(data.choice));
+  home.addEventListener("click", () => homePage(choice));
+  next.addEventListener("click", () => categoryPage(choice));
 };
 
 export default renderPointCard;

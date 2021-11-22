@@ -20,7 +20,6 @@ const createHTMLTemplate = async (dep) => {
 
   const obj = localStorage.getItem("objStorage");
   const objValue = JSON.parse(obj);
-  console.log(objValue);
   for (; iterator <= 23; iterator += 1) {
     if (objValue.isCorrectAnswer[iterator]) {
       const result = objValue.isCorrectAnswer[iterator].filter(

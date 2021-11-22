@@ -1,11 +1,16 @@
-import dataHTML from "../data_html/data_page";
-import selectors2 from "../data_html/selector2.json";
 import deleteNodes from "../renderDelete/deletePage";
 import renderHTML from "../renderDelete/renderPage";
 import renderCard from "./card";
-import playList from "../music/playMusic";
+import playMusic from "../music/playMusic";
+import renderGrand from "./card_data";
+import renderPointCard from "./point";
+import setLocalData from "../data/localStash";
 
 let dataObj = {};
+const answerChoice = [];
+let iterator = 0;
+let rightAnswer = 0;
+
 const filterObj = async (data, choice) => {
   const newArray = [];
   newArray.push(data[choice]);
@@ -20,15 +25,29 @@ const filterObj = async (data, choice) => {
 };
 
 const refreshPage = () => {
-  const btnSelector = document.querySelector(".ticket__inner");
-  const picSelector = document.querySelector(".picture__question > div");
-  deleteNodes(btnSelector);
-  deleteNodes(picSelector);
-  const { data, sel, obj } = dataObj;
+  const { data, sel, obj, choice } = dataObj;
   obj.choice += 1;
   const newValue = obj.choice;
   obj.choice = newValue;
-  renderArtist(data, sel, obj, newValue);
+
+  const btnSelector = document.querySelector(".ticket__inner");
+  const picSelector = document.querySelector(".picture__question > div");
+  iterator += 1;
+  if (iterator > 9) {
+    setLocalData(answerChoice, dataObj);
+    answerChoice.length = 0;
+    iterator = 0;
+    rightAnswer = 0;
+    deleteNodes(btnSelector);
+    if (iterator === 9) {
+      renderGrand();
+    } else {
+      renderPointCard(rightAnswer, dataObj);
+    }
+  } else {
+    renderArtist(data, sel, obj, choice);
+    deleteNodes(btnSelector, picSelector);
+  }
 };
 
 const clearObj = (obj) => `${obj.choice}full`;
@@ -40,12 +59,16 @@ const createListener = async (data) => {
     let result;
     const { target } = event;
     if (target.textContent !== author) {
-      playList(false);
+      playMusic(false);
       result = renderCard(data, false);
+      answerChoice.push(false);
     } else {
       result = renderCard(data, true);
-      playList(true);
+      playMusic(true);
+      answerChoice.push(true);
+      rightAnswer += 1;
     }
+
     const ticket = document.querySelector(".ticket");
     renderHTML([ticket], [result]);
     const btnSelector = document.querySelector(".picture__btn");
@@ -99,7 +122,7 @@ const renderArtist = async (data, selector, objData, choice) => {
     choice,
   };
 
-  const rightChoice = dataObj.obj.array[dataObj.obj.choice];
+  const rightChoice = dataObj.obj.choice;
   const keyImg = clearObj(objData);
   const { questionPage, authorPage } = data;
   const { pictureQuestion, authorQuetsion } = selector;

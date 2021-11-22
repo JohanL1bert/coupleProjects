@@ -1,0 +1,52 @@
+.writer {
+  &__inner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__timer {
+    margin-top: 40px;
+  }
+  &__time {
+    //styleName: Desktop - H1;
+    font-family: Gilroy;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+    text-align: center;
+
+    color: $white-color;
+  }
+  &__text {
+    margin-top: 65px;
+    font-family: Gilroy;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+    text-align: left;
+  }
+  &__question {
+    color: $white-color;
+  }
+}
+
+.writer {
+  &__box {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  }
+  &__wrapper {
+    margin-top: 40px;
+  }
+  &__img {
+    width: 400px;
+    height: 298px;
+    cursor: pointer;
+  }
+}

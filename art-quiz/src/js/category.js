@@ -4,6 +4,8 @@ import renderArtist from "./cardRender/artist";
 import dataHTML from "./data_html/data_page";
 import selectors2 from "./data_html/selector2.json";
 import deleteNodes from "./renderDelete/deletePage";
+import renderImage from "./cardRender/picture";
+import filterImg from "./filterImg";
 
 let choice;
 
@@ -12,8 +14,13 @@ const getEventPic = async (event) => {
   const picName = currentTarget.querySelector(
     ".illustration__name"
   ).textContent;
-  const obj = filterPic(picName);
-  renderArtist(dataHTML, selectors2, obj, choice);
+  const obj = filterImg(picName);
+  const secondObj = filterPic(picName);
+  if (choice == "author") {
+    renderArtist(dataHTML, selectors2, obj, choice);
+  } else {
+    renderImage(dataHTML, selectors2, secondObj, choice);
+  }
   const destroySelector = document.querySelector(".categories > div");
   deleteNodes(destroySelector);
 };

@@ -151,6 +151,18 @@ const dataHTML = {
   <div class="authors__inner">
     <div class="author">template</div>
   </div>`,
+  writer: `        <div class="container">
+  <div class="writer__inner">
+    <div class="writer__timer">
+      <div class="writer__time">20</div>
+    </div>
+    <div class="writer__text">
+      <div class="writer__question">SomeQuestion</div>
+    </div>
+    <div class="writer__box">
+  </div>
+    </div>
+  `,
 };
 
 export default dataHTML;

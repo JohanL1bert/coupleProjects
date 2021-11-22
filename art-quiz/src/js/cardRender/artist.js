@@ -3,6 +3,7 @@ import selectors2 from "../data_html/selector2.json";
 import deleteNodes from "../renderDelete/deletePage";
 import renderHTML from "../renderDelete/renderPage";
 import renderCard from "./card";
+import playList from "../music/playMusic";
 
 let dataObj = {};
 const filterObj = async (data, choice) => {
@@ -39,9 +40,11 @@ const createListener = async (data) => {
     let result;
     const { target } = event;
     if (target.textContent !== author) {
+      playList(false);
       result = renderCard(data, false);
     } else {
       result = renderCard(data, true);
+      playList(true);
     }
     const ticket = document.querySelector(".ticket");
     renderHTML([ticket], [result]);

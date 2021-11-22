@@ -1,16 +1,31 @@
 .point {
   &__inner {
+    @include innerCard;
   }
   &__box {
-    @include box-card;
+    @include box-setting;
   }
   &__img {
   }
   &__status {
   }
   &__text {
+    font-family: Gilroy;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 78px;
+    letter-spacing: 0em;
+    text-align: center;
   }
   &__number {
+    font-family: Gilroy;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 102px;
+    letter-spacing: 0em;
+    text-align: center;
   }
   &__button {
     display: flex;
@@ -34,4 +49,17 @@
     border: 2px solid $pink-color;
     background-color: $pink-color;
   }
+}
+
+@keyframes slideInUpper {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.point__inner {
+  animation: 1s ease-out slideInUpper;
 }

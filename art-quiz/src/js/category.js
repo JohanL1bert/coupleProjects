@@ -9,7 +9,44 @@ import filterImg from "./filterImg";
 
 let choice;
 
-const getEventPic = async (event) => {
+const createHTMLTemplate = async (dep) => {
+  let iterator = 0;
+  const array = [];
+  if (dep == "picture") {
+    iterator = 12;
+  } else {
+    iterator = 0;
+  }
+
+  const obj = localStorage.getItem("objStorage");
+  const objValue = JSON.parse(obj);
+  for (; iterator <= 23; iterator += 1) {
+    if (objValue.isCorrectAnswer[iterator]) {
+      const result = objValue.isCorrectAnswer[iterator].filter(
+        (el) => el === true
+      );
+      array.push(result);
+    } else {
+      array.push("");
+    }
+  }
+  if (dep == "picture") {
+    array.slice(11, 23);
+  } else {
+    array.slice(0, 11);
+  }
+  const numbers = [];
+  array.map((el) => {
+    if (el.length > 0) {
+      numbers.push(el.length);
+    } else {
+      numbers.push("");
+    }
+  });
+  return numbers;
+};
+
+const getEventPic = (event) => {
   const { currentTarget } = event;
   const picName = currentTarget.querySelector(
     ".illustration__name"
@@ -30,7 +67,7 @@ const callbackEvent = async () => {
   picCategory.forEach((el) => el.addEventListener("click", getEventPic));
 };
 
-const templateCategory = async (promiseCat) => {
+const templateCategory = async (promiseCat, value) => {
   const portraintName = [
     "Portrait",
     "Landscape",
@@ -51,7 +88,7 @@ const templateCategory = async (promiseCat) => {
         <div class="illustration__box">
           <div class="illustration__heading">
             <div class="illustration__name">${portraintName[i]}</div>
-            <div class="illustration__score">Number</div>
+            <div class="illustration__score">${value[i]}</div>
           </div>
           <div class="illustration__image">
             <img src="${promiseCat[i]}" alt="" class="illustration__img">
@@ -63,7 +100,7 @@ const templateCategory = async (promiseCat) => {
   return newArrayTempalte;
 };
 
-const getImageSetting = async (dep) => {
+const getImageSetting = async (dep, val) => {
   let arrayDependency;
   if (dep === "author") {
     const id = [
@@ -105,7 +142,7 @@ const getImageSetting = async (dep) => {
     return response.url;
   });
   const data = Promise.all(promiseResult).then((value) =>
-    templateCategory(value)
+    templateCategory(value, val)
   );
   return data;
 };
@@ -114,7 +151,7 @@ const prerenderCategory = async (startedPageCat, selectorPage) => {
   await selectorPage.insertAdjacentHTML("afterbegin", `${startedPageCat}`);
 };
 
-const renderCard = (data, selector) => {
+const renderCard = async (data, selector) => {
   for (let i = 0; i < 12; i += 1) {
     selector.insertAdjacentHTML("afterbegin", data[i]);
   }
@@ -125,10 +162,12 @@ const renderCategory = async (depend) => {
   await prerenderCategory(dataHTML.categories, selectors.categoryStartedPage);
 
   const selectorToAppend = document.querySelector(".illustration__category");
-  const arrImg = await getImageSetting(depend);
+  const value = await createHTMLTemplate(choice);
+  const arrImg = await getImageSetting(depend, value);
+  createHTMLTemplate(choice);
   arrImg.reverse();
   await renderCard(arrImg, selectorToAppend);
-  await templateCategory(arrImg);
+  /*   await templateCategory(arrImg, choice); */
   await callbackEvent();
 };
 

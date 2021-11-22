@@ -2,8 +2,13 @@ import deleteNodes from "../renderDelete/deletePage";
 import renderCard from "./card";
 import renderHTML from "../renderDelete/renderPage";
 import renderGrand from "./card_data";
+import playMusic from "../music/playMusic";
+import setLocalData from "../data/localStash";
+import numberCorrectAnswer from "../data/number__answer";
+import renderPointCard from "./point";
 
 let dataObj = {};
+const answerChoice = [];
 
 const refreshPage = () => {
   const { html, selector, obj, choice } = dataObj;
@@ -12,8 +17,15 @@ const refreshPage = () => {
   const newValue = obj.choice + 1;
   obj.choice = newValue;
   if (obj.choice > 9) {
+    setLocalData(answerChoice, dataObj);
+    const result = numberCorrectAnswer(answerChoice);
+    answerChoice.length = 0;
     deleteNodes(btnTicket);
-    renderGrand();
+    if (result === 9) {
+      renderGrand();
+    } else {
+      renderPointCard(result, dataObj);
+    }
   } else {
     renderImage(html, selector, obj, choice);
     deleteNodes(btnTicket);
@@ -27,9 +39,13 @@ const createListener = async (data) => {
     let result;
     const { target } = event;
     if (target.src.includes(data.imageNum)) {
+      playMusic(true);
       result = renderCard(data, true);
+      answerChoice.push(true);
     } else {
       result = renderCard(data, false);
+      playMusic(false);
+      answerChoice.push(false);
     }
     const ticket = document.querySelector(".ticket");
     renderHTML([ticket], [result]);

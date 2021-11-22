@@ -15,6 +15,8 @@
   &__heading {
   }
   &__name {
+    @include button-text;
+
     color: $white-color;
   }
   &__setting {
@@ -40,9 +42,13 @@
     color: $white-color;
   }
   &__name {
+    @include button-text;
+
     color: $white-color;
   }
   &__score {
+    @include button-text;
+
     color: $pink-color;
   }
   &__image {

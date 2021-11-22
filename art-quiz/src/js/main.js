@@ -7,7 +7,7 @@ import renderSetting from "./settingRender/setting";
 
 let categoryName;
 let buttonClick;
-let settingBtn;
+/* let settingBtn; */
 const artistQuizBtn = document.querySelector(".artist__button");
 const pictureButton = document.querySelector(".picture__button");
 const settingSelector = document.querySelector(".header__setings");
@@ -54,6 +54,49 @@ const buttonSetting = () => {
   renderSetting(dataHTML.settings, selectors2.setting);
 };
 
+const setLocalStorage = () => {
+  const objStorage = {
+    isTimerWork: false,
+    timeSecond: 20,
+    isMusicWork: false,
+    isCorrectAnswer: [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+    ],
+  };
+  if (localStorage.getItem("objStorage") === null) {
+    localStorage.setItem("objStorage", JSON.stringify(objStorage));
+  }
+};
+
+const getLocalStorage = () => {
+  localStorage.getItem("objStorage");
+};
+
 artistQuizBtn.addEventListener("click", buttonClick);
 pictureButton.addEventListener("click", buttonClick);
 settingSelector.addEventListener("click", buttonSetting);
+
+window.addEventListener("beforeunload", setLocalStorage);
+window.addEventListener("load", getLocalStorage);

@@ -1,9 +1,9 @@
 const renderCard = ({ author, name, imageNum, year }, status) => {
   let statusBtn;
   if (status === true) {
-    statusBtn = "../../assets/img/card/win-button.png";
+    statusBtn = "./assets/img/card/win-button.png";
   } else {
-    statusBtn = "../../assets/img/card/loose-button.png";
+    statusBtn = "./assets/img/card/loose-button.png";
   }
   const template = `
     <div class="ticket__inner">

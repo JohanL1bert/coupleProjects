@@ -6,7 +6,17 @@ body {
 .main {
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .container {
+  animation: 1s ease-out slideInFromLeft;
   margin: 0 auto;
   max-width: 1200px;
 }

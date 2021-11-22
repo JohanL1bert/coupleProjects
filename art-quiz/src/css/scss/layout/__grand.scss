@@ -37,3 +37,16 @@
     @include button-position-center;
   }
 }
+
+@keyframes slideInUpper {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.grand__inner {
+  animation: 1s ease-out slideInUpper;
+}

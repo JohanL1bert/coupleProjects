@@ -1,7 +1,7 @@
-import deleteNodes from "./renderDelete/deletePage";
+import deleteNodes from "./renderDelete/delete-page";
 import renderCategory from "./category";
-import pageRender from "./main_page/head__page";
-import dataHTML from "./data_html/data_page";
+import pageRender from "./main_page/head-page";
+import dataHTML from "./data_html/data-page";
 import selectors2 from "./data_html/selector2.json";
 import renderSetting from "./settingRender/setting";
 

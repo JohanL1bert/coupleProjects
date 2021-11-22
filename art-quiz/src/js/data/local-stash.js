@@ -1,4 +1,4 @@
-import filterStorageData from "./filter__storage";
+import filterStorageData from "./filter-storage";
 
 const setLocalData = (status, data) => {
   const arrayNumber = data.obj.array[0];

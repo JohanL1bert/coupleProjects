@@ -1,4 +1,4 @@
-import dataHTML from "../data_html/data_page";
+import dataHTML from "../data_html/data-page";
 import selectors2 from "../data_html/selector2.json";
 
 const renderMain = (tag, htmlData) => {

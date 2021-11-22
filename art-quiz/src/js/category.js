@@ -1,11 +1,11 @@
 import selectors from "./data_html/selector";
-import filterPic from "./filterCategory";
+import filterPic from "./filter-category";
 import renderArtist from "./cardRender/artist";
-import dataHTML from "./data_html/data_page";
+import dataHTML from "./data_html/data-page";
 import selectors2 from "./data_html/selector2.json";
-import deleteNodes from "./renderDelete/deletePage";
+import deleteNodes from "./renderDelete/delete-page";
 import renderImage from "./cardRender/picture";
-import filterImg from "./filterImg";
+import filterImg from "./filter-img";
 
 let choice;
 

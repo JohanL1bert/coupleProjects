@@ -1,10 +1,10 @@
-import deleteNodes from "../renderDelete/deletePage";
+import deleteNodes from "../renderDelete/delete-page";
 import renderCard from "./card";
-import renderHTML from "../renderDelete/renderPage";
+import renderHTML from "../renderDelete/render-page";
 import renderGrand from "./card_data";
-import playMusic from "../music/playMusic";
-import setLocalData from "../data/localStash";
-import numberCorrectAnswer from "../data/number__answer";
+import playMusic from "../music/play-music";
+import setLocalData from "../data/local-stash";
+import numberCorrectAnswer from "../data/number-answer";
 import renderPointCard from "./point";
 
 let dataObj = {};

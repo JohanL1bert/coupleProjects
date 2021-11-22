@@ -1,4 +1,4 @@
-import renderHTML from "../renderDelete/renderPage";
+import renderHTML from "../renderDelete/render-page";
 
 const templateHTML = () => `<div class="grand__inner">
   <div class="grand__box">

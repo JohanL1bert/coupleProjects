@@ -1,4 +1,4 @@
-import playList from "./playlist";
+import playList from "./play-list";
 
 const playMusic = (state) => {
   let source;

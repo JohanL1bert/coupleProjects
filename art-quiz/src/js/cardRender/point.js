@@ -1,6 +1,6 @@
-import renderHTML from "../renderDelete/renderPage";
+import renderHTML from "../renderDelete/render-page";
 import renderCategory from "../category";
-import deleteNodes from "../renderDelete/deletePage";
+import deleteNodes from "../renderDelete/delete-page";
 /* import mainPageWork from "../main"; */
 
 const homePage = (choice) => {

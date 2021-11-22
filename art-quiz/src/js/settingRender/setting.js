@@ -1,6 +1,4 @@
-import deleteNodes from "../renderDelete/deletePage";
-import dataHTML from "../data_html/data_page";
-import selectors2 from "../data_html/selector2.json";
+import deleteNodes from "../renderDelete/delete-page";
 
 const deleTeFilter = () => {
   const setting = document.querySelector(".settings");

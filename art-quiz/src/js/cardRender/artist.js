@@ -1,10 +1,10 @@
-import deleteNodes from "../renderDelete/deletePage";
-import renderHTML from "../renderDelete/renderPage";
+import deleteNodes from "../renderDelete/delete-page";
+import renderHTML from "../renderDelete/render-page";
 import renderCard from "./card";
-import playMusic from "../music/playMusic";
+import playMusic from "../music/play-music";
 import renderGrand from "./card_data";
 import renderPointCard from "./point";
-import setLocalData from "../data/localStash";
+import setLocalData from "../data/local-stash";
 
 let dataObj = {};
 const answerChoice = [];

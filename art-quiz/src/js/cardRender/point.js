@@ -3,14 +3,14 @@ import renderCategory from "../category";
 import deleteNodes from "../renderDelete/deletePage";
 /* import mainPageWork from "../main"; */
 
-const homePage = (event) => {
+const homePage = () => {
   const pointNode = document.querySelector(".point__inner");
   const writeNode = document.querySelector(".writer > div");
   deleteNodes(pointNode, writeNode);
   window.location.reload();
 };
 
-const categoryPage = (event, choice) => {
+const categoryPage = (choice) => {
   const pointNode = document.querySelector(".point__inner");
   const writeNode = document.querySelector(".writer > div");
   deleteNodes(pointNode, writeNode);

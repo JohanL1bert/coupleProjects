@@ -167,7 +167,6 @@ const renderCategory = async (depend) => {
   createHTMLTemplate(choice);
   arrImg.reverse();
   await renderCard(arrImg, selectorToAppend);
-  /*   await templateCategory(arrImg, choice); */
   await callbackEvent();
 };
 

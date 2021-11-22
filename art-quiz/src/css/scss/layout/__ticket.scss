@@ -41,10 +41,13 @@
 
 .picture {
   &__name {
+    @include button-text;
   }
   &__creature {
+    @include button-text;
   }
   &__btn {
+    @include button-text;
     width: 400px;
     height: 62px;
     border-radius: 50px;

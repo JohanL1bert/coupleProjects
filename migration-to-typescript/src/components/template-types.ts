@@ -3,7 +3,7 @@ export type Iloader = {
 };
 
 export interface SourceArticles {
-    author?: string;
+    author: string;
     content: string;
     description: string;
     publishedAt: string;
@@ -26,7 +26,6 @@ export interface SourceApi {
     url: string;
 }
 
-
 export interface DrawNews {
     articles: Array<SourceArticles>;
     status: string;
@@ -39,5 +38,9 @@ export interface DrawSource {
     sources: Array<SourceApi>;
 }
 
-
 export type Callback<T> = (data: T) => void;
+
+export enum StatusCode {
+    codeUnauthorized = 401,
+    codeNotFound = 404,
+}

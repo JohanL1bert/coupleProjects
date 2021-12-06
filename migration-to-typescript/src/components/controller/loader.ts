@@ -1,5 +1,4 @@
-import { Iloader, Callback } from '../template-types';
-
+import { Iloader, Callback, StatusCode } from '../template-types';
 
 class Loader {
     baseLink: string;
@@ -20,7 +19,7 @@ class Loader {
 
     public errorHandler(res: Response) {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === StatusCode.codeUnauthorized || res.status === StatusCode.codeNotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }

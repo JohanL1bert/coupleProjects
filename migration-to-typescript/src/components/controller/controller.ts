@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { Callback, DrawNews, DrawSource } from '../template-types';
 
 class AppController extends AppLoader {
-    getSources(callback: Callback<DrawSource>)  {
+    getSources(callback: Callback<DrawSource>) {
         super.getResp<DrawSource>(
             {
                 endpoint: 'sources',

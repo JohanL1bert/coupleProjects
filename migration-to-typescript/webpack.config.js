@@ -1,13 +1,67 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const baseConfig = {
-    entry: path.resolve(__dirname, './src/index.js'),
-    mode: 'development',
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = !isDev;
+
+const fileName = (ext) => (isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`);
+
+module.exports = {
+    context: path.resolve(__dirname, 'src'),
+    mode: isDev ? 'development' : 'production',
+    devtool: isDev ? 'inline-source-map' : false,
+    entry: './index.ts',
+    output: {
+        filename: `${fileName('js')}`,
+        path: path.resolve(__dirname, 'dist'),
+        assetModuleFilename: `assets/[name][ext]`,
+    },
+    devServer: {
+        open: true,
+        port: 8000,
+    },
+    plugins: [
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src/'),
+                    to: path.resolve(__dirname, 'dist'),
+                    noErrorOnMissing: true,
+                    globOptions: {
+                        ignore: ['**/index.html', '**/*.ts', '**/*.scss', '**/*.woff2', '**/*.css'],
+                    },
+                },
+            ],
+        }),
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: true,
+        }),
+        new HTMLWebpackPlugin({
+            title: 'migration-to-typescript',
+            template: path.resolve(__dirname, `./src/index.html`),
+            filename: `index.html`,
+            minify: {
+                collapseWhitespace: isProd,
+            },
+        }),
+    ],
     module: {
         rules: [
+            {
+                test: /\.[tj]s$/,
+                use: ['ts-loader'],
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(woff(2)?|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
@@ -15,24 +69,6 @@ const baseConfig = {
         ],
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.ts', '.js'],
     },
-    output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, '../dist'),
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, './src/index.html'),
-            filename: 'index.html',
-        }),
-        new CleanWebpackPlugin(),
-    ],
-};
-
-module.exports = ({ mode }) => {
-    const isProductionMode = mode === 'prod';
-    const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
-
-    return merge(baseConfig, envConfig);
 };

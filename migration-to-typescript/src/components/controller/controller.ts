@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { Callback, DrawNews, DrawSource } from '../template-types';
 
 class AppController extends AppLoader {
-    getSources(callback: Callback<DrawSource>) {
+    public getSources(callback: Callback<DrawSource>) {
         super.getResp<DrawSource>(
             {
                 endpoint: 'sources',
@@ -11,7 +11,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: Event, callback: Callback<DrawNews>) {
+    public getNews(e: Event, callback: Callback<DrawNews>) {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 

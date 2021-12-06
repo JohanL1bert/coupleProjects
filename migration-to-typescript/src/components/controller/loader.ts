@@ -17,7 +17,7 @@ class Loader {
         this.load<NewData>('GET', endpoint, callback, options);
     }
 
-    public errorHandler(res: Response) {
+    private errorHandler(res: Response) {
         if (!res.ok) {
             if (res.status === StatusCode.codeUnauthorized || res.status === StatusCode.codeNotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -27,7 +27,7 @@ class Loader {
         return res;
     }
 
-    public makeUrl(options: Iloader, endpoint: string): string {
+    private makeUrl(options: Iloader, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 

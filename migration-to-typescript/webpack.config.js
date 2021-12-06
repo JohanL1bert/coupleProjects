@@ -41,7 +41,7 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: 'migration-to-typescript',
             template: path.resolve(__dirname, `./src/index.html`),
-            filename: `${fileName('html')}`,
+            filename: `index.html`,
             minify: {
                 collapseWhitespace: isProd,
             },

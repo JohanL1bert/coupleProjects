@@ -18,7 +18,7 @@ export interface SourceArticles {
 
 export interface SourceApi {
     category: string;
-    county: string;
+    country: string;
     description: string;
     id: string;
     language: string;

@@ -1,21 +1,28 @@
 {
-    "plugins": ["prettier", "import"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
     "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:prettier/recommended",
         "prettier"
     ],
     "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module"
+        "project": ["./tsconfig.json"]
     },
-    "env": {
-        "es6": true,
-        "browser": true,
-        "node": true
-    },
+    "ignorePatterns": ["webpack.config.js"],
     "rules": {
         "no-debugger": "off",
         "no-console": 0,
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
     }
 }

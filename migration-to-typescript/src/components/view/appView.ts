@@ -1,6 +1,6 @@
+import { DrawNews, DrawSource } from '../template-types';
 import News from './news/news';
 import Sources from './sources/sources';
-import { DrawNews, DrawSource } from '../template-types';
 
 export class AppView {
     news: News;

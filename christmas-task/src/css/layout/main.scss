@@ -1,0 +1,44 @@
+.main {
+    height: 100vh;
+    background-image: url(../assets/main-page/main_background.png);
+    background-size: cover;
+    background-attachment: fixed;
+    &__inner {
+        min-height: calc(100vh - 140px);
+    }
+    &__footer {
+        @include main-footer-header-size;
+        &__inner {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+
+.header {
+    @include main-footer-header-size;
+    &__main__page {
+    }
+    &__toys__page {
+    }
+    &__tree__page {
+    }
+}
+
+.footer {
+    &__creator {
+    }
+    &__logo {
+    }
+}
+
+.copyright {
+}
+
+.year__create {
+}
+
+.github__link {
+    text-decoration: none;
+    color: black;
+}

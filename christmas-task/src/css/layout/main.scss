@@ -17,9 +17,9 @@
     &__footer {
         @include main-footer-header-size;
         &__inner {
+            font-family: 'Steppa';
             min-height: 70px;
             display: flex;
-            justify-content: space-around;
         }
     }
     &__title {
@@ -43,7 +43,23 @@
         }
     }
     &__btn {
+        font-family: 'Neucha';
+        height: 54px;
+        width: 320px;
+        background-color: rgba(31, 112, 127, 0.3);
+        border: 3px solid #278d9f;
+        backdrop-filter: blur(6px);
+        border-radius: 30px;
         margin-top: 113px;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+        outline: 1px solid;
+        transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+        transition-property: all;
+        transition-duration: 1250ms;
+        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        transition-delay: 0;
     }
 }
 
@@ -98,14 +114,16 @@
 }
 
 .copyright {
+    @include main-fonts-style;
 }
 
 .year__create {
+    @include main-fonts-style;
 }
 
 .github__link {
+    @include main-fonts-style;
     text-decoration: none;
-    color: black;
 }
 
 .garland {

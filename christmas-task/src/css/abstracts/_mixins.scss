@@ -2,3 +2,22 @@
     min-height: 70px;
     background-color: $main-color-green;
 }
+
+@mixin main-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(../assets/main-page/garland.png);
+}
+
+@mixin main-fonts-style {
+    font-family: 'Steppe';
+    text-transform: uppercase;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+        color: #278d9f;
+    }
+}

@@ -1,0 +1,140 @@
+.main {
+    height: 100vh;
+    background-image: url(../assets/main-page/main_background.png);
+    background-size: cover;
+    background-attachment: fixed;
+    &__inner {
+        min-width: 100vw;
+        min-height: calc(100vh - 140px);
+    }
+    &__page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &__footer {
+        @include main-footer-header-size;
+        &__inner {
+            font-family: 'Steppa';
+            min-height: 70px;
+            display: flex;
+        }
+    }
+    &__title {
+        margin-top: 100px;
+        background: $main-color-title-green;
+        border: 2px solid #278d9f;
+        border-radius: 30px;
+        backdrop-filter: blur(31px);
+        width: 600px;
+        height: 249px;
+        &__text {
+            padding-top: 30px;
+            font-family: 'Neucha';
+            font-size: 53px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 58px;
+            letter-spacing: 0em;
+            text-align: center;
+            color: white;
+        }
+    }
+    &__btn {
+        font-family: 'Neucha';
+        height: 54px;
+        width: 320px;
+        background-color: rgba(31, 112, 127, 0.3);
+        border: 3px solid #278d9f;
+        backdrop-filter: blur(6px);
+        border-radius: 30px;
+        margin-top: 113px;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+    }
+}
+
+.header {
+    position: relative;
+    z-index: 10;
+    @include main-footer-header-size;
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        &__main {
+        }
+        &__toys {
+            @include main-fonts-style;
+        }
+        &__tree {
+            @include main-fonts-style;
+        }
+    }
+    &__basket {
+        background-image: url(../assets/svg/ball-2.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 70px;
+        width: 52px;
+        &__amount {
+            display: inline-block;
+            min-width: 47px;
+            height: 47px;
+            margin-top: 21px;
+            margin-left: 2.3px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            background-color: #278d9f;
+        }
+    }
+}
+
+.footer {
+    &__creator {
+        display: flex;
+        align-items: center;
+    }
+    &__logo {
+    }
+}
+
+.copyright {
+    @include main-fonts-style;
+}
+
+.year__create {
+    @include main-fonts-style;
+}
+
+.github__link {
+    @include main-fonts-style;
+    text-decoration: none;
+}
+
+.garland {
+    &__small {
+        top: -50px;
+        left: calc(50% + 216px);
+        position: absolute;
+        width: 216px;
+        height: 446px;
+        @include main-image;
+    }
+    &__big {
+        bottom: 150px;
+        left: calc(50% - 418px);
+        position: absolute;
+        width: 418px;
+        height: 768px;
+        @include main-image;
+    }
+}

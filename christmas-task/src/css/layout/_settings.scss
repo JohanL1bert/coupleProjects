@@ -1,0 +1,186 @@
+.setting {
+    &__toys {
+        min-height: calc(100vh - 140px);
+        background-image: url(../assets/main-page/main_background.png);
+        &__blur {
+            min-height: calc(100vh - 140px);
+            background: rgba(22, 41, 41, 0.5);
+            backdrop-filter: blur(3px);
+        }
+        &__inner {
+        }
+    }
+}
+
+.filter {
+    &__toys {
+        display: flex;
+        justify-content: space-between;
+        &__value {
+            @include toys-box-size;
+            @include toys-fonts-style;
+        }
+        &__range {
+            @include toys-box-size;
+        }
+        &__sort {
+            @include toys-box-size;
+        }
+    }
+}
+
+.value {
+    &__name {
+        @include toys-fonts-style;
+    }
+    &__setting {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    &__form {
+    }
+    &__color {
+    }
+    &__size {
+    }
+    &__liked {
+    }
+}
+
+.range {
+    &__name {
+        @include toys-fonts-style;
+    }
+    &__setting {
+    }
+}
+
+.sort {
+    &__name {
+        @include toys-fonts-style;
+    }
+    &__setting {
+    }
+    &__letter {
+    }
+    &__reset {
+    }
+}
+
+.toys {
+    &__inner {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(0, 320px));
+    }
+    &__box {
+        margin-left: 10px;
+        @include toys-fonts-style;
+        width: 300px;
+        height: 280px;
+        border: 2px solid #278d9f;
+        border-radius: 5%;
+    }
+    &__wrapper {
+        margin-top: 30px;
+        display: flex;
+    }
+    &__name {
+        margin: 20px 0;
+        text-align: center;
+    }
+    &__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 10px;
+        width: 300px;
+        height: 180px;
+    }
+    &__number {
+    }
+    &__year {
+    }
+    &__form {
+    }
+    &__color {
+    }
+    &__size {
+    }
+    &__liked {
+    }
+    &__img {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        &__garland {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+.toys__amount {
+}
+
+.year__number {
+}
+
+.from__view {
+}
+
+.color__view {
+}
+
+.size__view {
+}
+
+.liked__toy {
+}
+
+.form__btn {
+    &:first-child {
+        @include form-button;
+        background-image: url(../assets/svg/ball.svg);
+    }
+    &:nth-child(2) {
+        @include form-button;
+        background-image: url(../assets/svg/bell.svg);
+    }
+    &:nth-child(3) {
+        @include form-button;
+        background-image: url(../assets/svg/cone.svg);
+    }
+    &:nth-child(4) {
+        @include form-button;
+        background-image: url(../assets/svg/snowflake.svg);
+    }
+    &:last-child {
+        @include form-button;
+        background-image: url(../assets/svg/toy.svg);
+    }
+}
+
+.size__btn {
+    &:first-child {
+        margin-left: 20px;
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        background-image: url(../assets/svg/ball.svg);
+    }
+    &:nth-child(2) {
+        margin-left: 20px;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        background-image: url(../assets/svg/ball.svg);
+    }
+    &:last-child {
+        margin-left: 20px;
+        background-size: cover;
+        width: 32px;
+        height: 32px;
+        background-image: url(../assets/svg/ball.svg);
+    }
+}

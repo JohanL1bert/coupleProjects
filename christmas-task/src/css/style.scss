@@ -3,7 +3,9 @@
 @import './fonts/fonts';
 @import './abstracts/variables';
 @import './abstracts/mixins';
+@import './base/container';
 @import './layout/main';
+@import './layout/settings';
 
 html {
     width: 100%;
@@ -14,7 +16,7 @@ html {
 body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 //overflow-x: hidden; или убирать одну картинку

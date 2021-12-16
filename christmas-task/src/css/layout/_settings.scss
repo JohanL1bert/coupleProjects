@@ -37,6 +37,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        height: 200px;
     }
     &__form {
     }
@@ -80,6 +81,7 @@
         height: 280px;
         border: 2px solid #278d9f;
         border-radius: 5%;
+        cursor: pointer;
     }
     &__wrapper {
         margin-top: 30px;
@@ -206,5 +208,17 @@
     &:last-child {
         @include color-button;
         background-color: greenyellow;
+    }
+}
+
+.sort {
+    &__btn {
+        margin-top: 150px;
+    }
+    &__reset {
+        @include sort-button;
+    }
+    &__save {
+        @include sort-button;
     }
 }

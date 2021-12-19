@@ -46,7 +46,7 @@ class SwitchValue {
             isColorYellow: 'желтый',
             isColorRed: 'красный',
             isColorBlue: 'синий',
-            isColorGreen: 'зеленый',
+            isColorGreen: 'зелёный',
             isSizeBig: 'большой',
             isSizeMedium: 'средний',
             isSizeSmall: 'малый',
@@ -77,12 +77,20 @@ class SwitchValue {
                 'жетый',
                 'красный',
                 'синий',
-                'зеленый',
+                'зелёный',
                 'большой',
                 'средний',
                 'малый',
             ];
             return arrayData;
+        }
+    }
+
+    public filterSelectOption(data: any) {
+        if (data === 'sort-name-max') {
+        } else if (data === 'sort-name-min') {
+        } else if (data === 'sort-max') {
+        } else if (data === 'sort-min') {
         }
     }
 }
@@ -92,17 +100,18 @@ class ValueFilter extends SwitchValue {
         super();
     }
 
-    private getImg(num: any) {
+    private async getImg(num: any) {
         const imgNum = fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/assets/toys/${num}.png`
         );
-        return imgNum;
+        return (await imgNum).url;
     }
 
     public renderHTML(data: any) {
-        console.log(data);
         const allData = data.map((el: any) => {
-            return `
+            const num = this.getImg(el.num);
+            return num.then((num) => {
+                return `
         <div class="toys__box">
             <h3 class="toys__name">${el.name}</h3>
                 <div class="toys__wrapper">
@@ -117,7 +126,7 @@ class ValueFilter extends SwitchValue {
                             Форма: <span class="form__view">${el.shape}</span>
                         </div>
                         <div class="toys__color">
-                            Размер: <span class="color__view">${el.color}</span>
+                            Цвет: <span class="color__view">${el.color}</span>
                         </div>
                         <div class="toys__size">
                             Размер: <span class="size__view">${el.size}</span>
@@ -129,16 +138,17 @@ class ValueFilter extends SwitchValue {
                         <div class="toys__img">
                             <img
                             class="toys__img__garland"
-                            src=""
+                            src="${num}"
                                 alt="toy garland"
                                  />
                         </div>
                          </div>
                     </div>
     `;
+            });
         });
         const hookHTML = document.querySelector('.toys__inner');
-        hookHTML?.insertAdjacentHTML('afterbegin', allData.join(''));
+        Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
     }
 
     public filterArray(objectData: any) {
@@ -149,26 +159,44 @@ class ValueFilter extends SwitchValue {
         return arrayValue;
     }
 
-    public async filterAllObj(data: any, mainObject: any) {
+    public async filterAllObj(...args: any) {
+        const [data, mainObject, inputData, selectOptionData] = [...args];
         const dataFromMainObject = this.filterArray(mainObject);
         const valueFilteredFromData = this.getFilteredData(dataFromMainObject);
         const arrayDataFiltered = this.returnData(valueFilteredFromData);
         const data1 = await data;
-        const arrayFiltered: any = [];
+        const firstFilteredArray: any = [];
+        const secondFilteredArray: any = [];
 
         arrayDataFiltered.map((elementValue: any) => {
             return data1.filter((jsonData: any) => {
                 for (const key in jsonData) {
                     if (jsonData[key] === elementValue) {
-                        arrayFiltered.push(jsonData);
+                        firstFilteredArray.push(jsonData);
                     }
                 }
             });
         });
-
-        const setObj = new Set(arrayFiltered);
+        const setObj = new Set(firstFilteredArray);
         const array = Array.from(setObj);
-        this.renderHTML(array);
+        /* if (inputData != undefined) {
+            array.filter((el: any) => {
+                for (const key in el) {
+                    if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
+                        if (el[key].includes(inputData)) {
+                            secondFilteredArray.push(el);
+                        }
+                    }
+                }
+            });
+            this.renderHTML(secondFilteredArray);
+        } else {
+            this.renderHTML(array);
+        } */
+
+        //Переписать нормально. Нужно изменять массив и как-то от условий отталкиватся
+        //Отлфильтровать нужно уже отфильтрвованный массив
+        /* array.filter((el: any) => console.log(el)); */
     }
 
     public async getJSON() {
@@ -191,24 +219,39 @@ class ValueFilter extends SwitchValue {
         return [sortReset, sortSave];
     }
 
+    public sliderForm() {}
+
+    public inputForm() {
+        const inputForm = document.getElementById('search__data');
+        return inputForm;
+    }
+
+    public selectForm() {
+        const selectForm = document.querySelector('.sort__letter');
+        return selectForm;
+    }
+
     public sortSize(target: Event) {
         if (target instanceof HTMLElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
+
     public sortForm(target: Event) {
         if (target instanceof HTMLElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
+
     public sortColor(target: Event) {
         if (target instanceof HTMLElement) {
             target.classList.toggle('active__color');
             return target.dataset.filter;
         }
     }
+
     public toggle(value: boolean) {
         if (value) return false;
         return true;
@@ -252,6 +295,37 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
+    private debounceDecorator(fn: any, ms: any) {
+        let isCooldown: any;
+        return (...args: any) => {
+            const funCall = () => {
+                return fn.apply(this, args);
+            };
+
+            clearTimeout(isCooldown);
+            isCooldown = setTimeout(funCall, ms);
+        };
+    }
+
+    public inputFormSort(event: any) {
+        const inputData: any = event.target.value;
+        const jsonDATA = this.getJSON();
+        console.log(jsonDATA);
+        this.nodeRemove();
+        this.filterAllObj(jsonDATA, this.mainObject, inputData);
+    }
+
+    public inputFormData(data: string) {
+        return data;
+    }
+
+    public selectOptionsForm(event: any) {
+        const value = event.target.value;
+        const jsonDATA = this.getJSON();
+        this.nodeRemove();
+        this.filterAllObj(jsonDATA, this.mainObject, value);
+    }
+
     public sortedValue(event: any) {
         const target = event.target;
         if (target.classList.contains('form__btn')) {
@@ -286,14 +360,16 @@ export class ToysSettingFilter extends ValueFilter {
     private addListener() {
         const arrayBtn = this.getBtn();
         const saveClearBtn = this.sortBtn();
+        const inputForm = this.inputForm();
+        const selectForm = this.selectForm();
         arrayBtn.forEach((el) => el?.addEventListener('click', this.sortedValue.bind(this)));
         saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
+        this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
+        inputForm?.addEventListener('keyup', this.inputFormSort);
+        selectForm?.addEventListener('change', this.selectOptionsForm);
     }
 
     public cycleSettings() {
         this.addListener();
-        const toggle = ({ isForm, isColorWhite }: any) => {
-            console.log(isForm);
-        };
     }
 }

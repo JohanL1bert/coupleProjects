@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,54 +43,105 @@
             </section> -->
             <section class="setting">
                 <header class="header">
-                    <nav class="header__inner">
-                        <div class="header__nav">
-                            <div class="header__nav__main"></div>
-                            <a href="#" class="header__nav__toys">игрушки</a>
-                            <a href="#" class="header__nav__tree">ёлка</a>
-                        </div>
-                        <div class="header__basket">
-                            <span class="header__basket__amount">0</span>
-                        </div>
-                    </nav>
+                    <div class="container">
+                        <nav class="header__inner">
+                            <div class="header__nav">
+                                <div class="header__nav__main"></div>
+                                <a href="#" class="header__nav__toys">игрушки</a>
+                                <a href="#" class="header__nav__tree">ёлка</a>
+                            </div>
+                            <div class="header__form">
+                                <div class="header__form__input">
+                                    <label for="name"></label>
+                                    <input
+                                        type="text"
+                                        id="search__data"
+                                        name="name"
+                                        required
+                                        minlength="2"
+                                        maxlength="20"
+                                        size="15"
+                                    />
+                                </div>
+                                <div class="header__basket">
+                                    <span class="header__basket__amount">0</span>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
                 </header>
                 <div class="setting__toys">
-                    <div class="setting__toys__inner">
-                        <div class="filter__toys">
-                            <div class="filter__toys__value">
-                                <div class="value__name">Фильтр по значению</div>
-                                <div class="value__setting">
-                                    <div class="value__form"></div>
-                                    <div class="value__color"></div>
-                                    <div class="value__size"></div>
-                                    <div class="value__liked"></div>
-                                </div>
-                            </div>
-                            <div class="filter__toys__range">
-                                <div class="range__name">Фильт по диапазону</div>
-                                <div class="range__setting"></div>
-                            </div>
-                            <div class="filter__toys__sort">
-                                <div class="sort__name">Сортировка</div>
-                                <div class="sort__setting">
-                                    <div class="sort__letter"></div>
-                                    <div class="sort__reset"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="toys">
-                            <div class="toys__inner">
-                                <div class="toys__box">
-                                    <div class="toys__name"></div>
-                                    <div class="toys__description">
-                                        <div class="toys__number"></div>
-                                        <div class="toys__year"></div>
-                                        <div class="toys__form"></div>
-                                        <div class="toys__color"></div>
-                                        <div class="toys__size"></div>
-                                        <div class="toys__liked"></div>
+                    <div class="setting__toys__blur">
+                        <div class="container">
+                            <div class="setting__toys__inner">
+                                <div class="filter__toys">
+                                    <div class="filter__toys__value">
+                                        <h3 class="value__name">Фильтр по значению</h3>
+                                        <div class="value__setting">
+                                            <div class="value__form">
+                                                <div class="form__name">
+                                                    Форма:
+                                                    <button class="form__btn" data-filter="ball"></button>
+                                                    <button class="form__btn" data-filter="bell"></button>
+                                                    <button class="form__btn" data-filter="cone"></button>
+                                                    <button class="form__btn" data-filter="snowFlakes"></button>
+                                                    <button class="form__btn" data-filter="toy"></button>
+                                                </div>
+                                            </div>
+                                            <div class="value__color">
+                                                <div class="color__name">
+                                                    Цвет:
+                                                    <button class="color__btn" data-filter="white"></button>
+                                                    <button class="color__btn" data-filter="yellow"></button>
+                                                    <button class="color__btn" data-filter="red"></button>
+                                                    <button class="color__btn" data-filter="blue"></button>
+                                                    <button class="color__btn" data-filter="green"></button>
+                                                </div>
+                                            </div>
+                                            <div class="value__size">
+                                                <div class="size__name">
+                                                    Размер:
+                                                    <button class="size__btn" data-filter="big"></button>
+                                                    <button class="size__btn" data-filter="medium"></button>
+                                                    <button class="size__btn" data-filter="small"></button>
+                                                </div>
+                                            </div>
+                                            <div class="value__liked">
+                                                <div class="liked__name">Только любимые</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="toys__img"></div>
+                                    <div class="filter__toys__range">
+                                        <h3 class="range__name">Фильтр по диапазону</h3>
+                                        <div class="range__setting">
+                                            <div class="range__setting__instance">
+                                                <div class="slider__count__name">Количество экземпляров</div>
+                                                <div class="slider__count"></div>
+                                            </div>
+                                            <div class="range__setting__year">
+                                                <div class="slider__year__name">Год приобретения</div>
+                                                <div class="slider__year"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="filter__toys__sort">
+                                        <h3 class="sort__name">Сортировка</h3>
+                                        <div class="sort__setting">
+                                            <select class="sort__letter">
+                                                <option value="sort-name-max">По названию от A до Я</option>
+                                                <option value="sort-name-min">По названию от Я до А</option>
+                                                <option value="sort-max">По количеству возрастанию</option>
+                                                <option value="sort-min">По количеству убыванию</option>
+                                            </select>
+                                            <div class="sort__btn">
+                                                <button class="sort__reset">Сброс фильтров</button>
+                                                <button class="sort__save">Сохранения</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="toys">
+                                    <div class="toys__inner"></div>
                                 </div>
                             </div>
                         </div>

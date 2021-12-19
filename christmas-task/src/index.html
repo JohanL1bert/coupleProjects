@@ -52,16 +52,10 @@
                             </div>
                             <div class="header__form">
                                 <div class="header__form__input">
-                                    <label for="name"></label>
-                                    <input
-                                        type="text"
-                                        id="search__data"
-                                        name="name"
-                                        required
-                                        minlength="2"
-                                        maxlength="20"
-                                        size="15"
-                                    />
+                                    <form action="">
+                                        <label for="name"></label>
+                                        <input id="search__data" autocomplete="off" />
+                                    </form>
                                 </div>
                                 <div class="header__basket">
                                     <span class="header__basket__amount">0</span>
@@ -107,7 +101,11 @@
                                                 </div>
                                             </div>
                                             <div class="value__liked">
-                                                <div class="liked__name">Только любимые</div>
+                                                <div class="liked__name">
+                                                    Только любимые
+                                                    <input type="checkbox" class="liked__toys" />
+                                                    <label for="checkbox" class="liked__toys__label"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

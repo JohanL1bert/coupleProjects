@@ -1,8 +1,30 @@
-import { JSONData, SettingObject, ValueObject } from './inteface/templayTypes';
+import { JSONData, SettingObject, SortObject } from './inteface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
-    constructor() {}
+    mainObject: SettingObject;
+    sortObject: SortObject;
+    constructor() {
+        this.mainObject = {
+            isFormBall: false,
+            isFormBell: false,
+            isFormCone: false,
+            isFormSnowFlake: false,
+            isFormToy: false,
+            isColorWhite: false,
+            isColorYellow: false,
+            isColorRed: false,
+            isColorBlue: false,
+            isColorGreen: false,
+            isSizeBig: false,
+            isSizeMedium: false,
+            isSizeSmall: false,
+        };
+
+        this.sortObject = {
+            isSort: 'sort-name-max',
+        };
+    }
 
     public filterSwitchCase(data: string) {
         switch (data) {
@@ -86,11 +108,19 @@ class SwitchValue {
         }
     }
 
-    public filterSelectOption(data: any) {
-        if (data === 'sort-name-max') {
-        } else if (data === 'sort-name-min') {
-        } else if (data === 'sort-max') {
-        } else if (data === 'sort-min') {
+    public filterSelectOption(sortedValue: any, data: any) {
+        if (sortedValue === 'sort-name-max') {
+            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
+            return value;
+        } else if (sortedValue === 'sort-name-min') {
+            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
+            return value;
+        } else if (sortedValue === 'sort-max') {
+            const value = data.sort((a: any, b: any) => a.count - b.count);
+            return value;
+        } else if (sortedValue === 'sort-min') {
+            const value = data.sort((a: any, b: any) => b.count - a.count);
+            return value;
         }
     }
 }
@@ -159,14 +189,15 @@ class ValueFilter extends SwitchValue {
         return arrayValue;
     }
 
-    public async filterAllObj(...args: any) {
-        const [data, mainObject, inputData, selectOptionData] = [...args];
+    public async filterAllObj() {
+        this.nodeRemove();
+        const data = this.getJSON();
+        const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const valueFilteredFromData = this.getFilteredData(dataFromMainObject);
         const arrayDataFiltered = this.returnData(valueFilteredFromData);
         const data1 = await data;
         const firstFilteredArray: any = [];
-        const secondFilteredArray: any = [];
 
         arrayDataFiltered.map((elementValue: any) => {
             return data1.filter((jsonData: any) => {
@@ -179,6 +210,18 @@ class ValueFilter extends SwitchValue {
         });
         const setObj = new Set(firstFilteredArray);
         const array = Array.from(setObj);
+        const array1 = this.filterSelectOption(this.sortObject, array);
+        if (array1 !== undefined) {
+            const setObj = new Set(array1);
+            const array2 = Array.from(setObj);
+            this.nodeRemove();
+            this.renderHTML(array2);
+        } else {
+            const setObj = new Set(firstFilteredArray);
+            const array = Array.from(setObj);
+            this.nodeRemove();
+            this.renderHTML(array);
+        }
         /* if (inputData != undefined) {
             array.filter((el: any) => {
                 for (const key in el) {
@@ -192,7 +235,7 @@ class ValueFilter extends SwitchValue {
             this.renderHTML(secondFilteredArray);
         } else {
             this.renderHTML(array);
-        } */
+        }
 
         //Переписать нормально. Нужно изменять массив и как-то от условий отталкиватся
         //Отлфильтровать нужно уже отфильтрвованный массив
@@ -264,31 +307,25 @@ class ValueFilter extends SwitchValue {
 }
 
 export class ToysSettingFilter extends ValueFilter {
-    mainObject: SettingObject;
     constructor() {
         super();
-        this.mainObject = {
-            isFormBall: false,
-            isFormBell: false,
-            isFormCone: false,
-            isFormSnowFlake: false,
-            isFormToy: false,
-            isColorWhite: false,
-            isColorYellow: false,
-            isColorRed: false,
-            isColorBlue: false,
-            isColorGreen: false,
-            isSizeBig: false,
-            isSizeMedium: false,
-            isSizeSmall: false,
-        };
     }
 
     public saveResetFun(event: any) {
+        const formSelectors = document.querySelectorAll('.form__btn');
+        const colorSelectorBtn = document.querySelectorAll('.color__btn');
+        const sizeSelectorBtn = document.querySelectorAll('.size__btn');
+        const splitArray = [...formSelectors, ...colorSelectorBtn, ...sizeSelectorBtn];
         if (event.target.classList.contains('sort__reset')) {
             for (const key in this.mainObject) {
                 this.mainObject[key] = false;
             }
+            splitArray.map((el) => {
+                if (el.classList.contains('active') || el.classList.contains('active__color')) {
+                    el.classList.remove('active', 'active__color');
+                    this.filterAllObj();
+                }
+            });
         }
         if (event.target.classList.contains('sort__save')) {
             console.log('123');
@@ -309,21 +346,13 @@ export class ToysSettingFilter extends ValueFilter {
 
     public inputFormSort(event: any) {
         const inputData: any = event.target.value;
-        const jsonDATA = this.getJSON();
-        console.log(jsonDATA);
-        this.nodeRemove();
-        this.filterAllObj(jsonDATA, this.mainObject, inputData);
-    }
-
-    public inputFormData(data: string) {
-        return data;
+        return inputData;
     }
 
     public selectOptionsForm(event: any) {
         const value = event.target.value;
-        const jsonDATA = this.getJSON();
-        this.nodeRemove();
-        this.filterAllObj(jsonDATA, this.mainObject, value);
+        this.sortObject = value;
+        this.filterAllObj();
     }
 
     public sortedValue(event: any) {
@@ -333,27 +362,21 @@ export class ToysSettingFilter extends ValueFilter {
             const isValueResult: any = super.filterSwitchCase(sortForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            const jsonDATA = this.getJSON();
-            this.nodeRemove();
-            this.filterAllObj(jsonDATA, this.mainObject);
+            this.filterAllObj();
         }
         if (target.classList.contains('color__btn')) {
             const colorForm: any = super.sortColor(target);
             const isValueResult: any = super.filterSwitchCase(colorForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            const jsonDATA = this.getJSON();
-            this.nodeRemove();
-            this.filterAllObj(jsonDATA, this.mainObject);
+            this.filterAllObj();
         }
         if (target.classList.contains('size__btn')) {
             const sizeForm: any = super.sortSize(target);
             const isValueResult: any = super.filterSwitchCase(sizeForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            const jsonDATA = this.getJSON();
-            this.nodeRemove();
-            this.filterAllObj(jsonDATA, this.mainObject);
+            this.filterAllObj();
         }
     }
 
@@ -366,7 +389,7 @@ export class ToysSettingFilter extends ValueFilter {
         saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
         inputForm?.addEventListener('keyup', this.inputFormSort);
-        selectForm?.addEventListener('change', this.selectOptionsForm);
+        selectForm?.addEventListener('change', this.selectOptionsForm.bind(this));
     }
 
     public cycleSettings() {

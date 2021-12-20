@@ -6,6 +6,7 @@ class SwitchValue {
     sortObject: SortObject;
     rangeObject: rangeObject;
     inputObject: string;
+    favoriteObject: boolean;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -31,6 +32,7 @@ class SwitchValue {
             max: 100,
         };
         this.inputObject = '';
+        this.favoriteObject = false;
     }
 
     public filterSwitchCase(data: string) {
@@ -116,6 +118,10 @@ class SwitchValue {
         }
 
         return filteredObject;
+    }
+
+    public sortCheckbox(data: any) {
+        return data.filter((el: any) => el['favorite'] === true);
     }
 
     public getFilteredData(data: any) {
@@ -271,10 +277,9 @@ class ValueFilter extends SwitchValue {
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
-        const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект
+        const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
         const arrayDataFiltered = this.returnData(valueFilteredFromData);
         const dataFromJson = await data;
-        const firstFilteredArray: any = [];
 
         //Разобраться
         function filterPlainArray(array: any, filters: any) {
@@ -298,6 +303,9 @@ class ValueFilter extends SwitchValue {
         }
         if (this.inputObject.length !== 0) {
             filteredListFromSelectOption = this.SortInput(filteredList);
+        }
+        if (this.favoriteObject) {
+            filteredListFromSelectOption = this.sortCheckbox(filteredListFromSelectOption);
         }
         this.renderHTML(filteredListFromSelectOption);
     }
@@ -325,13 +333,18 @@ class ValueFilter extends SwitchValue {
     public sliderForm() {}
 
     public inputForm() {
-        const inputForm = document.getElementById('search__data');
+        const inputForm = document.getElementById('search__data') as HTMLInputElement;
         return inputForm;
     }
 
     public selectForm() {
         const selectForm = document.querySelector('.sort__letter');
         return selectForm;
+    }
+
+    public checkBox() {
+        const checkBoxSelector = document.querySelector('.liked__toys');
+        return checkBoxSelector;
     }
 
     public sortSize(target: Event) {
@@ -403,6 +416,8 @@ export class ToysSettingFilter extends ValueFilter {
                     el.classList.remove('active', 'active__color');
                 }
             });
+            const resetInputForm = this.inputForm();
+            resetInputForm.value = '';
             this.filterAllObj();
         }
         if (event.target.classList.contains('sort__save')) {
@@ -441,68 +456,28 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
+    //Переписать через дженерик и checked target
+    public favoriteCheckbox(event: Event) {
+        const ischecked = (<HTMLInputElement>event.target).checked;
+        this.favoriteObject = Boolean(ischecked);
+        this.filterAllObj();
+    }
+
     private addListener() {
         const arrayBtn = this.getBtn();
         const saveClearBtn = this.sortBtn();
         const inputForm = this.inputForm();
         const selectForm = this.selectForm();
+        const selectorCheckbox = this.checkBox();
         arrayBtn.forEach((el) => el?.addEventListener('click', this.sortedValue.bind(this)));
         saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
         inputForm?.addEventListener('keyup', this.inputFormSort);
         selectForm?.addEventListener('change', this.selectOptionsForm.bind(this));
+        selectorCheckbox?.addEventListener('change', this.favoriteCheckbox.bind(this));
     }
 
     public cycleSettings() {
         this.addListener();
     }
 }
-
-/*         console.log(arrayDataFiltered); */
-/*         dataFromJson.map((el: any) => {
-            for (const key of el) {
-                console.log(key);
-            }
-        });
-        console.log(firstFilteredArray); */
-/* arrayDataFiltered.map((elementValue: any) => {
-            return data1.filter((jsonData: any) => {
-                for (const key in jsonData) {
-                    if (jsonData[key] === elementValue) {
-                        firstFilteredArray.push(jsonData);
-                    }
-                }
-            });
-        });
-        const setObj = new Set(firstFilteredArray);
-        const array = Array.from(setObj);
-        const array1 = this.filterSelectOption(this.sortObject, array);
-        if (array1 !== undefined) {
-            this.nodeRemove();
-            const setObj = new Set(array1);
-            const array2 = Array.from(setObj);
-            this.renderHTML(array2);
-        } else {
-            this.nodeRemove();
-            const setObj = new Set(firstFilteredArray);
-            const array = Array.from(setObj);
-            this.renderHTML(array);
-        } */
-/* if (inputData != undefined) {
-            array.filter((el: any) => {
-                for (const key in el) {
-                    if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
-                        if (el[key].includes(inputData)) {
-                            secondFilteredArray.push(el);
-                        }
-                    }
-                }
-            });
-            this.renderHTML(secondFilteredArray);
-        } else {
-            this.renderHTML(array);
-        }
-
-        //Переписать нормально. Нужно изменять массив и как-то от условий отталкиватся
-        //Отлфильтровать нужно уже отфильтрвованный массив
-        /* array.filter((el: any) => console.log(el)); */

@@ -267,7 +267,6 @@ class ValueFilter extends SwitchValue {
     }
 
     public filterArray(objectData: any) {
-        /*  console.log('data', objectData); */
         const arrayValue = [];
         for (const key in objectData) {
             if (objectData[key] === true) arrayValue.push(key);
@@ -280,7 +279,7 @@ class ValueFilter extends SwitchValue {
         array.filter((el: any) => {
             for (const key in el) {
                 if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
-                    if (el[key].includes(this.inputObject.toLowerCase())) {
+                    if (el[key].toLowerCase().includes(this.inputObject.toLowerCase())) {
                         secondFilteredArray.push(el);
                     }
                 }
@@ -351,8 +350,6 @@ class ValueFilter extends SwitchValue {
         const sortSave = document.querySelector('.sort__save');
         return [sortReset, sortSave];
     }
-
-    public sliderForm() {}
 
     public inputForm() {
         const inputForm = document.getElementById('search__data') as HTMLInputElement;
@@ -442,10 +439,24 @@ export class ToysSettingFilter extends ValueFilter {
             const resetInputForm = this.inputForm();
             resetInputForm.value = '';
             this.inputObject = '';
+            //Обновляем слайдер лет
+            const getSliderYear: any = document.querySelector('.slider__year');
+            getSliderYear.noUiSlider.set([1940, 2020]);
+            this.sliderYear['min'] = 1940;
+            this.sliderYear['max'] = 2020;
+            //обновляем слайдер количества
+            const getCountSlider: any = document.querySelector('.slider__count');
+            getCountSlider.noUiSlider.set([1, 12]);
+            this.sliderCount['min'] = 1;
+            this.sliderCount['max'] = 12;
+            //
+            const checkbox = document.querySelector('.liked__toys') as HTMLInputElement;
+            checkbox.checked = false;
+            this.favoriteObject = false;
             this.filterAllObj();
         }
         if (event.target.classList.contains('sort__save')) {
-            console.log('123');
+            console.log('Она не работет. Сорри хВ');
         }
     }
 

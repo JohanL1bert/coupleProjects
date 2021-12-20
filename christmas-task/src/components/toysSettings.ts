@@ -1,9 +1,10 @@
-import { JSONData, SettingObject, SortObject } from './inteface/templayTypes';
+import { SettingObject, SortObject, rangeObject } from './inteface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
     mainObject: SettingObject;
     sortObject: SortObject;
+    rangeObject: rangeObject;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -23,6 +24,10 @@ class SwitchValue {
 
         this.sortObject = {
             isSort: 'sort-name-max',
+        };
+        this.rangeObject = {
+            min: 0,
+            max: 100,
         };
     }
 
@@ -55,6 +60,60 @@ class SwitchValue {
             default:
                 return ['isSizeSmall', 'small;'];
         }
+    }
+
+    public secondFilteredData(data: any) {
+        const valueOject: any = {
+            isFormBall: 'шар',
+            isFormBell: 'колокольчик',
+            isFormCone: 'шишка',
+            isFormSnowFlake: 'снежинка',
+            isFormToy: 'фигурка',
+            isColorWhite: 'белый',
+            isColorYellow: 'желтый',
+            isColorRed: 'красный',
+            isColorBlue: 'синий',
+            isColorGreen: 'зелёный',
+            isSizeBig: 'большой',
+            isSizeMedium: 'средний',
+            isSizeSmall: 'малый',
+        };
+
+        const arrayValue: string[] = [];
+
+        const filteredObject: any = {
+            shape: [],
+            color: [],
+            size: [],
+        };
+
+        data.map((el: any) => {
+            if (el in valueOject) {
+                arrayValue.push(valueOject[el]);
+            }
+        });
+
+        for (const key of arrayValue) {
+            if (key === 'шар' || key === 'колокольчик' || key === 'шишка' || key === 'снежинка' || key === 'фигурка') {
+                filteredObject['shape'].push(key);
+            } else if (
+                key === 'белый' ||
+                key === 'желтый' ||
+                key === 'красный' ||
+                key === 'синий' ||
+                key === 'зелёный'
+            ) {
+                filteredObject['color'].push(key);
+            } else if (key === 'большой' || key === 'средний' || key === 'малый') {
+                filteredObject['size'].push(key);
+            }
+        }
+
+        for (let k in filteredObject) {
+            if (filteredObject[k] == '') delete filteredObject[k];
+        }
+
+        return filteredObject;
     }
 
     public getFilteredData(data: any) {
@@ -96,7 +155,7 @@ class SwitchValue {
                 'снежинка',
                 'фигурка',
                 'белый',
-                'жетый',
+                'желтый',
                 'красный',
                 'синий',
                 'зелёный',
@@ -116,10 +175,10 @@ class SwitchValue {
             const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
             return value;
         } else if (sortedValue === 'sort-max') {
-            const value = data.sort((a: any, b: any) => a.count - b.count);
+            const value = data.sort((a: any, b: any) => a.year - b.year);
             return value;
         } else if (sortedValue === 'sort-min') {
-            const value = data.sort((a: any, b: any) => b.count - a.count);
+            const value = data.sort((a: any, b: any) => b.year - a.year);
             return value;
         }
     }
@@ -162,7 +221,7 @@ class ValueFilter extends SwitchValue {
                             Размер: <span class="size__view">${el.size}</span>
                         </div>
                         <div class="toys__liked">
-                            Любимая: <span class="liked__toy">${el.favorite}</span>
+                            Любимая: <span class="liked__toy">${el.favorite == true ? 'да' : 'нет'}</span>
                         </div>
                         </div>
                         <div class="toys__img">
@@ -182,6 +241,7 @@ class ValueFilter extends SwitchValue {
     }
 
     public filterArray(objectData: any) {
+        /*  console.log('data', objectData); */
         const arrayValue = [];
         for (const key in objectData) {
             if (objectData[key] === true) arrayValue.push(key);
@@ -194,52 +254,30 @@ class ValueFilter extends SwitchValue {
         const data = this.getJSON();
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
-        const valueFilteredFromData = this.getFilteredData(dataFromMainObject);
+        const filterData = this.secondFilteredData(dataFromMainObject);
+        const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект
         const arrayDataFiltered = this.returnData(valueFilteredFromData);
-        const data1 = await data;
+        const dataFromJson = await data;
         const firstFilteredArray: any = [];
 
-        arrayDataFiltered.map((elementValue: any) => {
-            return data1.filter((jsonData: any) => {
-                for (const key in jsonData) {
-                    if (jsonData[key] === elementValue) {
-                        firstFilteredArray.push(jsonData);
-                    }
-                }
+        //Разобраться
+        function filterPlainArray(array: any, filters: any) {
+            const getValue = (value: any) => (typeof value === 'string' ? value.toUpperCase() : value);
+            const filterKeys = Object.keys(filters);
+
+            return array.filter((item: any) => {
+                // validates all filter criteria
+                return filterKeys.every((key) => {
+                    // ignores an empty filter
+                    if (!filters[key].length) return true;
+                    return filters[key].find((filter: any) => getValue(filter) === getValue(item[key]));
+                });
             });
-        });
-        const setObj = new Set(firstFilteredArray);
-        const array = Array.from(setObj);
-        const array1 = this.filterSelectOption(this.sortObject, array);
-        if (array1 !== undefined) {
-            const setObj = new Set(array1);
-            const array2 = Array.from(setObj);
-            this.nodeRemove();
-            this.renderHTML(array2);
-        } else {
-            const setObj = new Set(firstFilteredArray);
-            const array = Array.from(setObj);
-            this.nodeRemove();
-            this.renderHTML(array);
-        }
-        /* if (inputData != undefined) {
-            array.filter((el: any) => {
-                for (const key in el) {
-                    if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
-                        if (el[key].includes(inputData)) {
-                            secondFilteredArray.push(el);
-                        }
-                    }
-                }
-            });
-            this.renderHTML(secondFilteredArray);
-        } else {
-            this.renderHTML(array);
         }
 
-        //Переписать нормально. Нужно изменять массив и как-то от условий отталкиватся
-        //Отлфильтровать нужно уже отфильтрвованный массив
-        /* array.filter((el: any) => console.log(el)); */
+        const filteredList = filterPlainArray(dataFromJson, filterData); //Фильт по значениях: Форма, Цвет, размер
+        const filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
+        this.renderHTML(filteredListFromSelectOption);
     }
 
     public async getJSON() {
@@ -304,6 +342,23 @@ class ValueFilter extends SwitchValue {
         const [...valueDOM] = document.querySelectorAll('.toys__box');
         valueDOM.map((el: any) => el.remove());
     }
+
+    public debounceDecorator(fn: any, ms: any) {
+        let isCooldown: any;
+        return (...args: any) => {
+            const funCall = () => {
+                return fn.apply(this, args);
+            };
+
+            clearTimeout(isCooldown);
+            isCooldown = setTimeout(funCall, ms);
+        };
+    }
+
+    public inputFormSort(event: any) {
+        const inputData: any = event.target.value;
+        return inputData;
+    }
 }
 
 export class ToysSettingFilter extends ValueFilter {
@@ -323,30 +378,13 @@ export class ToysSettingFilter extends ValueFilter {
             splitArray.map((el) => {
                 if (el.classList.contains('active') || el.classList.contains('active__color')) {
                     el.classList.remove('active', 'active__color');
-                    this.filterAllObj();
                 }
             });
+            this.filterAllObj();
         }
         if (event.target.classList.contains('sort__save')) {
             console.log('123');
         }
-    }
-
-    private debounceDecorator(fn: any, ms: any) {
-        let isCooldown: any;
-        return (...args: any) => {
-            const funCall = () => {
-                return fn.apply(this, args);
-            };
-
-            clearTimeout(isCooldown);
-            isCooldown = setTimeout(funCall, ms);
-        };
-    }
-
-    public inputFormSort(event: any) {
-        const inputData: any = event.target.value;
-        return inputData;
     }
 
     public selectOptionsForm(event: any) {
@@ -396,3 +434,52 @@ export class ToysSettingFilter extends ValueFilter {
         this.addListener();
     }
 }
+
+/*         console.log(arrayDataFiltered); */
+/*         dataFromJson.map((el: any) => {
+            for (const key of el) {
+                console.log(key);
+            }
+        });
+        console.log(firstFilteredArray); */
+/* arrayDataFiltered.map((elementValue: any) => {
+            return data1.filter((jsonData: any) => {
+                for (const key in jsonData) {
+                    if (jsonData[key] === elementValue) {
+                        firstFilteredArray.push(jsonData);
+                    }
+                }
+            });
+        });
+        const setObj = new Set(firstFilteredArray);
+        const array = Array.from(setObj);
+        const array1 = this.filterSelectOption(this.sortObject, array);
+        if (array1 !== undefined) {
+            this.nodeRemove();
+            const setObj = new Set(array1);
+            const array2 = Array.from(setObj);
+            this.renderHTML(array2);
+        } else {
+            this.nodeRemove();
+            const setObj = new Set(firstFilteredArray);
+            const array = Array.from(setObj);
+            this.renderHTML(array);
+        } */
+/* if (inputData != undefined) {
+            array.filter((el: any) => {
+                for (const key in el) {
+                    if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
+                        if (el[key].includes(inputData)) {
+                            secondFilteredArray.push(el);
+                        }
+                    }
+                }
+            });
+            this.renderHTML(secondFilteredArray);
+        } else {
+            this.renderHTML(array);
+        }
+
+        //Переписать нормально. Нужно изменять массив и как-то от условий отталкиватся
+        //Отлфильтровать нужно уже отфильтрвованный массив
+        /* array.filter((el: any) => console.log(el)); */

@@ -274,6 +274,11 @@ class ValueFilter extends SwitchValue {
         return arrayValue;
     }
 
+    private checkerInput() {
+        const idField = document.getElementById('search__data') as HTMLInputElement;
+        idField.value = 'Ничего не найдено';
+    }
+
     public SortInput(array: any) {
         const secondFilteredArray: any = [];
         array.filter((el: any) => {
@@ -285,7 +290,13 @@ class ValueFilter extends SwitchValue {
                 }
             }
         });
-        return secondFilteredArray;
+
+        const filtredFromDuplicate = new Set(secondFilteredArray);
+        const filtredeArray = Array.from(filtredFromDuplicate);
+        if (filtredeArray.length === 0) {
+            this.checkerInput();
+        }
+        return filtredeArray;
     }
 
     public async filterAllObj() {

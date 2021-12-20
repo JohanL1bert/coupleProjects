@@ -77,6 +77,14 @@
             @include main-fonts-style;
         }
     }
+    &__form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &__input {
+            margin-right: 20px;
+        }
+    }
     &__basket {
         background-image: url(../assets/svg/ball-2.svg);
         background-repeat: no-repeat;

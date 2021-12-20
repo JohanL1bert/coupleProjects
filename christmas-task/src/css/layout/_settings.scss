@@ -90,6 +90,7 @@
 
 .sort {
     &__name {
+        margin-top: 0px;
         @include toys-fonts-style;
     }
     &__setting {
@@ -396,4 +397,60 @@ input[type='checkbox']:after {
 
 input[type='checkbox']:checked:after {
     opacity: 1;
+}
+
+//Слайдер
+.noUi-connect {
+    background: rgb(2, 36, 41);
+}
+.noUi-horizontal .noUi-handle,
+.noUi-vertical .noUi-handle {
+    background: rgb(2, 4, 31);
+}
+.noUi-target.noUi-horizontal .noUi-tooltip {
+    background-color: rgb(245, 245, 245);
+}
+
+.noUi-target {
+    height: 10px;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 34px;
+    height: 28px;
+    right: -17px;
+    top: -10px;
+}
+
+.noUi-tooltip {
+    width: 40px;
+    height: 100%;
+    border-radius: 10px;
+    color: rgba(45, 35, 196, 0.884);
+    font-family: 'Neucha';
+}
+
+.noUi-handle {
+    border-radius: 10px;
+}
+
+.noUi-handle:before,
+.noUi-handle:after {
+    display: block;
+    position: absolute;
+    height: 14px;
+    width: 1px;
+    background: #e8e7e6;
+    left: 14px;
+    top: 6px;
+}
+
+.noUi-handle:before,
+.noUi-handle:after {
+    all: revert;
+}
+
+.noUi-horizontal .noUi-handle,
+.noUi-vertical .noUi-handle {
+    background-color: rgba(6, 7, 95, 0.918);
 }

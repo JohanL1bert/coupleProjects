@@ -1,6 +1,7 @@
 @import 'normalize.css';
 @import './base/reset';
 @import './fonts/fonts';
+@import 'nouislider/dist/nouislider.css';
 @import './abstracts/variables';
 @import './abstracts/mixins';
 @import './base/container';
@@ -16,7 +17,7 @@ html {
 body {
     width: 100%;
     max-width: 100%;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
 }
 
 //overflow-x: hidden; или убирать одну картинку

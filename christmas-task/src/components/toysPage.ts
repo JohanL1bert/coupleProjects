@@ -46,10 +46,10 @@ export class ToysPage {
             start: [1, 12],
 
             // ... must be at least 300 apart
-            margin: 0,
+            /* margin: 0, */
 
             // ... but no more than 600
-            limit: 600,
+            /*             limit: 600, */
 
             // Display colored bars between handles
             connect: true,
@@ -58,7 +58,8 @@ export class ToysPage {
             /* direction: 'rtl', */
 
             // Move handle on tap, bars are draggable
-            behaviour: 'tap-drag',
+            /* behaviour: 'tap-drag', */
+
             tooltips: wNumb({ decimals: 0 }),
         });
 

@@ -5,6 +5,7 @@ class SwitchValue {
     mainObject: SettingObject;
     sortObject: SortObject;
     rangeObject: rangeObject;
+    inputObject: string;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -29,6 +30,7 @@ class SwitchValue {
             min: 0,
             max: 100,
         };
+        this.inputObject = '';
     }
 
     public filterSwitchCase(data: string) {
@@ -249,6 +251,20 @@ class ValueFilter extends SwitchValue {
         return arrayValue;
     }
 
+    public SortInput(array: any) {
+        const secondFilteredArray: any = [];
+        array.filter((el: any) => {
+            for (const key in el) {
+                if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
+                    if (el[key].includes(this.inputObject.toLowerCase())) {
+                        secondFilteredArray.push(el);
+                    }
+                }
+            }
+        });
+        return secondFilteredArray;
+    }
+
     public async filterAllObj() {
         this.nodeRemove();
         const data = this.getJSON();
@@ -276,7 +292,13 @@ class ValueFilter extends SwitchValue {
         }
 
         const filteredList = filterPlainArray(dataFromJson, filterData); //Фильт по значениях: Форма, Цвет, размер
-        const filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
+        let filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
+        if (filteredListFromSelectOption === undefined) {
+            filteredListFromSelectOption = filteredList;
+        }
+        if (this.inputObject.length !== 0) {
+            filteredListFromSelectOption = this.SortInput(filteredList);
+        }
         this.renderHTML(filteredListFromSelectOption);
     }
 
@@ -357,7 +379,8 @@ class ValueFilter extends SwitchValue {
 
     public inputFormSort(event: any) {
         const inputData: any = event.target.value;
-        return inputData;
+        this.inputObject = inputData;
+        this.filterAllObj();
     }
 }
 

@@ -4,9 +4,11 @@ import { ToysPage } from './toysPage';
 class SwitchValue {
     mainObject: SettingObject;
     sortObject: SortObject;
-    rangeObject: rangeObject;
+
     inputObject: string;
     favoriteObject: boolean;
+    sliderYear: any;
+    sliderCount: any;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -27,12 +29,16 @@ class SwitchValue {
         this.sortObject = {
             isSort: 'sort-name-max',
         };
-        this.rangeObject = {
-            min: 0,
-            max: 100,
-        };
         this.inputObject = '';
         this.favoriteObject = false;
+        this.sliderYear = {
+            min: 1940,
+            max: 2020,
+        };
+        this.sliderCount = {
+            min: 1,
+            max: 12,
+        };
     }
 
     public filterSwitchCase(data: string) {
@@ -190,6 +196,18 @@ class SwitchValue {
             return value;
         }
     }
+
+    public sortSliderByCount(dataJSON: any) {
+        return dataJSON.filter(
+            (el: any) => this.sliderCount['min'] <= el['count'] && this.sliderCount['max'] >= el['count']
+        );
+    }
+
+    public sortSliderByYear(dataJSON: any) {
+        return dataJSON.filter(
+            (el: any) => this.sliderYear['min'] <= el['year'] && this.sliderYear['max'] >= el['year']
+        );
+    }
 }
 
 class ValueFilter extends SwitchValue {
@@ -307,6 +325,10 @@ class ValueFilter extends SwitchValue {
         if (this.favoriteObject) {
             filteredListFromSelectOption = this.sortCheckbox(filteredListFromSelectOption);
         }
+
+        filteredListFromSelectOption = this.sortSliderByCount(filteredListFromSelectOption);
+
+        filteredListFromSelectOption = this.sortSliderByYear(filteredListFromSelectOption);
         this.renderHTML(filteredListFromSelectOption);
     }
 
@@ -416,8 +438,10 @@ export class ToysSettingFilter extends ValueFilter {
                     el.classList.remove('active', 'active__color');
                 }
             });
+            //Обнуляем ввод инпут
             const resetInputForm = this.inputForm();
             resetInputForm.value = '';
+            this.inputObject = '';
             this.filterAllObj();
         }
         if (event.target.classList.contains('sort__save')) {
@@ -463,6 +487,34 @@ export class ToysSettingFilter extends ValueFilter {
         this.filterAllObj();
     }
 
+    public sliderOnChangeCount(eventHandler: any) {
+        const [minimum, maximum] = eventHandler;
+        const minNum = Math.round(+minimum);
+        const maxNum = Math.round(+maximum);
+        this.sliderCount['min'] = minNum;
+        this.sliderCount['max'] = maxNum;
+        this.filterAllObj();
+    }
+
+    public sliderOnChangeYear(eventHandler: any) {
+        const [minimum, maximum] = eventHandler;
+        const minNum = Math.round(+minimum);
+        const maxNum = Math.round(+maximum);
+        this.sliderYear['min'] = minNum;
+        this.sliderYear['max'] = maxNum;
+        this.filterAllObj();
+    }
+
+    public sliderChgangeYear() {
+        const getSliderYear: any = document.querySelector('.slider__year');
+        getSliderYear.noUiSlider.on('change', this.sliderOnChangeYear.bind(this));
+    }
+
+    public sliderSelector() {
+        const getCountSlider: any = document.querySelector('.slider__count');
+        getCountSlider.noUiSlider.on('change', this.sliderOnChangeCount.bind(this));
+    }
+
     private addListener() {
         const arrayBtn = this.getBtn();
         const saveClearBtn = this.sortBtn();
@@ -475,6 +527,8 @@ export class ToysSettingFilter extends ValueFilter {
         inputForm?.addEventListener('keyup', this.inputFormSort);
         selectForm?.addEventListener('change', this.selectOptionsForm.bind(this));
         selectorCheckbox?.addEventListener('change', this.favoriteCheckbox.bind(this));
+        this.sliderSelector();
+        this.sliderChgangeYear();
     }
 
     public cycleSettings() {

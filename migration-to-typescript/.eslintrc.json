@@ -12,7 +12,6 @@
     },
     "ignorePatterns": ["webpack.config.js"],
     "rules": {
-        "no-debugger": "off",
         "no-console": 1,
         "class-methods-use-this": "off",
         "@typescript-eslint/no-explicit-any": "error",

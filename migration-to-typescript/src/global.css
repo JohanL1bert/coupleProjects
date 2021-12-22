@@ -58,10 +58,18 @@ footer .copyright:before {
 
 .logo {
     height: 74px;
-    max-width: 120px;
+    max-width: 140px;
+    padding-right: 20px;
+}
+
+.logo__link {
 }
 
 .logo__img {
     height: 100%;
     width: 100%;
+}
+
+main {
+    min-height: calc(100vh - 240px);
 }

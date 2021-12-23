@@ -1,0 +1,201 @@
+.tree__page {
+    min-height: calc(100vh - 140px);
+    background-image: url(../assets/main-page/main_background.png);
+
+    &__blur {
+        min-height: calc(100vh - 140px);
+        background: rgba(22, 41, 41, 0.5);
+        backdrop-filter: blur(3px);
+    }
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.tree {
+    &__settings {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+    }
+}
+
+.snow__voice__setting {
+    display: flex;
+    justify-content: space-around;
+}
+
+.snow__setting {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../assets/svg/audio.svg);
+    width: 40px;
+    height: 40px;
+}
+
+.music__setting {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../assets/svg/snow.svg);
+    width: 40px;
+    height: 40px;
+}
+
+.christmas__tree {
+    &__name {
+    }
+    &__list {
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+    }
+    &__item {
+        @include christmas-tree-box;
+        &:nth-child(1) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/1.png);
+        }
+        &:nth-child(2) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/2.png);
+        }
+        &:nth-child(3) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/3.png);
+        }
+        &:nth-child(4) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/4.png);
+        }
+        &:nth-child(5) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/5.png);
+        }
+        &:nth-child(6) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/tree/6.png);
+        }
+    }
+}
+
+.christmas__background {
+    &__name {
+    }
+    &__list {
+        display: grid;
+        grid-gap: 1vw;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    &__item {
+        width: 65px;
+        height: 65px;
+        background-color: rgba(22, 41, 41, 0.5);
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #cccc;
+        &:nth-child(1) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/1.jpg);
+        }
+        &:nth-child(2) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/2.jpg);
+        }
+        &:nth-child(3) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/3.jpg);
+        }
+        &:nth-child(4) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/4.jpg);
+        }
+        &:nth-child(5) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/5.jpg);
+        }
+        &:nth-child(6) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/6.jpg);
+        }
+        &:nth-child(7) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/7.jpg);
+        }
+        &:nth-child(8) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/8.jpg);
+        }
+        &:nth-child(9) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/9.jpg);
+        }
+        &:nth-child(10) {
+            background-repeat: no-repeat;
+            background-size: auto 111px;
+            background-position: center;
+            background-image: url(../assets/tree-page/bg/10.jpg);
+        }
+    }
+}
+
+.garlands {
+    &__setting__color {
+    }
+    &__name {
+    }
+    &__inner {
+    }
+    &__list {
+    }
+    &__item {
+    }
+    &__toggle__button {
+    }
+}
+
+.tree__background {
+    margin: 0 60px;
+    border-radius: 10px;
+    width: 800px;
+    height: 800px;
+    background-image: url(../assets/tree-page/bg/1.jpg);
+    background-size: auto 800px;
+    background-repeat: no-repeat;
+}
+
+.tree__toys {
+    width: 400px;
+}

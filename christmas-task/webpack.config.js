@@ -22,6 +22,7 @@ module.exports = {
     devServer: {
         open: true,
         port: 8000,
+        watchFiles: ['./src/index.html'],
     },
     plugins: [
         /* new FaviconsWebpackPlugin('./assets/favicon.ico'), */

@@ -54,6 +54,10 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
+                test: /\.mp3$/,
+                type: 'asset/resource',
+            },
+            {
                 test: /\.s[ac]ss$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },

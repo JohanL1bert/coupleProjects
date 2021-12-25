@@ -18,23 +18,19 @@
         display: flex;
         flex-direction: column;
         width: 400px;
+        justify-content: space-between;
+        padding-top: 25px;
+        padding-bottom: 25px;
     }
 }
 
 .snow__voice__setting {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 120px;
 }
 
 .snow__setting {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(../assets/svg/audio.svg);
-    width: 40px;
-    height: 40px;
-}
-
-.music__setting {
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(../assets/svg/snow.svg);
@@ -42,8 +38,17 @@
     height: 40px;
 }
 
+.music__setting {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../assets/svg/audio.svg);
+    width: 40px;
+    height: 40px;
+}
+
 .christmas__tree {
     &__name {
+        @include tree-setting-name;
     }
     &__list {
         display: grid;
@@ -93,7 +98,11 @@
 }
 
 .christmas__background {
+    &__setting {
+        @include tree-setting-container;
+    }
     &__name {
+        @include tree-setting-name;
     }
     &__list {
         display: grid;
@@ -177,25 +186,165 @@
     &__name {
     }
     &__inner {
+        display: flex;
+        justify-content: space-between;
     }
     &__list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 200px;
     }
     &__item {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 1px solid gray;
     }
     &__toggle__button {
     }
 }
 
-.tree__background {
-    margin: 0 60px;
-    border-radius: 10px;
-    width: 800px;
-    height: 800px;
-    background-image: url(../assets/tree-page/bg/1.jpg);
-    background-size: auto 800px;
-    background-repeat: no-repeat;
+.tree {
+    &__background {
+        margin: 0 60px;
+        border-radius: 10px;
+        width: 800px;
+        height: 800px;
+        background-image: url(../assets/tree-page/bg/1.jpg);
+        background-size: auto 800px;
+        background-repeat: no-repeat;
+        transition: 0.3s ease-in-out;
+    }
+    &__toys {
+        width: 400px;
+    }
+    &__form {
+        margin-top: 60px;
+        position: relative;
+        width: 500px;
+        height: 715px;
+        margin-left: auto;
+        margin-right: auto;
+        background-image: url(../assets/tree-page/tree/1.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 10;
+        transition: 0.3s ease-in-out;
+    }
 }
 
-.tree__toys {
-    width: 400px;
+.multicolor {
+    background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8);
+}
+
+.red-color {
+    background-color: red;
+}
+
+.blue-color {
+    background-color: blue;
+}
+
+.yellow-color {
+    background-color: yellow;
+}
+
+.green-color {
+    background-color: green;
+}
+
+.flake__snow {
+    display: inline-block;
+    font-family: weathericons;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    z-index: 100;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-10vh);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+.flake {
+    color: rgb(247, 252, 243);
+    font-size: 1.2rem;
+    padding: 2px 2px;
+    animation: fall 2s linear forwards infinite;
+    animation-delay: 1s;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-10vh);
+    }
+    to {
+        transform: translateY(90vh);
+    }
+}
+
+.wi {
+    position: relative;
+    display: inline-block;
+    font-family: weathericons;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.wi-fw {
+    text-align: center;
+    width: 1.4em;
+}
+.wi-rotate-90 {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.wi-rotate-180 {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.wi-rotate-270 {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+.wi-flip-horizontal {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+    -webkit-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+.wi-flip-vertical {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+    -webkit-transform: scale(1, -1);
+    -ms-transform: scale(1, -1);
+    transform: scale(1, -1);
+}
+
+.wi-snowflake-cold:before {
+    content: '\f076';
+}
+
+.snowflakes {
+    position: absolute;
+    top: -70px;
+    visibility: hidden;
+
+    &__active {
+        visibility: visible;
+    }
 }

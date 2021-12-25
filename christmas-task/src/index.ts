@@ -1,57 +1,74 @@
 import './css/style.scss';
 import { ToysPage } from './components/toysPage';
 import { ToysSettingFilter } from './components/toysSettings';
+import { AudioTree } from './components/treePage';
 
-const run = () => {
-    const toysArray = new ToysPage();
-    toysArray.prerender();
-    toysArray.prerenderSlider();
-};
+class Router {
+    headerMain: HTMLElement;
+    headerNavTree: HTMLElement;
+    mainBtn: HTMLButtonElement;
+    mainPage: HTMLElement;
+    settingPage: HTMLElement;
+    treePage: HTMLElement;
+    formInput: HTMLFormElement;
+    headerTree: HTMLElement;
+    toysPage: ToysPage;
+    newSetting: ToysSettingFilter;
+    playPage: AudioTree;
+    constructor() {
+        this.headerMain = document.querySelector('.header__nav__toys') as HTMLElement;
+        this.headerNavTree = document.querySelector('.header__nav__tree') as HTMLElement;
+        this.mainBtn = document.querySelector('.main__btn') as HTMLButtonElement;
+        this.mainPage = document.querySelector('.main') as HTMLElement;
+        this.settingPage = document.querySelector('.setting') as HTMLElement;
+        this.treePage = document.querySelector('.tree__page') as HTMLElement;
+        this.formInput = document.querySelector('form') as HTMLFormElement;
+        this.headerTree = document.querySelector('.header__tree') as HTMLElement;
+        this.toysPage = new ToysPage();
+        this.newSetting = new ToysSettingFilter();
+        this.playPage = new AudioTree();
+    }
 
-run();
+    public hideMainPage(event: Event) {
+        const target = event.target as HTMLElement;
+        if (target.classList.value === 'header__nav__toys') {
+            this.mainPage.style.display = 'none';
+            this.treePage.style.display = 'none';
+            this.settingPage.style.display = 'block';
+            this.formInput.style.display = 'block';
+        } else if (target.classList.value === 'header__nav__tree') {
+            this.mainPage.style.display = 'none';
+            this.settingPage.style.display = 'none';
+            this.formInput.style.display = 'none';
+            this.treePage.style.display = 'block';
+        } else if (target.classList.value === 'header__tree') {
+            this.settingPage.style.display = 'none';
+            this.formInput.style.display = 'none';
+            this.treePage.style.display = 'none';
+            this.mainPage.style.display = 'block';
+        } else {
+            this.mainPage.style.display = 'none';
+            this.treePage.style.display = 'none';
+            this.formInput.style.display = 'block';
+            this.settingPage.style.display = 'block';
+        }
+    }
 
-const newSetting = new ToysSettingFilter();
+    public defaultRender() {
+        this.toysPage.prerender();
+        this.toysPage.prerenderSlider();
+        this.newSetting.cycleSettings();
+        this.playPage.cycleToys();
+    }
 
-newSetting.cycleSettings();
+    public navigation() {
+        this.headerMain.addEventListener('click', this.hideMainPage.bind(this));
+        this.headerNavTree.addEventListener('click', this.hideMainPage.bind(this));
+        this.mainBtn.addEventListener('click', this.hideMainPage.bind(this));
+        this.headerTree.addEventListener('click', this.hideMainPage.bind(this));
+    }
+}
 
-console.log(`  
-1. Страница с игрушками содержит карточки всех игрушек, фильтры, строку поиска, поле и т.д. +10
-2. Карточка игрушки содержит её название, форму, цвет, год, размер +10
-3.Добавления игрушек в избранное нет +0
-4.Сортировка:
--Сортировка игрушек по названию в возрастающем и спадающем порядке +10
--Сортировка игрушек по году их приобретения в возрастающем и спадающем порядке +10
-5.Фильтры в указанном диапазоне:
--Фильтры по количеству экземпляров +10
--Фильтры по году покупки +10
--Для фильтрации используется рендж слайдер с двумя ползунками +10
-6. Фильтр по значению:
--Фильтры по форме +5
--Фильтры по цвету +5
--Фильтры по размеру +5
--Можно отобразить только любимые игрушки+5
--Можно отфильтровать по нескольким фильтрам одного типа +10
-7. Фильтрация по нескольким фильтрам разного типа +20
-8. Сброс фильтров
--Есть кнопка ресет для сброса фильтров +10
--Кнопка ресет сбрасывает фильтры по значениям, по диапазону и поиск. Оставляя сортировку +10
-9. Сохранение настроек в локал сторедж - нет +0
-10. Поиск
-- При открытие курсор находится в поле поиска +2
-- Автозаполнения нет +2
-- Есть плейсхолдер +2
-- Нет крестика для очистики +0
-- Если нет совпадения выводится фраза не найдено +10
-- Если очистить поле поиска отображаються игрушки, который соотвествую выбранным фильтрам и настройкам +10
-11. Допольнительный функционал.
-Его нет.
-Разве что поиск в input ищет по названию, цвету, размеру и форме
-На усмотрение добавлять баллы или нет.
-Итого: 166
-
-Насчет верстки есть некоторые проблемы, не успел всё стилизовать и адаптировать. Слайдер мог получше сделать.
-Ввод input стоит задержка 2 сек, чтобы не долбить GitHub запросами. Срабатывает после того как в поле не вводится ничего 2 сек.
-Картинки иногда могут долго прогружатся, так как json и картинки я получаю извне, с гитхаба. Картинки ужал, но все равно летают 
-и грузятся бывают долго, зависит от скорости интернета.
-
-`);
+const app = new Router();
+app.defaultRender();
+app.navigation();

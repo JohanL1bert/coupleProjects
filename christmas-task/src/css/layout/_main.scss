@@ -1,5 +1,5 @@
 .main {
-    height: 100vh;
+    min-height: calc(100vh - 140px);
     background-image: url(../assets/main-page/main_background.png);
     background-size: cover;
     background-attachment: fixed;
@@ -58,12 +58,21 @@
 }
 
 .header {
+    &__tree {
+        background-image: url(../assets/svg/tree.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-top: 4px;
+        width: 100px;
+        height: 62px;
+    }
     position: relative;
     z-index: 10;
     @include main-footer-header-size;
     &__inner {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     &__nav {
         display: flex;

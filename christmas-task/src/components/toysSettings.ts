@@ -9,6 +9,7 @@ class SwitchValue {
     favoriteObject: boolean;
     sliderYear: any;
     sliderCount: any;
+    dataSet: any;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -39,6 +40,7 @@ class SwitchValue {
             min: 1,
             max: 12,
         };
+        this.dataSet = [];
     }
 
     public filterSwitchCase(data: string) {
@@ -262,7 +264,6 @@ class ValueFilter extends SwitchValue {
     `;
             });
         });
-        console.log(allData);
         const hookHTML = document.querySelector('.toys__inner');
         Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
     }
@@ -404,6 +405,10 @@ class ValueFilter extends SwitchValue {
         return true;
     }
 
+    public getCardContainer() {
+        return document.querySelector('.toys__inner');
+    }
+
     public nodeRemove() {
         const [...valueDOM] = document.querySelectorAll('.toys__box');
         valueDOM.map((el: any) => el.remove());
@@ -538,12 +543,34 @@ export class ToysSettingFilter extends ValueFilter {
         getCountSlider.noUiSlider.on('change', this.sliderOnChangeCount.bind(this));
     }
 
+    public isDataSetExist(cardBox: HTMLElement) {
+        const ribbon = cardBox.querySelector('.ribbon') as HTMLElement;
+        const card = cardBox.dataset.num;
+        const result = this.dataSet.includes(card);
+        if (result) {
+            this.dataSet = this.dataSet.filter((el: string) => el !== card);
+            ribbon.classList.remove('ribbon__active');
+        } else {
+            ribbon.classList.add('ribbon__active');
+            this.dataSet.push(card);
+        }
+
+        console.log(this.dataSet);
+    }
+
+    public getDataNum(event: any) {
+        const cardBox = event.target.closest('.toys__box') as HTMLElement;
+        this.isDataSetExist(cardBox);
+    }
+
     private addListener() {
         const arrayBtn = this.getBtn();
         const saveClearBtn = this.sortBtn();
         const inputForm = this.inputForm();
         const selectForm = this.selectForm();
         const selectorCheckbox = this.checkBox();
+        const cardContainer = this.getCardContainer();
+
         arrayBtn.forEach((el) => el?.addEventListener('click', this.sortedValue.bind(this)));
         saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
@@ -552,6 +579,7 @@ export class ToysSettingFilter extends ValueFilter {
         selectorCheckbox?.addEventListener('change', this.favoriteCheckbox.bind(this));
         this.sliderSelector();
         this.sliderChgangeYear();
+        cardContainer?.addEventListener('click', this.getDataNum.bind(this));
     }
 
     public cycleSettings() {

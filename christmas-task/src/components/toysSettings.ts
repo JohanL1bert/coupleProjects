@@ -1,4 +1,4 @@
-import { SettingObject, SortObject, rangeObject } from './inteface/templayTypes';
+import { SettingObject, SortObject, rangeObject } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
@@ -227,7 +227,7 @@ class ValueFilter extends SwitchValue {
             const num = this.getImg(el.num);
             return num.then((num) => {
                 return `
-        <div class="toys__box">
+        <div class="toys__box" data-num="${el.num}">
             <h3 class="toys__name">${el.name}</h3>
                 <div class="toys__wrapper">
                     <div class="toys__description">
@@ -262,6 +262,7 @@ class ValueFilter extends SwitchValue {
     `;
             });
         });
+        console.log(allData);
         const hookHTML = document.querySelector('.toys__inner');
         Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
     }

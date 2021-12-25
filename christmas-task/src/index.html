@@ -9,19 +9,34 @@
     </head>
     <body>
         <main class="root">
-            <!--             <section class="main">
-                <header class="header">
+            <header class="header">
+                <div class="container">
                     <nav class="header__inner">
                         <div class="header__nav">
-                            <div class="header__nav__main"></div>
+                            <a href="#" class="header__tree"></a>
                             <a href="#" class="header__nav__toys">игрушки</a>
                             <a href="#" class="header__nav__tree">ёлка</a>
                         </div>
-                        <div class="header__basket">
-                            <span class="header__basket__amount">0</span>
+                        <div class="header__form">
+                            <div class="header__form__input">
+                                <form action="">
+                                    <label for="name"></label>
+                                    <input
+                                        id="search__data"
+                                        autocomplete="off"
+                                        autofocus="autofocus"
+                                        placeholder="Поиск"
+                                    />
+                                </form>
+                            </div>
+                            <div class="header__basket">
+                                <span class="header__basket__amount">0</span>
+                            </div>
                         </div>
                     </nav>
-                </header>
+                </div>
+            </header>
+            <section class="main">
                 <div class="main__inner main__page">
                     <div class="garland__big"></div>
                     <div class="garland__small"></div>
@@ -30,45 +45,8 @@
                     </div>
                     <button class="main__btn">Начать</button>
                 </div>
-                <footer class="main__footer">
-                    <div class="main__footer__inner">
-                        <div class="footer__creator">
-                            <p class="copyright">©</p>
-                            <p class="year__create">2021</p>
-                            <a href="https://github.com/JohanL1bert" target="_blank" class="github__link">github</a>
-                        </div>
-                        <div class="footer__logo"></div>
-                    </div>
-                </footer>
-            </section> -->
-            <!--             <section class="setting">
-                <header class="header">
-                    <div class="container">
-                        <nav class="header__inner">
-                            <div class="header__nav">
-                                <div class="header__nav__main"></div>
-                                <a href="#" class="header__nav__toys">игрушки</a>
-                                <a href="#" class="header__nav__tree">ёлка</a>
-                            </div>
-                            <div class="header__form">
-                                <div class="header__form__input">
-                                    <form action="">
-                                        <label for="name"></label>
-                                        <input
-                                            id="search__data"
-                                            autocomplete="off"
-                                            autofocus="autofocus"
-                                            placeholder="Поиск"
-                                        />
-                                    </form>
-                                </div>
-                                <div class="header__basket">
-                                    <span class="header__basket__amount">0</span>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
+            </section>
+            <section class="setting">
                 <div class="setting__toys">
                     <div class="setting__toys__blur">
                         <div class="container">
@@ -150,44 +128,18 @@
                         </div>
                     </div>
                 </div>
-                <footer class="main__footer">
-                    <div class="main__footer__inner">
-                        <div class="footer__creator">
-                            <p class="copyright">©</p>
-                            <p class="year__create">2021</p>
-                            <a href="https://github.com/JohanL1bert" target="_blank" class="github__link">github</a>
-                        </div>
-                        <div class="footer__logo"></div>
-                    </div>
-                </footer>
-            </section> -->
-        </main>
-        <main>
-            <header class="header">
-                <div class="container">
-                    <nav class="header__inner">
-                        <div class="header__nav">
-                            <div class="header__nav__main"></div>
-                            <a href="#" class="header__nav__toys">игрушки</a>
-                            <a href="#" class="header__nav__tree">ёлка</a>
-                        </div>
-                        <div class="header__basket">
-                            <span class="header__basket__amount">0</span>
-                        </div>
-                    </nav>
-                </div>
-            </header>
+            </section>
             <section class="tree__page">
                 <div class="tree__page__blur">
                     <div class="container">
                         <div class="tree__page__inner">
                             <div class="tree__settings">
                                 <div class="snow__voice__setting">
-                                    <div class="snow__setting"></div>
                                     <div class="music__setting"></div>
+                                    <button class="snow__setting"></button>
                                 </div>
                                 <div class="christmas__tree__setting">
-                                    <div class="christmas__tree__name">Выберите ёлку</div>
+                                    <h3 class="christmas__tree__name">Выберите ёлку</h3>
                                     <div class="christmas__tree__list">
                                         <div class="christmas__tree__item"></div>
                                         <div class="christmas__tree__item"></div>
@@ -198,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="christmas__background__setting">
-                                    <div class="christmas__background__name">Выбери фон</div>
+                                    <h3 class="christmas__background__name">Выбери фон</h3>
                                     <div class="christmas__background__list">
                                         <div class="christmas__background__item"></div>
                                         <div class="christmas__background__item"></div>
@@ -216,26 +168,42 @@
                                     <div class="garlands__name"></div>
                                     <div class="garlands__inner">
                                         <div class="garlands__list">
-                                            <div class="garlands__item"></div>
-                                            <div class="garlands__item"></div>
-                                            <div class="garlands__item"></div>
-                                            <div class="garlands__item"></div>
-                                            <div class="garlands__item"></div>
+                                            <button class="garlands__item multicolor"></button>
+                                            <button class="garlands__item red-color"></button>
+                                            <button class="garlands__item blue-color"></button>
+                                            <button class="garlands__item yellow-color"></button>
+                                            <button class="garlands__item green-color"></button>
                                         </div>
-                                        <div class="garlands__toggle__button"></div>
+                                        <div class="garlands__toggle__button">
+                                            <input type="checkbox" id="toggle-button" class="toggle-button" />
+                                            <label for="toggle-button" class="toggle"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tree__background">
-                                <div class="tree__background__inner">
-                                    <div class="snowflakes"></div>
-                                </div>
+                                <div class="snowflakes"></div>
+                                <div class="garlands__container"></div>
+                                <map name=""></map>
+                                <div class="tree__form"></div>
                             </div>
                             <div class="tree__toys"></div>
                         </div>
                     </div>
                 </div>
             </section>
+            <footer class="main__footer">
+                <div class="container">
+                    <div class="main__footer__inner">
+                        <div class="footer__creator">
+                            <p class="copyright">©</p>
+                            <p class="year__create">2021</p>
+                            <a href="https://github.com/JohanL1bert" target="_blank" class="github__link">github</a>
+                        </div>
+                        <div class="footer__logo"></div>
+                    </div>
+                </div>
+            </footer>
         </main>
     </body>
 </html>

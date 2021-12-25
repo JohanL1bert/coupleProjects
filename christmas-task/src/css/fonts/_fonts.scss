@@ -14,3 +14,13 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'weathericons';
+    src: url(./fonts/font/weathericons-regular-webfont.woff2), url(./fonts/font/weathericons-regular-webfont.woff),
+        url(./fonts/font/weathericons-regular-webfont.eot), url(./fonts/font/weathericons-regular-webfont.ttf),
+        url(./fonts/font/weathericons-regular-webfont.svg);
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}

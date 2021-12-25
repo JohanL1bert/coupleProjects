@@ -135,6 +135,7 @@ export class ToysPage {
                         </div>
                         </div>
                         <div class="toys__img">
+                            <div class="ribbon"></div>
                             <img
                             class="toys__img__garland"
                             src="${num}"

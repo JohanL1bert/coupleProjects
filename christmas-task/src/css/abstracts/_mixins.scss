@@ -73,3 +73,24 @@
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
 }
+
+@mixin christmas-tree-box {
+    width: 115px;
+    height: 115px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+@mixin tree-setting-name {
+    font-family: 'Neucha';
+    color: white;
+    font-size: 22px;
+}
+
+@mixin tree-setting-container {
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+}

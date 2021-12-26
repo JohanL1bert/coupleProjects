@@ -50,8 +50,10 @@ export class AudioTree {
         if (data === 'rgba(0, 0, 0, 0)') {
             const colorArr = ['ff2400', 'e81d1d', 'e8b71d', 'e3e81d', '1de840', '1ddde8', '2b1de8'];
             const allGarlandas = document.querySelectorAll('.garlands__color > li');
-            allGarlandas.forEach((el: any, i: number) => {
-                const hex: any = hexRgb(`${'#' + colorArr[Math.floor(i / 13)]}`);
+            allGarlandas.forEach((el: any) => {
+                const randomNumber = Math.floor(Math.random() * (7 - 0) + 0);
+                console.log(randomNumber);
+                const hex: any = hexRgb(`${'#' + colorArr[randomNumber]}`);
                 const rgbaHex =
                     'rgb(' + hex.red.toString() + ', ' + hex.green.toString() + ', ' + hex.blue.toString() + ')';
                 el.style.backgroundColor = rgbaHex;
@@ -78,7 +80,7 @@ export class AudioTree {
         iterator = iterator / 2;
 
         for (let j = iterator; j > 0; j--) {
-            const y = (-i) ** 2;
+            const y = i ** 2;
             i--;
             const element = data.children[loop] as HTMLElement;
             element.style.transform = `translateX(${-y}px`;

@@ -308,8 +308,8 @@ class ValueFilter extends SwitchValue {
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
-        const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
-        const arrayDataFiltered = this.returnData(valueFilteredFromData);
+        /*         const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
+        const arrayDataFiltered = this.returnData(valueFilteredFromData); */
         const dataFromJson = await data;
 
         //Разобраться
@@ -474,6 +474,7 @@ export class ToysSettingFilter extends ValueFilter {
             //Обнуляем баскет
             const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
             headerBasket.innerHTML = '0';
+            this.dataSet = [];
 
             this.filterAllObj();
         }

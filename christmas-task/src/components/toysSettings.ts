@@ -253,6 +253,7 @@ class ValueFilter extends SwitchValue {
                         </div>
                         </div>
                         <div class="toys__img">
+                            <div class="ribbon ${+this.dataSet.includes(el.num) ? 'ribbon__active' : ''}"></div>
                             <img
                             class="toys__img__garland"
                             src="${num}"
@@ -470,6 +471,10 @@ export class ToysSettingFilter extends ValueFilter {
             const checkbox = document.querySelector('.liked__toys') as HTMLInputElement;
             checkbox.checked = false;
             this.favoriteObject = false;
+            //Обнуляем баскет
+            const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
+            headerBasket.innerHTML = '0';
+
             this.filterAllObj();
         }
         if (event.target.classList.contains('sort__save')) {
@@ -559,8 +564,6 @@ export class ToysSettingFilter extends ValueFilter {
             const value: number = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value + 1);
         }
-
-        console.log(this.dataSet);
     }
 
     public getDataNum(event: any) {

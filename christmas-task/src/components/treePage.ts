@@ -54,7 +54,6 @@ export class AudioTree {
                 const hex: any = hexRgb(`${'#' + colorArr[Math.floor(i / 13)]}`);
                 const rgbaHex =
                     'rgb(' + hex.red.toString() + ', ' + hex.green.toString() + ', ' + hex.blue.toString() + ')';
-                console.log(rgbaHex);
                 el.style.backgroundColor = rgbaHex;
             });
         } else {
@@ -66,6 +65,33 @@ export class AudioTree {
     private removeGarlands() {
         const containerGarlands = document.querySelector('.garlands__container') as HTMLElement;
         containerGarlands.replaceChildren();
+    }
+
+    //Слишком зависимо от массива и парных чисел
+
+    private mathFunction(data: HTMLUListElement) {
+        const lenNum = data.childNodes.length;
+        let i = lenNum;
+        let loop = 0;
+        i = i / 2;
+        let iterator = lenNum;
+        iterator = iterator / 2;
+
+        for (let j = iterator; j > 0; j--) {
+            const y = (-i) ** 2;
+            i--;
+            const element = data.children[loop] as HTMLElement;
+            element.style.transform = `translateX(${-y}px`;
+            loop++;
+        }
+
+        for (let c = 0; c < iterator; c++) {
+            i++;
+            const y = i ** 2;
+            const element = data.children[loop] as HTMLElement;
+            element.style.transform = `translateX(${-y}px`;
+            loop++;
+        }
     }
 
     private createGarlands() {
@@ -81,6 +107,7 @@ export class AudioTree {
                 value.appendChild(valueLi);
             }
 
+            this.mathFunction(value);
             arrayOfGarlands.push(value);
         }
 

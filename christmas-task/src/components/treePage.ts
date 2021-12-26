@@ -1,13 +1,18 @@
 import '../assets/sounds/LetItSnow.mp3';
+import hexRgb from 'hex-rgb';
 
 export class AudioTree {
     isPlay: boolean;
     audio: HTMLAudioElement;
     isSnow: boolean;
+    isColor: string;
+    isCheckedColor: boolean;
     constructor() {
         this.isPlay = false;
         this.audio = new Audio('./assets/LetItSnow.mp3');
         this.isSnow = false;
+        this.isColor = 'rgba(0, 0, 0, 0)';
+        this.isCheckedColor = false;
     }
 
     public createAudio() {
@@ -42,15 +47,20 @@ export class AudioTree {
     }
 
     private colorGarlands(data: any) {
-        if (data.length === 16) {
+        if (data === 'rgba(0, 0, 0, 0)') {
             const colorArr = ['ff2400', 'e81d1d', 'e8b71d', 'e3e81d', '1de840', '1ddde8', '2b1de8'];
             const allGarlandas = document.querySelectorAll('.garlands__color > li');
-            allGarlandas.forEach(
-                (el: any, i: number) => (el.style.backgroundColor = `#${colorArr[Math.floor(i / 13)]}`)
-            );
+            allGarlandas.forEach((el: any, i: number) => {
+                const hex: any = hexRgb(`${'#' + colorArr[Math.floor(i / 13)]}`);
+                const rgbaHex =
+                    'rgb(' + hex.red.toString() + ', ' + hex.green.toString() + ', ' + hex.blue.toString() + ')';
+                console.log(rgbaHex);
+                el.style.backgroundColor = rgbaHex;
+            });
+        } else {
+            const allGarlandas = document.querySelectorAll('.garlands__color > li');
+            allGarlandas.forEach((el: any) => (el.style.backgroundColor = `${data}`));
         }
-        const allGarlandas = document.querySelectorAll('.garlands__color > li');
-        allGarlandas.forEach((el: any) => (el.style.backgroundColor = `${data}`));
     }
 
     private removeGarlands() {
@@ -77,7 +87,19 @@ export class AudioTree {
         arrayOfGarlands.map((el) => container.appendChild(el));
     }
 
+    private offGarlands(event: Event) {
+        const checked = (<HTMLInputElement>event.target).checked;
+        if (!checked) {
+            this.removeGarlands();
+        } else {
+            this.createGarlands();
+            const color = this.isColor;
+            this.colorGarlands(color);
+        }
+    }
+
     private garlandsInclusions(event: Event) {
+        const checkButton = document.querySelector('.toggle-button') as HTMLInputElement;
         const target = event.target as Element;
         const colorBtn = target.closest('.garlands__item');
         if (!colorBtn) return;
@@ -86,30 +108,45 @@ export class AudioTree {
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.colorGarlands(color);
+            this.isColor = color;
+            checkButton.checked = true;
+            this.isCheckedColor = true;
         }
         if (colorBtn?.classList.contains('red-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.colorGarlands(color);
+            this.isColor = color;
+            checkButton.checked = true;
+            this.isCheckedColor = true;
         }
         if (colorBtn?.classList.contains('blue-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.colorGarlands(color);
+            this.isColor = color;
+            checkButton.checked = true;
+            this.isCheckedColor = true;
         }
         if (colorBtn?.classList.contains('yellow-color')) {
             this.removeGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.createGarlands();
             this.colorGarlands(color);
+            this.isColor = color;
+            checkButton.checked = true;
+            this.isCheckedColor = true;
         }
         if (colorBtn?.classList.contains('green-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.colorGarlands(color);
+            this.isColor = 'green';
+            checkButton.checked = true;
+            this.isCheckedColor = true;
         }
     }
 
@@ -170,7 +207,7 @@ export class AudioTree {
         const familyBackground = document.querySelector('.christmas__background__list') as HTMLElement;
         const treeFamilyBackground = document.querySelector('.christmas__tree__list') as HTMLElement;
         const colorButton: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.garlands__item');
-        const toggleColorButton = document.querySelector('.toggle__button');
+        const toggleColorButton = document.querySelector('.toggle-button');
         audioBtn.addEventListener('click', this.createAudio.bind(this));
         familyBackground?.addEventListener('click', this.changeBackground.bind(this));
         treeFamilyBackground?.addEventListener('click', this.changeTree.bind(this));
@@ -182,6 +219,7 @@ export class AudioTree {
         }
 
         colorButton.forEach((item) => item.addEventListener('click', this.garlandsInclusions.bind(this)));
+        toggleColorButton?.addEventListener('change', this.offGarlands.bind(this));
     }
 
     public cycleToys() {

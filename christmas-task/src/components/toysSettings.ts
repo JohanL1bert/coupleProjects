@@ -370,7 +370,7 @@ class ValueFilter extends SwitchValue {
     }
 
     public selectForm() {
-        const selectForm = document.querySelector('.sort__letter');
+        const selectForm = document.querySelector('.sort__letter') as HTMLElement;
         return selectForm;
     }
 
@@ -545,14 +545,19 @@ export class ToysSettingFilter extends ValueFilter {
 
     public isDataSetExist(cardBox: HTMLElement) {
         const ribbon = cardBox.querySelector('.ribbon') as HTMLElement;
+        const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
         const card = cardBox.dataset.num;
         const result = this.dataSet.includes(card);
         if (result) {
             this.dataSet = this.dataSet.filter((el: string) => el !== card);
             ribbon.classList.remove('ribbon__active');
+            const value: number = Number(headerBasket.textContent as string);
+            headerBasket.innerHTML = String(value - 1);
         } else {
             ribbon.classList.add('ribbon__active');
             this.dataSet.push(card);
+            const value: number = Number(headerBasket.textContent as string);
+            headerBasket.innerHTML = String(value + 1);
         }
 
         console.log(this.dataSet);

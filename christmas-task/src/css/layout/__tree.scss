@@ -390,13 +390,101 @@
 .garlands__color > li {
     margin: 6px 6px;
     list-style-type: none;
-    width: 7px;
-    height: 7px;
+    width: 7.2px;
+    height: 7.2px;
     border-radius: 10px;
-    animation-name: flash;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
     z-index: 25;
+    &:nth-child(1) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(2) {
+        animation-name: flash;
+        animation-duration: 1.1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(3) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(4) {
+        animation-name: flash;
+        animation-duration: 1.3s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(5) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(6) {
+        animation-name: flash;
+        animation-duration: 1.4s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(7) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(8) {
+        animation-name: flash;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(9) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(10) {
+        animation-name: flash;
+        animation-duration: 1.6s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(11) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(12) {
+        animation-name: flash;
+        animation-duration: 1.7s;
+        animation-iteration-count: infinite;
+    }
+
+    &:nth-child(13) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(14) {
+        animation-name: flash;
+        animation-duration: 1.8s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(15) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(16) {
+        animation-name: flash;
+        animation-duration: 1.9s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(17) {
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    &:nth-child(18) {
+        animation-name: flash;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
 }
 
 @keyframes flash {

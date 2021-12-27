@@ -10,6 +10,7 @@ class SwitchValue {
     sliderYear: any;
     sliderCount: any;
     dataSet: any;
+    dataSetCounter: any;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -41,6 +42,7 @@ class SwitchValue {
             max: 12,
         };
         this.dataSet = [];
+        this.dataSetCounter = [];
     }
 
     public filterSwitchCase(data: string) {
@@ -217,7 +219,7 @@ class ValueFilter extends SwitchValue {
         super();
     }
 
-    private async getImg(num: any) {
+    public async getImg(num: any) {
         const imgNum = fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/assets/toys/${num}.png`
         );
@@ -549,9 +551,80 @@ export class ToysSettingFilter extends ValueFilter {
         getCountSlider.noUiSlider.on('change', this.sliderOnChangeCount.bind(this));
     }
 
+    public createToysCard() {
+        const containerForElements = document.querySelector('.tree__toys__container') as HTMLLIElement;
+        const createContainer = document.createElement('div');
+        createContainer.classList.add('tree__toys__card');
+        const createImg = document.createElement('img');
+        createImg.classList.add('gragn__img');
+        const createTextContainer = document.createElement('div');
+        createTextContainer.classList.add('img__count');
+        const createSpan = document.createElement('span');
+        createSpan.classList.add('count');
+    }
+
+    public renderPlayCard(dataSet: Array<string>) {
+        this.createToysCard();
+    }
+
+    public moveAt(pageX: any, pageY: any, event: any) {
+        /* event.srcElement.style.left = pageX - event.srcElement.offsetWidth / 2 + 'px';
+        event.srcElement.style.top = pageY - event.srcElement.offsetHeight / 2 + 'px'; */
+    }
+
+    public onMoouseMove(event: any) {
+        this.moveAt(event.pageX, event.pageY, event);
+    }
+
+    public eventDragDrop() {
+        const dragDrop = document.querySelectorAll('.dragn__img');
+        dragDrop.forEach((el) => el.addEventListener('mousemove', this.onMoouseMove.bind(this)));
+    }
+
+    public renderCardToys(card: HTMLElement) {
+        const container = document.querySelector('.tree__toys__container') as HTMLElement;
+        container.appendChild(card);
+        this.eventDragDrop();
+    }
+
+    public async cloneCard() {
+        /* const result = this.dataSet.map((el: any) => this.getImg(el)); */
+        const arrayFrom = Array.from({ length: 20 }, (_, i) => i + 1);
+        let url;
+        if (this.dataSet.length === 0) {
+            const result = arrayFrom.map((el: any) => this.getImg(el));
+            const imgUrl = Promise.all(result);
+            url = await imgUrl;
+        } else {
+            const result = this.dataSet.map((el: any) => this.getImg(el));
+            const imgUrl = Promise.all(result);
+            url = await imgUrl;
+        }
+
+        for (let i = 0; i < url.length; i++) {
+            const card: any = document.createElement('div');
+            card.classList.add('tree__toys__card');
+            const createImg: any = document.createElement('img');
+            createImg.classList.add('dragn__img');
+            createImg.src = url[i];
+            createImg.draggable = true;
+            card.appendChild(createImg);
+            const createPTag = document.createElement('p');
+            createPTag.classList.add('img__count');
+            const counterSpan = document.createElement('span');
+            counterSpan.classList.add('count');
+            counterSpan.textContent = '1';
+            createPTag.appendChild(counterSpan);
+            card.appendChild(createPTag);
+            this.renderCardToys(card);
+        }
+    }
+
     public isDataSetExist(cardBox: HTMLElement) {
         const ribbon = cardBox.querySelector('.ribbon') as HTMLElement;
         const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
+        const toysCount = cardBox.querySelector('.toys__amount') as HTMLElement;
+        const treeContainer = document.querySelector('.tree__toys__container') as HTMLElement;
         const card = cardBox.dataset.num;
         const result = this.dataSet.includes(card);
         if (result) {
@@ -559,11 +632,18 @@ export class ToysSettingFilter extends ValueFilter {
             ribbon.classList.remove('ribbon__active');
             const value: number = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value - 1);
+            treeContainer.replaceChildren();
+            this.renderPlayCard(this.dataSet);
+            this.cloneCard();
         } else {
             ribbon.classList.add('ribbon__active');
             this.dataSet.push(card);
             const value: number = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value + 1);
+            treeContainer.replaceChildren();
+            this.renderPlayCard(this.dataSet);
+            this.dataSetCounter.push(toysCount.textContent);
+            this.cloneCard();
         }
     }
 
@@ -589,6 +669,7 @@ export class ToysSettingFilter extends ValueFilter {
         this.sliderSelector();
         this.sliderChgangeYear();
         cardContainer?.addEventListener('click', this.getDataNum.bind(this));
+        this.cloneCard();
     }
 
     public cycleSettings() {

@@ -7,12 +7,14 @@ export class AudioTree {
     isSnow: boolean;
     isColor: string;
     isCheckedColor: boolean;
+    isNumberRemove: string;
     constructor() {
         this.isPlay = false;
         this.audio = new Audio('./assets/LetItSnow.mp3');
         this.isSnow = false;
         this.isColor = 'rgba(0, 0, 0, 0)';
         this.isCheckedColor = false;
+        this.isNumberRemove = '0';
     }
 
     public createAudio() {
@@ -52,7 +54,6 @@ export class AudioTree {
             const allGarlandas = document.querySelectorAll('.garlands__color > li');
             allGarlandas.forEach((el: any) => {
                 const randomNumber = Math.floor(Math.random() * (7 - 0) + 0);
-                console.log(randomNumber);
                 const hex: any = hexRgb(`${'#' + colorArr[randomNumber]}`);
                 const rgbaHex =
                     'rgb(' + hex.red.toString() + ', ' + hex.green.toString() + ', ' + hex.blue.toString() + ')';
@@ -70,8 +71,8 @@ export class AudioTree {
     }
 
     //Слишком зависимо от массива и парных чисел
-
-    private mathFunction(data: HTMLUListElement) {
+    //Позиция гирлянд
+    private positionGarlands(data: HTMLUListElement) {
         const lenNum = data.childNodes.length;
         let i = lenNum;
         let loop = 0;
@@ -109,7 +110,7 @@ export class AudioTree {
                 value.appendChild(valueLi);
             }
 
-            this.mathFunction(value);
+            this.positionGarlands(value);
             arrayOfGarlands.push(value);
         }
 
@@ -230,6 +231,54 @@ export class AudioTree {
         }
     }
 
+    public dragStart(event: any) {
+        const dataSet = event.currentTarget.getAttribute('data-number');
+        event.dataTransfer.setData('dragn__img', dataSet);
+        this.isNumberRemove = dataSet;
+    }
+
+    getAttribute(arg0: string): string {
+        throw new Error('Method not implemented.');
+    }
+
+    public dragOver(event: Event) {
+        /* console.log('DragOver'); */
+        event.preventDefault();
+    }
+
+    //Переписать высчитывать кастомно
+    public dragDrop(event: any) {
+        const pageX = event.clientX;
+        const pageY = event.clientY;
+        const dragData = event.dataTransfer.getData('dragn__img');
+        const dragedItem: any = document.querySelector(`[data-number="${dragData}"]`);
+        const element = document.querySelector('area');
+        element?.appendChild(dragedItem);
+        dragedItem.style.left = pageX - 25 + 'px';
+        dragedItem.style.top = pageY - 95 + 'px';
+        dragedItem.style.position = 'absolute';
+        dragedItem.style.margin = 0 + 'px';
+    }
+
+    public eventDragDrop() {
+        const dragDrop = document.querySelectorAll('.dragn__img');
+        const treeMap = document.querySelector('area') as HTMLAreaElement;
+        dragDrop.forEach((el) => {
+            el.addEventListener('dragstart', this.dragStart.bind(this));
+            /*   el.addEventListener('dragend', this.dragEnd),
+                el.addEventListener('drag', this.dragElements); */
+        });
+
+        /* treeMap.addEventListener('dragenter', this.dragEnter);
+        treeMap.addEventListener('dragleave', this.dragLeave); */
+        treeMap.addEventListener('dragover', this.dragOver.bind(this));
+        treeMap.addEventListener('drop', this.dragDrop.bind(this));
+    }
+
+    public toysChangeObserver() {
+        this.eventDragDrop();
+    }
+
     private listenerState() {
         const audioBtn = document.querySelector('.music__setting') as HTMLElement;
         const snowBtn = document.querySelector('.snow__setting') as HTMLButtonElement;
@@ -237,9 +286,11 @@ export class AudioTree {
         const treeFamilyBackground = document.querySelector('.christmas__tree__list') as HTMLElement;
         const colorButton: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.garlands__item');
         const toggleColorButton = document.querySelector('.toggle-button');
+        const toysContainer = document.querySelector('.tree__toys__container') as HTMLElement;
         audioBtn.addEventListener('click', this.createAudio.bind(this));
         familyBackground?.addEventListener('click', this.changeBackground.bind(this));
         treeFamilyBackground?.addEventListener('click', this.changeTree.bind(this));
+        this.eventDragDrop();
 
         if (snowBtn.disabled) {
             return;
@@ -249,6 +300,10 @@ export class AudioTree {
 
         colorButton.forEach((item) => item.addEventListener('click', this.garlandsInclusions.bind(this)));
         toggleColorButton?.addEventListener('change', this.offGarlands.bind(this));
+
+        const config = { attributes: true, childList: true, subtree: true };
+        const obsever = new MutationObserver(this.toysChangeObserver.bind(this));
+        obsever.observe(toysContainer, config);
     }
 
     public cycleToys() {

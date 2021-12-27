@@ -7,14 +7,14 @@ export class AudioTree {
     isSnow: boolean;
     isColor: string;
     isCheckedColor: boolean;
-    isNumberRemove: string;
+    isNumberRemove: object;
     constructor() {
         this.isPlay = false;
         this.audio = new Audio('./assets/LetItSnow.mp3');
         this.isSnow = false;
         this.isColor = 'rgba(0, 0, 0, 0)';
         this.isCheckedColor = false;
-        this.isNumberRemove = '0';
+        this.isNumberRemove = {};
     }
 
     public createAudio() {
@@ -231,6 +231,10 @@ export class AudioTree {
         }
     }
 
+    public removeCountToys() {
+        const allSpan = document.querySelectorAll('.img__count');
+    }
+
     public dragStart(event: any) {
         const dataSet = event.currentTarget.getAttribute('data-number');
         event.dataTransfer.setData('dragn__img', dataSet);
@@ -258,6 +262,7 @@ export class AudioTree {
         dragedItem.style.top = pageY - 95 + 'px';
         dragedItem.style.position = 'absolute';
         dragedItem.style.margin = 0 + 'px';
+        this.removeCountToys();
     }
 
     public eventDragDrop() {

@@ -578,7 +578,6 @@ export class ToysSettingFilter extends ValueFilter {
         ).then((response) => response.json());
 
         const urls = await url;
-        console.log(urls);
         for (const key in dataJSON) {
             if (urls == dataJSON[key].num) {
                 return dataJSON[key].count;

@@ -567,53 +567,68 @@ export class ToysSettingFilter extends ValueFilter {
         this.createToysCard();
     }
 
-    public moveAt(pageX: any, pageY: any, event: any) {
-        /* event.srcElement.style.left = pageX - event.srcElement.offsetWidth / 2 + 'px';
-        event.srcElement.style.top = pageY - event.srcElement.offsetHeight / 2 + 'px'; */
-    }
-
-    public onMoouseMove(event: any) {
-        this.moveAt(event.pageX, event.pageY, event);
-    }
-
-    public eventDragDrop() {
-        const dragDrop = document.querySelectorAll('.dragn__img');
-        dragDrop.forEach((el) => el.addEventListener('mousemove', this.onMoouseMove.bind(this)));
-    }
-
     public renderCardToys(card: HTMLElement) {
         const container = document.querySelector('.tree__toys__container') as HTMLElement;
         container.appendChild(card);
-        this.eventDragDrop();
+    }
+
+    public async getDataJS(url: any) {
+        const dataJSON = await fetch(
+            `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
+        ).then((response) => response.json());
+
+        const urls = await url;
+        console.log(urls);
+        for (const key in dataJSON) {
+            if (urls == dataJSON[key].num) {
+                return dataJSON[key].count;
+            }
+        }
     }
 
     public async cloneCard() {
         /* const result = this.dataSet.map((el: any) => this.getImg(el)); */
+
         const arrayFrom = Array.from({ length: 20 }, (_, i) => i + 1);
         let url;
+        let dataCount: any;
+        let iterator;
         if (this.dataSet.length === 0) {
             const result = arrayFrom.map((el: any) => this.getImg(el));
             const imgUrl = Promise.all(result);
+            const count = arrayFrom.map((el: any) => this.getDataJS(el));
+            dataCount = Promise.all(count);
+            dataCount = await dataCount;
             url = await imgUrl;
+            iterator = dataCount;
         } else {
             const result = this.dataSet.map((el: any) => this.getImg(el));
             const imgUrl = Promise.all(result);
+            const count = this.dataSet.map((el: any) => this.getDataJS(el));
+            dataCount = Promise.all(count);
+            dataCount = await dataCount;
             url = await imgUrl;
+            iterator = dataCount;
         }
 
         for (let i = 0; i < url.length; i++) {
             const card: any = document.createElement('div');
             card.classList.add('tree__toys__card');
-            const createImg: any = document.createElement('img');
-            createImg.classList.add('dragn__img');
-            createImg.src = url[i];
-            createImg.draggable = true;
-            card.appendChild(createImg);
+            let cleanerIterate = i;
+            for (let j = 0; j < iterator[i]; j++) {
+                const createImg: any = document.createElement('img');
+                createImg.classList.add('dragn__img');
+                createImg.src = url[i];
+                createImg.dataset.number = `${i}-${cleanerIterate++}`;
+                createImg.draggable = true;
+                card.appendChild(createImg);
+            }
+            cleanerIterate = 0;
             const createPTag = document.createElement('p');
             createPTag.classList.add('img__count');
             const counterSpan = document.createElement('span');
             counterSpan.classList.add('count');
-            counterSpan.textContent = '1';
+            counterSpan.textContent = `${dataCount[i]}`;
             createPTag.appendChild(counterSpan);
             card.appendChild(createPTag);
             this.renderCardToys(card);
@@ -642,7 +657,6 @@ export class ToysSettingFilter extends ValueFilter {
             headerBasket.innerHTML = String(value + 1);
             treeContainer.replaceChildren();
             this.renderPlayCard(this.dataSet);
-            this.dataSetCounter.push(toysCount.textContent);
             this.cloneCard();
         }
     }

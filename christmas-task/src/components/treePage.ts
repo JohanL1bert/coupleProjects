@@ -277,7 +277,6 @@ export class AudioTree {
 
     //Переписать высчитывать кастомно
     public dragDrop(event: any) {
-        console.log('dragDrop');
         event.stopImmediatePropagation();
         const pageX = event.clientX;
         const pageY = event.clientY;
@@ -289,7 +288,11 @@ export class AudioTree {
         dragedItem.style.top = pageY - 95 + 'px';
         dragedItem.style.position = 'absolute';
         dragedItem.style.margin = 0 + 'px';
-        this.isNumberRemove = dragData.slice(0, 1);
+        if (dragData.length === 5) {
+            this.isNumberRemove = dragData.slice(0, 2);
+        } else {
+            this.isNumberRemove = dragData.slice(0, 1);
+        }
         this.removeCountToys();
     }
 

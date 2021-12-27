@@ -7,14 +7,14 @@ export class AudioTree {
     isSnow: boolean;
     isColor: string;
     isCheckedColor: boolean;
-    isNumberRemove: object;
+    isNumberRemove: any;
     constructor() {
         this.isPlay = false;
         this.audio = new Audio('./assets/LetItSnow.mp3');
         this.isSnow = false;
         this.isColor = 'rgba(0, 0, 0, 0)';
         this.isCheckedColor = false;
-        this.isNumberRemove = {};
+        this.isNumberRemove = '0';
     }
 
     public createAudio() {
@@ -233,12 +233,30 @@ export class AudioTree {
 
     public removeCountToys() {
         const allSpan = document.querySelectorAll('.img__count');
+        if (this.isNumberRemove !== 0) {
+        }
+        allSpan.forEach((el, index) => {
+            if (index == this.isNumberRemove) {
+                const getSpan = el.querySelector('.count') as HTMLElement;
+                let spanContent = Number(getSpan.textContent);
+                if (spanContent === 0) {
+                    spanContent = 0;
+                } else {
+                    spanContent--;
+                }
+                getSpan.innerHTML = String(spanContent);
+            }
+        });
     }
 
     public dragStart(event: any) {
+        event.stopImmediatePropagation();
         const dataSet = event.currentTarget.getAttribute('data-number');
         event.dataTransfer.setData('dragn__img', dataSet);
-        this.isNumberRemove = dataSet;
+    }
+
+    public Run() {
+        console.log('123');
     }
 
     getAttribute(arg0: string): string {
@@ -250,8 +268,17 @@ export class AudioTree {
         event.preventDefault();
     }
 
+    public dragLeave(event: Event) {}
+
+    public dragEnd(event: Event) {
+        event.preventDefault();
+        console.log('dragEnd', event);
+    }
+
     //Переписать высчитывать кастомно
     public dragDrop(event: any) {
+        console.log('dragDrop');
+        event.stopImmediatePropagation();
         const pageX = event.clientX;
         const pageY = event.clientY;
         const dragData = event.dataTransfer.getData('dragn__img');
@@ -262,6 +289,7 @@ export class AudioTree {
         dragedItem.style.top = pageY - 95 + 'px';
         dragedItem.style.position = 'absolute';
         dragedItem.style.margin = 0 + 'px';
+        this.isNumberRemove = dragData.slice(0, 1);
         this.removeCountToys();
     }
 
@@ -270,12 +298,12 @@ export class AudioTree {
         const treeMap = document.querySelector('area') as HTMLAreaElement;
         dragDrop.forEach((el) => {
             el.addEventListener('dragstart', this.dragStart.bind(this));
-            /*   el.addEventListener('dragend', this.dragEnd),
-                el.addEventListener('drag', this.dragElements); */
+            el.addEventListener('dragend', this.dragEnd.bind(this));
+            /* el.addEventListener('drag', this.dragElements); */
         });
 
-        /* treeMap.addEventListener('dragenter', this.dragEnter);
-        treeMap.addEventListener('dragleave', this.dragLeave); */
+        /* treeMap.addEventListener('dragenter', this.dragEnter); */
+        treeMap.addEventListener('dragleave', this.dragLeave);
         treeMap.addEventListener('dragover', this.dragOver.bind(this));
         treeMap.addEventListener('drop', this.dragDrop.bind(this));
     }

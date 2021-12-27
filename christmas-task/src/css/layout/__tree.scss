@@ -533,3 +533,24 @@
     position: relative;
     left: 30%;
 }
+
+@media screen and (max-width: 1400px) {
+    .tree__page__inner {
+        flex-wrap: wrap;
+    }
+    .tree__background {
+        order: 1;
+    }
+    .garlands__container {
+        width: 700px;
+    }
+    .tree__toys {
+        order: 2;
+    }
+    .tree__settings {
+        order: 3;
+    }
+    .garlands__setting__color {
+        margin-top: 20px;
+    }
+}

@@ -1,6 +1,6 @@
 import { Iloader, Callback, StatusCode } from '../template-types';
 
-class Loader {
+class GetData {
     baseLink: string;
     options: Iloader;
     constructor(baseLink: string, options: Iloader) {
@@ -47,4 +47,4 @@ class Loader {
     }
 }
 
-export default Loader;
+export default GetData;

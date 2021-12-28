@@ -1,6 +1,6 @@
-import Loader from './loader';
+import GetData from './loader';
 
-class AppLoader extends Loader {
+class AppLoader extends GetData {
     constructor() {
         super('https://nodenews.herokuapp.com/', {
             apiKey: '9c6f2bdddb0741d494c4eb2d6886c076',

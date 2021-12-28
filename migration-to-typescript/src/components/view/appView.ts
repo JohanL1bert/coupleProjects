@@ -5,9 +5,9 @@ import Sources from './sources/sources';
 export class AppView {
     news: News;
     sources: Sources;
-    constructor() {
-        this.news = new News();
-        this.sources = new Sources();
+    constructor(news: News, sources: Sources) {
+        this.news = news;
+        this.sources = sources;
     }
 
     drawNews(data: DrawNews) {

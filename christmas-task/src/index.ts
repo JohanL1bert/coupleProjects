@@ -15,7 +15,7 @@ class Router {
     toysPage: ToysPage;
     newSetting: ToysSettingFilter;
     playPage: AudioTree;
-    constructor() {
+    constructor(toysPage: ToysPage, newSetting: ToysSettingFilter, playPage: AudioTree) {
         this.headerMain = document.querySelector('.header__nav__toys') as HTMLElement;
         this.headerNavTree = document.querySelector('.header__nav__tree') as HTMLElement;
         this.mainBtn = document.querySelector('.main__btn') as HTMLButtonElement;
@@ -24,9 +24,9 @@ class Router {
         this.treePage = document.querySelector('.tree__page') as HTMLElement;
         this.formInput = document.querySelector('form') as HTMLFormElement;
         this.headerTree = document.querySelector('.header__tree') as HTMLElement;
-        this.toysPage = new ToysPage();
-        this.newSetting = new ToysSettingFilter();
-        this.playPage = new AudioTree();
+        this.toysPage = toysPage;
+        this.newSetting = newSetting;
+        this.playPage = playPage;
     }
 
     public hideMainPage(event: Event) {
@@ -69,6 +69,10 @@ class Router {
     }
 }
 
-const app = new Router();
+const toys = new ToysPage();
+const settings = new ToysSettingFilter();
+const playPage = new AudioTree();
+
+const app = new Router(toys, settings, playPage);
 app.defaultRender();
 app.navigation();

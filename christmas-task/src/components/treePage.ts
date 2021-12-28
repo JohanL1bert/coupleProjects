@@ -272,20 +272,17 @@ export class AudioTree {
 
     public dragEnd(event: Event) {
         event.preventDefault();
-        console.log('dragEnd', event);
     }
 
     //Переписать высчитывать кастомно
     public dragDrop(event: any) {
         event.stopImmediatePropagation();
-        const pageX = event.clientX;
-        const pageY = event.clientY;
         const dragData = event.dataTransfer.getData('dragn__img');
         const dragedItem: any = document.querySelector(`[data-number="${dragData}"]`);
-        const element = document.querySelector('area');
+        const element = document.querySelector('map');
         element?.appendChild(dragedItem);
-        dragedItem.style.left = pageX - 25 + 'px';
-        dragedItem.style.top = pageY - 95 + 'px';
+        dragedItem.style.left = event.offsetX - 30 + 'px';
+        dragedItem.style.top = event.offsetY - 30 + 'px';
         dragedItem.style.position = 'absolute';
         dragedItem.style.margin = 0 + 'px';
         if (dragData.length === 5) {

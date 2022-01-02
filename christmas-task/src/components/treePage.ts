@@ -1,5 +1,5 @@
 import '../assets/sounds/LetItSnow.mp3';
-import hexRgb from 'hex-rgb';
+import hexRgb, { RgbaObject } from 'hex-rgb';
 
 export class AudioTree {
     isPlay: boolean;
@@ -7,14 +7,14 @@ export class AudioTree {
     isSnow: boolean;
     isColor: string;
     isCheckedColor: boolean;
-    isNumberRemove: any;
+    isNumberRemove: number;
     constructor() {
         this.isPlay = false;
         this.audio = new Audio('./assets/LetItSnow.mp3');
         this.isSnow = false;
         this.isColor = 'rgba(0, 0, 0, 0)';
         this.isCheckedColor = false;
-        this.isNumberRemove = '0';
+        this.isNumberRemove = 0;
     }
 
     public createAudio() {
@@ -48,20 +48,20 @@ export class AudioTree {
         treeBackground.src = `${imgUrl.slice(5, imgUrl.length - 2)}`;
     }
 
-    private colorGarlands(data: any) {
+    private colorGarlands(data: string) {
         if (data === 'rgba(0, 0, 0, 0)') {
             const colorArr = ['ff2400', 'e81d1d', 'e8b71d', 'e3e81d', '1de840', '1ddde8', '2b1de8'];
-            const allGarlandas = document.querySelectorAll('.garlands__color > li');
-            allGarlandas.forEach((el: any) => {
+            const allGarlandas: NodeListOf<HTMLElement> = document.querySelectorAll('.garlands__color > li');
+            allGarlandas.forEach((el: HTMLElement) => {
                 const randomNumber = Math.floor(Math.random() * (7 - 0) + 0);
-                const hex: any = hexRgb(`${'#' + colorArr[randomNumber]}`);
+                const hex: RgbaObject = hexRgb(`${'#' + colorArr[randomNumber]}`);
                 const rgbaHex =
                     'rgb(' + hex.red.toString() + ', ' + hex.green.toString() + ', ' + hex.blue.toString() + ')';
                 el.style.backgroundColor = rgbaHex;
             });
         } else {
-            const allGarlandas = document.querySelectorAll('.garlands__color > li');
-            allGarlandas.forEach((el: any) => (el.style.backgroundColor = `${data}`));
+            const allGarlandas: NodeListOf<HTMLElement> = document.querySelectorAll('.garlands__color > li');
+            allGarlandas.forEach((el: HTMLElement) => (el.style.backgroundColor = `${data}`));
         }
     }
 
@@ -130,10 +130,13 @@ export class AudioTree {
 
     private garlandsInclusions(event: Event) {
         const checkButton = document.querySelector('.toggle-button') as HTMLInputElement;
+        if (checkButton === undefined) {
+            throw new Error('checkbutton is undefined');
+        }
         const target = event.target as Element;
         const colorBtn = target.closest('.garlands__item');
         if (!colorBtn) return;
-        if (colorBtn?.classList.contains('multicolor')) {
+        if (colorBtn.classList.contains('multicolor')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
@@ -142,7 +145,7 @@ export class AudioTree {
             checkButton.checked = true;
             this.isCheckedColor = true;
         }
-        if (colorBtn?.classList.contains('red-color')) {
+        if (colorBtn.classList.contains('red-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
@@ -151,7 +154,7 @@ export class AudioTree {
             checkButton.checked = true;
             this.isCheckedColor = true;
         }
-        if (colorBtn?.classList.contains('blue-color')) {
+        if (colorBtn.classList.contains('blue-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
@@ -160,7 +163,7 @@ export class AudioTree {
             checkButton.checked = true;
             this.isCheckedColor = true;
         }
-        if (colorBtn?.classList.contains('yellow-color')) {
+        if (colorBtn.classList.contains('yellow-color')) {
             this.removeGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
             this.createGarlands();
@@ -169,7 +172,7 @@ export class AudioTree {
             checkButton.checked = true;
             this.isCheckedColor = true;
         }
-        if (colorBtn?.classList.contains('green-color')) {
+        if (colorBtn.classList.contains('green-color')) {
             this.removeGarlands();
             this.createGarlands();
             const color = window.getComputedStyle(colorBtn).getPropertyValue('background-color');
@@ -318,7 +321,7 @@ export class AudioTree {
         const familyBackground = document.querySelector('.christmas__background__list') as HTMLElement;
         const treeFamilyBackground = document.querySelector('.christmas__tree__list') as HTMLElement;
         const colorButton: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.garlands__item');
-        const toggleColorButton = document.querySelector('.toggle-button');
+        const toggleColorButton = document.querySelector('.toggle-button') as HTMLElement;
         const toysContainer = document.querySelector('.tree__toys__container') as HTMLElement;
         audioBtn.addEventListener('click', this.createAudio.bind(this));
         familyBackground?.addEventListener('click', this.changeBackground.bind(this));

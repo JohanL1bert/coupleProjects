@@ -4,7 +4,8 @@ import {
     IsliderYear,
     IsliderCount,
     IshapeColorSize,
-    IsortCheckBox,
+    IdataMain,
+    EsortedValue,
 } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 
@@ -135,8 +136,8 @@ class SwitchValue {
         return filteredObject;
     }
 
-    public sortCheckbox(data: IsortCheckBox[]) {
-        return data.filter((el: Pick<IsortCheckBox, 'favorite'>) => el['favorite'] === true);
+    public sortCheckbox(data: IdataMain[]) {
+        return data.filter((el: Pick<IdataMain, 'favorite'>) => el['favorite'] === true);
     }
 
     public getFilteredData(data: any) {
@@ -190,31 +191,34 @@ class SwitchValue {
         }
     }
 
-    public filterSelectOption(sortedValue: any, data: any) {
-        if (sortedValue === 'sort-name-max') {
+    public filterSelectOption(sortedValue: SortObject, data: any) {
+        console.log(data);
+        if (sortedValue.isSort === EsortedValue.SortNameMax) {
             const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
             return value;
-        } else if (sortedValue === 'sort-name-min') {
+        } else if (sortedValue.isSort === EsortedValue.SortNameMin) {
             const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
             return value;
-        } else if (sortedValue === 'sort-max') {
+        } else if (sortedValue.isSort === EsortedValue.SortMax) {
             const value = data.sort((a: any, b: any) => a.year - b.year);
             return value;
-        } else if (sortedValue === 'sort-min') {
+        } else if (sortedValue.isSort === EsortedValue.SortMin) {
             const value = data.sort((a: any, b: any) => b.year - a.year);
             return value;
         }
     }
 
-    public sortSliderByCount(dataJSON: any) {
+    public sortSliderByCount(dataJSON: IdataMain[]) {
         return dataJSON.filter(
-            (el: any) => this.sliderCount['min'] <= el['count'] && this.sliderCount['max'] >= el['count']
+            (el: Pick<IdataMain, 'count'>) =>
+                this.sliderCount['min'] <= Number(el['count']) && this.sliderCount['max'] >= Number(el['count'])
         );
     }
 
-    public sortSliderByYear(dataJSON: any) {
+    public sortSliderByYear(dataJSON: IdataMain[]) {
         return dataJSON.filter(
-            (el: any) => this.sliderYear['min'] <= el['year'] && this.sliderYear['max'] >= el['year']
+            (el: Pick<IdataMain, 'year'>) =>
+                this.sliderYear['min'] <= Number(el['year']) && this.sliderYear['max'] >= Number(el['year'])
         );
     }
 }

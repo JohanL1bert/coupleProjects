@@ -9,7 +9,7 @@ class SwitchValue {
     favoriteObject: boolean;
     sliderYear: IsliderYear;
     sliderCount: IsliderCount;
-    dataSet: any;
+    dataSet: Array<string>;
     dataSetCounter: any;
     constructor() {
         this.mainObject = {
@@ -407,7 +407,8 @@ class ValueFilter extends SwitchValue {
     }
 
     public getCardContainer() {
-        return document.querySelector('.toys__inner');
+        const toysInner = document.querySelector('.toys__inner') as HTMLElement;
+        return toysInner;
     }
 
     public nodeRemove() {
@@ -613,7 +614,7 @@ export class ToysSettingFilter extends ValueFilter {
             card.classList.add('tree__toys__card');
             let cleanerIterate = i;
             for (let j = 0; j < iterator[i]; j++) {
-                const createImg: any = document.createElement('img');
+                const createImg: HTMLImageElement = document.createElement('img');
                 createImg.classList.add('dragn__img');
                 createImg.src = url[i];
                 createImg.dataset.number = `${i}-${cleanerIterate++}`;
@@ -635,8 +636,13 @@ export class ToysSettingFilter extends ValueFilter {
     public isDataSetExist(cardBox: HTMLElement) {
         const ribbon = cardBox.querySelector('.ribbon') as HTMLElement;
         const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
-        const toysCount = cardBox.querySelector('.toys__amount') as HTMLElement;
+        /* const toysCount = cardBox.querySelector('.toys__amount') as HTMLElement; */
         const treeContainer = document.querySelector('.tree__toys__container') as HTMLElement;
+
+        if (cardBox.dataset.num === undefined) {
+            throw new Error('card dataSet undefined');
+        }
+
         const card = cardBox.dataset.num;
         const result = this.dataSet.includes(card);
         if (result) {
@@ -658,7 +664,7 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
-    public getDataNum(event: PointerEvent) {
+    public getDataNum(event: any) {
         const target = event.target as HTMLElement;
         const cardBox = target.closest('.toys__box') as HTMLElement;
         this.isDataSetExist(cardBox);
@@ -675,12 +681,12 @@ export class ToysSettingFilter extends ValueFilter {
         arrayBtn.forEach((el) => el?.addEventListener('click', this.sortedValue.bind(this)));
         saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
-        inputForm?.addEventListener('keyup', this.inputFormSort);
-        selectForm?.addEventListener('change', this.selectOptionsForm.bind(this));
+        inputForm.addEventListener('keyup', this.inputFormSort);
+        selectForm.addEventListener('change', this.selectOptionsForm.bind(this));
         selectorCheckbox?.addEventListener('change', this.favoriteCheckbox.bind(this));
         this.sliderSelector();
         this.sliderChgangeYear();
-        cardContainer?.addEventListener('click', this.getDataNum.bind(this));
+        cardContainer.addEventListener('click', this.getDataNum.bind(this));
         this.cloneCard();
     }
 

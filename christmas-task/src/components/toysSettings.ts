@@ -1,4 +1,11 @@
-import { SettingObject, SortObject, IsliderYear, IsliderCount } from './interface/templayTypes';
+import {
+    SettingObject,
+    SortObject,
+    IsliderYear,
+    IsliderCount,
+    IshapeColorSize,
+    IsortCheckBox,
+} from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
@@ -10,7 +17,6 @@ class SwitchValue {
     sliderYear: IsliderYear;
     sliderCount: IsliderCount;
     dataSet: Array<string>;
-    dataSetCounter: any;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -42,7 +48,6 @@ class SwitchValue {
             max: 12,
         };
         this.dataSet = [];
-        this.dataSetCounter = [];
     }
 
     public filterSwitchCase(data: string) {
@@ -130,8 +135,8 @@ class SwitchValue {
         return filteredObject;
     }
 
-    public sortCheckbox(data: any) {
-        return data.filter((el: any) => el['favorite'] === true);
+    public sortCheckbox(data: IsortCheckBox[]) {
+        return data.filter((el: Pick<IsortCheckBox, 'favorite'>) => el['favorite'] === true);
     }
 
     public getFilteredData(data: any) {
@@ -219,7 +224,7 @@ class ValueFilter extends SwitchValue {
         super();
     }
 
-    public async getImg(num: any) {
+    public async getImg(num: number | string) {
         const imgNum = fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/assets/toys/${num}.png`
         );
@@ -493,22 +498,22 @@ export class ToysSettingFilter extends ValueFilter {
     public sortedValue(event: any) {
         const target = event.target;
         if (target.classList.contains('form__btn')) {
-            const sortForm: any = super.sortForm(target);
-            const isValueResult: any = super.filterSwitchCase(sortForm);
+            const sortForm = super.sortForm(target) as string; //string | undefined
+            const isValueResult = super.filterSwitchCase(sortForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
             this.filterAllObj();
         }
         if (target.classList.contains('color__btn')) {
-            const colorForm: any = super.sortColor(target);
-            const isValueResult: any = super.filterSwitchCase(colorForm);
+            const colorForm = super.sortColor(target) as string;
+            const isValueResult = super.filterSwitchCase(colorForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
             this.filterAllObj();
         }
         if (target.classList.contains('size__btn')) {
-            const sizeForm: any = super.sortSize(target);
-            const isValueResult: any = super.filterSwitchCase(sizeForm);
+            const sizeForm = super.sortSize(target) as string;
+            const isValueResult = super.filterSwitchCase(sizeForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
             this.filterAllObj();
@@ -551,7 +556,6 @@ export class ToysSettingFilter extends ValueFilter {
     }
 
     public createToysCard() {
-        const containerForElements = document.querySelector('.tree__toys__container') as HTMLLIElement;
         const createContainer = document.createElement('div');
         createContainer.classList.add('tree__toys__card');
         const createImg = document.createElement('img');
@@ -562,7 +566,7 @@ export class ToysSettingFilter extends ValueFilter {
         createSpan.classList.add('count');
     }
 
-    public renderPlayCard(dataSet: Array<string>) {
+    public renderPlayCard() {
         this.createToysCard();
     }
 
@@ -592,7 +596,7 @@ export class ToysSettingFilter extends ValueFilter {
         let dataCount: any;
         let iterator;
         if (this.dataSet.length === 0) {
-            const result = arrayFrom.map((el: any) => this.getImg(el));
+            const result = arrayFrom.map((el: number) => this.getImg(el));
             const imgUrl = Promise.all(result);
             const count = arrayFrom.map((el: any) => this.getDataJS(el));
             dataCount = Promise.all(count);
@@ -600,9 +604,9 @@ export class ToysSettingFilter extends ValueFilter {
             url = await imgUrl;
             iterator = dataCount;
         } else {
-            const result = this.dataSet.map((el: any) => this.getImg(el));
+            const result = this.dataSet.map((el: string) => this.getImg(el));
             const imgUrl = Promise.all(result);
-            const count = this.dataSet.map((el: any) => this.getDataJS(el));
+            const count = this.dataSet.map((el: string) => this.getDataJS(el));
             dataCount = Promise.all(count);
             dataCount = await dataCount;
             url = await imgUrl;
@@ -610,7 +614,7 @@ export class ToysSettingFilter extends ValueFilter {
         }
 
         for (let i = 0; i < url.length; i++) {
-            const card: any = document.createElement('div');
+            const card: HTMLElement = document.createElement('div');
             card.classList.add('tree__toys__card');
             let cleanerIterate = i;
             for (let j = 0; j < iterator[i]; j++) {
@@ -650,7 +654,7 @@ export class ToysSettingFilter extends ValueFilter {
             const value = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value - 1);
             treeContainer.replaceChildren();
-            this.renderPlayCard(this.dataSet);
+            this.renderPlayCard();
             this.cloneCard();
         } else {
             ribbon.classList.add('ribbon__active');
@@ -658,7 +662,7 @@ export class ToysSettingFilter extends ValueFilter {
             const value = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value + 1);
             treeContainer.replaceChildren();
-            this.renderPlayCard(this.dataSet);
+            this.renderPlayCard();
             this.cloneCard();
         }
     }

@@ -32,3 +32,14 @@ export interface ObjectValue {
     color: string;
     size: string;
 }
+
+//Интерфейсы
+export interface IsliderYear {
+    min: number;
+    max: number;
+}
+
+export interface IsliderCount {
+    min: number;
+    max: number;
+}

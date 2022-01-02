@@ -1,4 +1,4 @@
-import { SettingObject, SortObject, rangeObject } from './interface/templayTypes';
+import { SettingObject, SortObject, IsliderYear, IsliderCount } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
@@ -7,8 +7,8 @@ class SwitchValue {
 
     inputObject: string;
     favoriteObject: boolean;
-    sliderYear: any;
-    sliderCount: any;
+    sliderYear: IsliderYear;
+    sliderCount: IsliderCount;
     dataSet: any;
     dataSetCounter: any;
     constructor() {
@@ -123,7 +123,7 @@ class SwitchValue {
             }
         }
 
-        for (let k in filteredObject) {
+        for (const k in filteredObject) {
             if (filteredObject[k] == '') delete filteredObject[k];
         }
 
@@ -286,7 +286,7 @@ class ValueFilter extends SwitchValue {
 
     public SortInput(array: any) {
         const secondFilteredArray: any = [];
-        array.filter((el: any) => {
+        array.map((el: any) => {
             for (const key in el) {
                 if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
                     if (el[key].toLowerCase().includes(this.inputObject.toLowerCase())) {
@@ -310,8 +310,6 @@ class ValueFilter extends SwitchValue {
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
-        /*         const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
-        const arrayDataFiltered = this.returnData(valueFilteredFromData); */
         const dataFromJson = await data;
 
         //Разобраться
@@ -414,7 +412,7 @@ class ValueFilter extends SwitchValue {
 
     public nodeRemove() {
         const [...valueDOM] = document.querySelectorAll('.toys__box');
-        valueDOM.map((el: any) => el.remove());
+        valueDOM.map((el: Element) => el.remove());
     }
 
     public debounceDecorator(fn: any, ms: any) {
@@ -429,8 +427,8 @@ class ValueFilter extends SwitchValue {
         };
     }
 
-    public inputFormSort(event: any) {
-        const inputData: any = event.target.value;
+    public inputFormSort(event: KeyboardEvent) {
+        const inputData = (<HTMLInputElement>event.target).value;
         this.inputObject = inputData;
         this.filterAllObj();
     }
@@ -644,7 +642,7 @@ export class ToysSettingFilter extends ValueFilter {
         if (result) {
             this.dataSet = this.dataSet.filter((el: string) => el !== card);
             ribbon.classList.remove('ribbon__active');
-            const value: number = Number(headerBasket.textContent as string);
+            const value = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value - 1);
             treeContainer.replaceChildren();
             this.renderPlayCard(this.dataSet);
@@ -652,7 +650,7 @@ export class ToysSettingFilter extends ValueFilter {
         } else {
             ribbon.classList.add('ribbon__active');
             this.dataSet.push(card);
-            const value: number = Number(headerBasket.textContent as string);
+            const value = Number(headerBasket.textContent as string);
             headerBasket.innerHTML = String(value + 1);
             treeContainer.replaceChildren();
             this.renderPlayCard(this.dataSet);
@@ -660,8 +658,9 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
-    public getDataNum(event: any) {
-        const cardBox = event.target.closest('.toys__box') as HTMLElement;
+    public getDataNum(event: PointerEvent) {
+        const target = event.target as HTMLElement;
+        const cardBox = target.closest('.toys__box') as HTMLElement;
         this.isDataSetExist(cardBox);
     }
 

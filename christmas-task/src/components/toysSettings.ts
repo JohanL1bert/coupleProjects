@@ -638,12 +638,11 @@ export class ToysSettingFilter extends ValueFilter {
         const headerBasket = document.querySelector('.header__basket__amount') as HTMLElement;
         /* const toysCount = cardBox.querySelector('.toys__amount') as HTMLElement; */
         const treeContainer = document.querySelector('.tree__toys__container') as HTMLElement;
-
-        if (cardBox.dataset.num === undefined) {
+        const card = cardBox.dataset.num;
+        if (card === undefined) {
             throw new Error('card dataSet undefined');
         }
 
-        const card = cardBox.dataset.num;
         const result = this.dataSet.includes(card);
         if (result) {
             this.dataSet = this.dataSet.filter((el: string) => el !== card);

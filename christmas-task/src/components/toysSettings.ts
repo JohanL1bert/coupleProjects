@@ -1,16 +1,18 @@
 import {
-    SettingObject,
+    SettingObjectBool,
     SortObject,
     IsliderYear,
     IsliderCount,
     IshapeColorSize,
     IdataMain,
     EsortedValue,
+    IvalueObject,
+    JSONData,
 } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 
 class SwitchValue {
-    mainObject: SettingObject;
+    mainObject: SettingObjectBool;
     sortObject: SortObject;
 
     inputObject: string;
@@ -82,8 +84,8 @@ class SwitchValue {
         }
     }
 
-    public secondFilteredData(data: any) {
-        const valueOject: any = {
+    public secondFilteredData(data: Array<string>) {
+        const valueObject: IvalueObject = {
             isFormBall: 'шар',
             isFormBell: 'колокольчик',
             isFormCone: 'шишка',
@@ -101,15 +103,15 @@ class SwitchValue {
 
         const arrayValue: string[] = [];
 
-        const filteredObject: any = {
+        const filteredObject: IshapeColorSize = {
             shape: [],
             color: [],
             size: [],
         };
 
-        data.map((el: any) => {
-            if (el in valueOject) {
-                arrayValue.push(valueOject[el]);
+        data.map((el: string) => {
+            if (el in valueObject) {
+                arrayValue.push(valueObject[el as keyof IvalueObject]);
             }
         });
 
@@ -129,8 +131,10 @@ class SwitchValue {
             }
         }
 
+        //Как затипизировать при string[] и условие filtereObject === ''. Ошибка string[] has no overlap with string
         for (const k in filteredObject) {
-            if (filteredObject[k] == '') delete filteredObject[k];
+            if (filteredObject[k as keyof IshapeColorSize].length === 0)
+                delete filteredObject[k as keyof IshapeColorSize];
         }
 
         return filteredObject;
@@ -140,8 +144,10 @@ class SwitchValue {
         return data.filter((el: Pick<IdataMain, 'favorite'>) => el['favorite'] === true);
     }
 
-    public getFilteredData(data: any) {
-        const valueOject: any = {
+    //FIXME: Удалить мертвый кусок кода
+    /*     public getFilteredData(data: any) {
+        console.log(data);
+        const valueObject: IvalueObject = {
             isFormBall: 'шар',
             isFormBell: 'колокольчик',
             isFormCone: 'шишка',
@@ -160,15 +166,16 @@ class SwitchValue {
         const arrayValue: any = [];
 
         data.map((el: any) => {
-            if (el in valueOject) {
-                arrayValue.push(valueOject[el]);
+            if (el in valueObject) {
+                arrayValue.push(valueObject[el]);
             }
         });
 
         return arrayValue;
-    }
+    } */
 
-    public returnData(data: any) {
+    /*     public returnData(data: any) {
+        console.log(data);
         if (data.length > 0) {
             return data;
         } else {
@@ -189,10 +196,9 @@ class SwitchValue {
             ];
             return arrayData;
         }
-    }
+    } */
 
     public filterSelectOption(sortedValue: SortObject, data: any) {
-        console.log(data);
         if (sortedValue.isSort === EsortedValue.SortNameMax) {
             const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
             return value;
@@ -200,10 +206,13 @@ class SwitchValue {
             const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
             return value;
         } else if (sortedValue.isSort === EsortedValue.SortMax) {
-            const value = data.sort((a: any, b: any) => a.year - b.year);
+            const value = data.sort((a: any, b: any) => Number(a.year) - Number(b.year));
             return value;
         } else if (sortedValue.isSort === EsortedValue.SortMin) {
-            const value = data.sort((a: any, b: any) => b.year - a.year);
+            const value = data.sort((a: any, b: any) => Number(b.year) - Number(a.year));
+            return value;
+        } else {
+            const value = data.length === 0;
             return value;
         }
     }
@@ -280,7 +289,7 @@ class ValueFilter extends SwitchValue {
         Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
     }
 
-    public filterArray(objectData: any) {
+    public filterArray(objectData: SettingObjectBool) {
         const arrayValue = [];
         for (const key in objectData) {
             if (objectData[key] === true) arrayValue.push(key);

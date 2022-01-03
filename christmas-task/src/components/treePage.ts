@@ -30,8 +30,10 @@ export class AudioTree {
         }
     }
 
-    public changeBackground(event: any) {
-        const backgroundImg = event.target.closest('.christmas__background__item');
+    //Приходит PoinerEvent. Как типизировать его как Pointer Event? и использовать closest
+    public changeBackground(event: Event) {
+        const target = event.target as HTMLElement;
+        const backgroundImg = target.closest('.christmas__background__item');
         if (!backgroundImg) return;
         const imgUrl = window.getComputedStyle(backgroundImg).getPropertyValue('background-image');
 
@@ -39,8 +41,9 @@ export class AudioTree {
         mainTreeBackground.style.backgroundImage = `${imgUrl}`;
     }
 
-    private changeTree(event: any) {
-        const backgroundImg = event.target.closest('.christmas__tree__item');
+    private changeTree(event: Event) {
+        const target = event.target as HTMLElement;
+        const backgroundImg = target.closest('.christmas__tree__item');
         if (!backgroundImg) return;
         const imgUrl = window.getComputedStyle(backgroundImg).getPropertyValue('background-image');
 
@@ -218,16 +221,15 @@ export class AudioTree {
         if (widthSnowFlakes >= widthContainer) {
             return;
         } else {
-            const clone: any = flakes.cloneNode(true);
-            const cloneSecond: any = flakes.cloneNode(true);
-            const random = Math.random();
-            clone.style.paddingLeft = random * 5 + 'px';
-            clone.style.animationDuration = Math.random() * 5 + 3 + 's';
-            clone.style.opacity = Math.random() * 1;
+            const clone = flakes.cloneNode(true) as HTMLElement;
+            const cloneSecond = flakes.cloneNode(true) as HTMLElement;
+            clone.style.paddingLeft = `${Math.random() * 5}px`;
+            clone.style.animationDuration = `${Math.random() * 5 + 3}s`;
+            clone.style.opacity = `${Math.random() * 1}`;
 
-            cloneSecond.style.paddingTop = Math.random() * 5 + 'px';
-            cloneSecond.style.animationDuration = Math.random() * 5 + 3 + 's';
-            cloneSecond.style.opacity = Math.random() * 1;
+            cloneSecond.style.paddingTop = `${Math.random() * 5}px`;
+            cloneSecond.style.animationDuration = `${Math.random() * 5 + 3}s`;
+            cloneSecond.style.opacity = `${Math.random() * 1}`;
 
             treeBackground.append(clone);
             treeBackground.append(cloneSecond);

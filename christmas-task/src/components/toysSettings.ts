@@ -1,6 +1,5 @@
 import {
     SettingObjectBool,
-    SortObject,
     IsliderYear,
     IsliderCount,
     IshapeColorSize,
@@ -13,7 +12,7 @@ import { ToysPage } from './toysPage';
 
 class SwitchValue {
     mainObject: SettingObjectBool;
-    sortObject: SortObject;
+    sortObject: string;
 
     inputObject: string;
     favoriteObject: boolean;
@@ -37,9 +36,7 @@ class SwitchValue {
             isSizeSmall: false,
         };
 
-        this.sortObject = {
-            isSort: 'sort-name-max',
-        };
+        this.sortObject = '';
         this.inputObject = '';
         this.favoriteObject = false;
         this.sliderYear = {
@@ -198,21 +195,26 @@ class SwitchValue {
         }
     } */
 
-    public filterSelectOption(sortedValue: SortObject, data: any) {
-        if (sortedValue.isSort === EsortedValue.SortNameMax) {
-            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
+    public filterSelectOption(sortedValue: string, data: IdataMain[]) {
+        if (sortedValue === EsortedValue.SortNameMax) {
+            const value = data.sort((a: Pick<IdataMain, 'name'>, b: Pick<IdataMain, 'name'>) =>
+                a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0
+            );
             return value;
-        } else if (sortedValue.isSort === EsortedValue.SortNameMin) {
-            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
+        } else if (sortedValue === EsortedValue.SortNameMin) {
+            const value = data.sort((a: Pick<IdataMain, 'name'>, b: Pick<IdataMain, 'name'>) =>
+                a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0
+            );
             return value;
-        } else if (sortedValue.isSort === EsortedValue.SortMax) {
-            const value = data.sort((a: any, b: any) => Number(a.year) - Number(b.year));
+        } else if (sortedValue === EsortedValue.SortMax) {
+            const value = data.sort(
+                (a: Pick<IdataMain, 'year'>, b: Pick<IdataMain, 'year'>) => Number(a.year) - Number(b.year)
+            );
             return value;
-        } else if (sortedValue.isSort === EsortedValue.SortMin) {
-            const value = data.sort((a: any, b: any) => Number(b.year) - Number(a.year));
-            return value;
-        } else {
-            const value = data.length === 0;
+        } else if (sortedValue === EsortedValue.SortMin) {
+            const value = data.sort(
+                (a: Pick<IdataMain, 'year'>, b: Pick<IdataMain, 'year'>) => Number(b.year) - Number(a.year)
+            );
             return value;
         }
     }
@@ -681,6 +683,7 @@ export class ToysSettingFilter extends ValueFilter {
     }
 
     public getDataNum(event: any) {
+        console.log(event, 'getDataNum');
         const target = event.target as HTMLElement;
         const cardBox = target.closest('.toys__box') as HTMLElement;
         this.isDataSetExist(cardBox);

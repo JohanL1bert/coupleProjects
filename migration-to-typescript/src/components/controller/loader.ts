@@ -1,6 +1,6 @@
 import { Iloader, Callback, StatusCode } from '../template-types';
 
-class GetData {
+class DataFetcher {
     baseLink: string;
     options: Iloader;
     constructor(baseLink: string, options: Iloader) {
@@ -47,4 +47,4 @@ class GetData {
     }
 }
 
-export default GetData;
+export default DataFetcher;

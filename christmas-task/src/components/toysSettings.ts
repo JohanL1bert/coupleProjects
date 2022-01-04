@@ -141,61 +141,11 @@ class SwitchValue {
         return data.filter((el: Pick<IdataMain, 'favorite'>) => el['favorite'] === true);
     }
 
-    //FIXME: Удалить мертвый кусок кода
-    /*     public getFilteredData(data: any) {
-        console.log(data);
-        const valueObject: IvalueObject = {
-            isFormBall: 'шар',
-            isFormBell: 'колокольчик',
-            isFormCone: 'шишка',
-            isFormSnowFlake: 'снежинка',
-            isFormToy: 'фигурка',
-            isColorWhite: 'белый',
-            isColorYellow: 'желтый',
-            isColorRed: 'красный',
-            isColorBlue: 'синий',
-            isColorGreen: 'зелёный',
-            isSizeBig: 'большой',
-            isSizeMedium: 'средний',
-            isSizeSmall: 'малый',
-        };
-
-        const arrayValue: any = [];
-
-        data.map((el: any) => {
-            if (el in valueObject) {
-                arrayValue.push(valueObject[el]);
-            }
-        });
-
-        return arrayValue;
-    } */
-
-    /*     public returnData(data: any) {
-        console.log(data);
-        if (data.length > 0) {
-            return data;
-        } else {
-            const arrayData = [
-                'шар',
-                'колокольчик',
-                'шишка',
-                'снежинка',
-                'фигурка',
-                'белый',
-                'желтый',
-                'красный',
-                'синий',
-                'зелёный',
-                'большой',
-                'средний',
-                'малый',
-            ];
-            return arrayData;
-        }
-    } */
-
+    //interface или пустой массив
     public filterSelectOption(sortedValue: string, data: IdataMain[]) {
+        if (data.length === 0) {
+            return data;
+        }
         if (sortedValue === EsortedValue.SortNameMax) {
             const value = data.sort((a: Pick<IdataMain, 'name'>, b: Pick<IdataMain, 'name'>) =>
                 a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0
@@ -246,8 +196,8 @@ class ValueFilter extends SwitchValue {
         return (await imgNum).url;
     }
 
-    public renderHTML(data: any) {
-        const allData = data.map((el: any) => {
+    public renderHTML(data: IdataMain[]) {
+        const allData = data.map((el) => {
             const num = this.getImg(el.num);
             return num.then((num) => {
                 return `
@@ -288,7 +238,9 @@ class ValueFilter extends SwitchValue {
             });
         });
         const hookHTML = document.querySelector('.toys__inner');
-        Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
+        Promise.all(allData)
+            .then((valueData) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')))
+            .catch((err) => console.warn(err, 'PromiseAll is undefined'));
     }
 
     public filterArray(objectData: SettingObjectBool) {
@@ -304,9 +256,10 @@ class ValueFilter extends SwitchValue {
         idField.value = 'Ничего не найдено';
     }
 
-    public SortInput(array: any) {
-        const secondFilteredArray: any = [];
-        array.map((el: any) => {
+    //Массив дат или пустой массив
+    public SortInput(array: IdataMain[]) {
+        const secondFilteredArray: IdataMain[] = [];
+        array.map((el) => {
             for (const key in el) {
                 if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
                     if (el[key].toLowerCase().includes(this.inputObject.toLowerCase())) {
@@ -331,9 +284,12 @@ class ValueFilter extends SwitchValue {
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
         const dataFromJson = await data;
+        if (dataFromJson === undefined) {
+            throw new Error('data from JSON is Undefined');
+        }
 
         //Разобраться
-        function filterPlainArray(array: any, filters: any) {
+        function filterPlainArray(array: IdataMain[], filters: any) {
             const getValue = (value: any) => (typeof value === 'string' ? value.toUpperCase() : value);
             const filterKeys = Object.keys(filters);
 
@@ -348,7 +304,7 @@ class ValueFilter extends SwitchValue {
         }
 
         const filteredList = filterPlainArray(dataFromJson, filterData); //Фильт по значениях: Форма, Цвет, размер
-        let filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
+        let filteredListFromSelectOption: any = this.filterSelectOption(this.sortObject, filteredList);
         if (filteredListFromSelectOption === undefined) {
             filteredListFromSelectOption = filteredList;
         }
@@ -367,7 +323,7 @@ class ValueFilter extends SwitchValue {
 
     public async getJSON() {
         const toys = new ToysPage();
-        const jsonData = toys.getData();
+        const jsonData = toys.dataFetcher();
         const data = await jsonData;
         return data;
     }
@@ -400,22 +356,22 @@ class ValueFilter extends SwitchValue {
         return checkBoxSelector;
     }
 
-    public sortSize(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortSize(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
 
-    public sortForm(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortForm(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
 
-    public sortColor(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortColor(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active__color');
             return target.dataset.filter;
         }
@@ -504,14 +460,15 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
-    public selectOptionsForm(event: any) {
-        const value = event.target.value;
+    public selectOptionsForm(event: Event) {
+        const target = event.target as HTMLInputElement;
+        const value = target.value;
         this.sortObject = value;
         this.filterAllObj();
     }
 
-    public sortedValue(event: any) {
-        const target = event.target;
+    public sortedValue(event: Event) {
+        const target = event.target as HTMLButtonElement;
         if (target.classList.contains('form__btn')) {
             const sortForm = super.sortForm(target) as string; //string | undefined
             const isValueResult = super.filterSwitchCase(sortForm);
@@ -593,11 +550,10 @@ export class ToysSettingFilter extends ValueFilter {
     public async getDataJS(url: any) {
         const dataJSON = await fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
-        ).then((response) => response.json());
+        ).then((response) => response.json() as Promise<IdataMain[]>);
 
-        const urls = await url;
         for (const key in dataJSON) {
-            if (urls == dataJSON[key].num) {
+            if (url == dataJSON[key].num) {
                 return dataJSON[key].count;
             }
         }
@@ -609,30 +565,31 @@ export class ToysSettingFilter extends ValueFilter {
         const arrayFrom = Array.from({ length: 20 }, (_, i) => i + 1);
         let url;
         let dataCount: any;
-        let iterator;
+        let iterator: Array<string>;
         if (this.dataSet.length === 0) {
             const result = arrayFrom.map((el: number) => this.getImg(el));
             const imgUrl = Promise.all(result);
-            const count = arrayFrom.map((el: any) => this.getDataJS(el));
-            dataCount = Promise.all(count);
-            dataCount = await dataCount;
+            const count = arrayFrom.map((el) => this.getDataJS(el));
+            const promiseDataCount = Promise.all(count);
+            dataCount = await promiseDataCount;
             url = await imgUrl;
             iterator = dataCount;
         } else {
             const result = this.dataSet.map((el: string) => this.getImg(el));
             const imgUrl = Promise.all(result);
             const count = this.dataSet.map((el: string) => this.getDataJS(el));
-            dataCount = Promise.all(count);
-            dataCount = await dataCount;
+            const promiseDataCount = Promise.all(count);
+            dataCount = await promiseDataCount;
             url = await imgUrl;
             iterator = dataCount;
         }
 
+        console.log(iterator, 'iterator');
         for (let i = 0; i < url.length; i++) {
             const card: HTMLElement = document.createElement('div');
             card.classList.add('tree__toys__card');
             let cleanerIterate = i;
-            for (let j = 0; j < iterator[i]; j++) {
+            for (let j = 0; j < Number(iterator[i]); j++) {
                 const createImg: HTMLImageElement = document.createElement('img');
                 createImg.classList.add('dragn__img');
                 createImg.src = url[i];
@@ -682,8 +639,7 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
-    public getDataNum(event: any) {
-        console.log(event, 'getDataNum');
+    public getDataNum(event: Event) {
         const target = event.target as HTMLElement;
         const cardBox = target.closest('.toys__box') as HTMLElement;
         this.isDataSetExist(cardBox);
@@ -697,8 +653,19 @@ export class ToysSettingFilter extends ValueFilter {
         const selectorCheckbox = this.checkBox();
         const cardContainer = this.getCardContainer();
 
-        arrayBtn.forEach((el) => el?.addEventListener('click', this.sortedValue.bind(this)));
-        saveClearBtn.forEach((el) => el?.addEventListener('click', this.saveResetFun.bind(this)));
+        arrayBtn.forEach((el) => {
+            if (el === null || el === undefined) {
+                throw new Error('el in arrayBtn is undefined or null');
+            }
+
+            el.addEventListener('click', this.sortedValue.bind(this));
+        });
+        saveClearBtn.forEach((el) => {
+            if (el === null || el === undefined) {
+                throw new Error('el in saveClearBtn is undefined or null');
+            }
+            el.addEventListener('click', this.saveResetFun.bind(this));
+        });
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
         inputForm.addEventListener('keyup', this.inputFormSort);
         selectForm.addEventListener('change', this.selectOptionsForm.bind(this));

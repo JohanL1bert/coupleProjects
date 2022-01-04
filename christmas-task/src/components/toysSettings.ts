@@ -407,7 +407,7 @@ class ValueFilter extends SwitchValue {
     public inputFormSort(event: KeyboardEvent) {
         const inputData = (<HTMLInputElement>event.target).value;
         this.inputObject = inputData;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 }
 
@@ -416,12 +416,13 @@ export class ToysSettingFilter extends ValueFilter {
         super();
     }
 
-    public saveResetFun(event: any) {
+    public saveResetFun(event: Event) {
+        const target = event.target as HTMLButtonElement;
         const formSelectors = document.querySelectorAll('.form__btn');
         const colorSelectorBtn = document.querySelectorAll('.color__btn');
         const sizeSelectorBtn = document.querySelectorAll('.size__btn');
         const splitArray = [...formSelectors, ...colorSelectorBtn, ...sizeSelectorBtn];
-        if (event.target.classList.contains('sort__reset')) {
+        if (target.classList.contains('sort__reset')) {
             for (const key in this.mainObject) {
                 this.mainObject[key] = false;
             }
@@ -453,9 +454,9 @@ export class ToysSettingFilter extends ValueFilter {
             headerBasket.innerHTML = '0';
             this.dataSet = [];
 
-            this.filterAllObj();
+            void this.filterAllObj();
         }
-        if (event.target.classList.contains('sort__save')) {
+        if (target.classList.contains('sort__save')) {
             console.log('Она не работет. Сорри хВ');
         }
     }
@@ -464,7 +465,7 @@ export class ToysSettingFilter extends ValueFilter {
         const target = event.target as HTMLInputElement;
         const value = target.value;
         this.sortObject = value;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
     public sortedValue(event: Event) {
@@ -474,21 +475,21 @@ export class ToysSettingFilter extends ValueFilter {
             const isValueResult = super.filterSwitchCase(sortForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
         if (target.classList.contains('color__btn')) {
             const colorForm = super.sortColor(target) as string;
             const isValueResult = super.filterSwitchCase(colorForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
         if (target.classList.contains('size__btn')) {
             const sizeForm = super.sortSize(target) as string;
             const isValueResult = super.filterSwitchCase(sizeForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
     }
 
@@ -496,7 +497,7 @@ export class ToysSettingFilter extends ValueFilter {
     public favoriteCheckbox(event: Event) {
         const ischecked = (<HTMLInputElement>event.target).checked;
         this.favoriteObject = Boolean(ischecked);
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
     public sliderOnChangeCount(eventHandler: any) {
@@ -505,7 +506,7 @@ export class ToysSettingFilter extends ValueFilter {
         const maxNum = Math.round(+maximum);
         this.sliderCount['min'] = minNum;
         this.sliderCount['max'] = maxNum;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
     public sliderOnChangeYear(eventHandler: any) {
@@ -514,7 +515,7 @@ export class ToysSettingFilter extends ValueFilter {
         const maxNum = Math.round(+maximum);
         this.sliderYear['min'] = minNum;
         this.sliderYear['max'] = maxNum;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
     public sliderChgangeYear() {
@@ -547,15 +548,19 @@ export class ToysSettingFilter extends ValueFilter {
         container.appendChild(card);
     }
 
-    public async getDataJS(url: any) {
-        const dataJSON = await fetch(
-            `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
-        ).then((response) => response.json() as Promise<IdataMain[]>);
+    public async getDataJS(url: number | string) {
+        try {
+            const dataJSON = await fetch(
+                `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
+            ).then((response) => response.json() as Promise<IdataMain[]>);
 
-        for (const key in dataJSON) {
-            if (url == dataJSON[key].num) {
-                return dataJSON[key].count;
+            for (const key in dataJSON) {
+                if (url == dataJSON[key].num) {
+                    return dataJSON[key].count;
+                }
             }
+        } catch (err) {
+            console.warn(err, 'err in getDataJS');
         }
     }
 
@@ -584,7 +589,6 @@ export class ToysSettingFilter extends ValueFilter {
             iterator = dataCount;
         }
 
-        console.log(iterator, 'iterator');
         for (let i = 0; i < url.length; i++) {
             const card: HTMLElement = document.createElement('div');
             card.classList.add('tree__toys__card');
@@ -627,7 +631,7 @@ export class ToysSettingFilter extends ValueFilter {
             headerBasket.innerHTML = String(value - 1);
             treeContainer.replaceChildren();
             this.renderPlayCard();
-            this.cloneCard();
+            void this.cloneCard();
         } else {
             ribbon.classList.add('ribbon__active');
             this.dataSet.push(card);
@@ -635,7 +639,7 @@ export class ToysSettingFilter extends ValueFilter {
             headerBasket.innerHTML = String(value + 1);
             treeContainer.replaceChildren();
             this.renderPlayCard();
-            this.cloneCard();
+            void this.cloneCard();
         }
     }
 
@@ -673,7 +677,7 @@ export class ToysSettingFilter extends ValueFilter {
         this.sliderSelector();
         this.sliderChgangeYear();
         cardContainer.addEventListener('click', this.getDataNum.bind(this));
-        this.cloneCard();
+        void this.cloneCard();
     }
 
     public cycleSettings() {

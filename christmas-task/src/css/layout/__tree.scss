@@ -73,6 +73,7 @@
     &__item {
         @include christmas-tree-box;
         &:nth-child(1) {
+            position: relative;
             background-repeat: no-repeat;
             background-size: auto 111px;
             background-position: center;

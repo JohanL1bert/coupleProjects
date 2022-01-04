@@ -1,8 +1,8 @@
 import * as noUiSlider from 'nouislider';
 import wNumb from 'wnumb';
+import { IdataMain } from './interface/templayTypes';
 
 export class ToysPage {
-    constructor() {}
     private createLocalStorage() {
         const setLocalStorage = () => {
             const objFavoritesToys = {};
@@ -32,8 +32,8 @@ export class ToysPage {
         window.addEventListener('load', setLocalStorage);
     }
     public prerenderSlider() {
-        const getCountSlider: any = document.querySelector('.slider__count');
-        const getYearSlider: any = document.querySelector('.slider__year');
+        const getCountSlider = document.querySelector('.slider__count') as HTMLElement;
+        const getYearSlider = document.querySelector('.slider__year') as HTMLElement;
         noUiSlider.create(getCountSlider, {
             range: {
                 min: 1,
@@ -92,22 +92,36 @@ export class ToysPage {
         });
     }
 
-    public async getData() {
-        const dataJSON = await fetch(
-            `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
-        ).then((response) => response.json());
-        return dataJSON;
+    public async dataFetcher() {
+        try {
+            const dataJSON: IdataMain[] = await fetch(
+                `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
+            ).then((response) => response.json() as Promise<IdataMain[]>);
+            return dataJSON;
+        } catch (err) {
+            console.warn('getData fetch error');
+            //ts заставляет вернуть что-то даже если выбросилась ошибка, при условие если мы возвращает что-то явно
+        }
     }
 
-    private async getImg(num: any) {
-        const imgNum = fetch(`https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/toys/${num}.png`);
-        return (await imgNum).url;
+    private async getImg(num: string) {
+        try {
+            const imgNum = fetch(`https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/toys/${num}.png`);
+            return (await imgNum).url;
+        } catch (err) {
+            console.warn('getImg fetch error');
+        }
     }
 
     public async prerender() {
-        const data = this.getData();
-        const allData = data.then((value) =>
-            value.map(async (el: any) => {
+        const data = this.dataFetcher();
+
+        const allData = data.then((value) => {
+            if (value === undefined) {
+                throw new Error('value is undefined');
+            }
+
+            return value.map(async (el) => {
                 const num = this.getImg(el.num);
                 return num.then((num) => {
                     return `
@@ -138,7 +152,7 @@ export class ToysPage {
                             <div class="ribbon"></div>
                             <img
                             class="toys__img__garland"
-                            src="${num}"
+                            src="${String(num)}"
                                 alt="toy garland"
                                  />
                         </div>
@@ -146,10 +160,12 @@ export class ToysPage {
                     </div>
     `;
                 });
-            })
-        );
-        const hookHTML = document.querySelector('.toys__inner');
-        const data1 = await allData;
-        Promise.all(data1).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
+            });
+        });
+        const hookHTML = document.querySelector('.toys__inner') as HTMLElement;
+        const allDataHTML = await allData;
+        Promise.all(allDataHTML)
+            .then((valueData) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')))
+            .catch((err) => console.warn(err, 'PromiseAll is undefined'));
     }
 }

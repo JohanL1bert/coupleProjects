@@ -38,16 +38,6 @@ const renderMainPage = () => {
   pictureBtn.addEventListener("click", buttonClick);
 };
 
-buttonClick = (event) => {
-  const name = filterClick(event.srcElement.className);
-  const child = nodes();
-  deleteNodes(...child);
-  renderCategory(name);
-
-  categoryName = document.querySelector(".categories__name");
-  categoryName.addEventListener("click", renderMainPage);
-};
-
 const buttonSetting = () => {
   const child = nodes();
   deleteNodes(...child);
@@ -88,6 +78,16 @@ const setLocalStorage = () => {
   if (localStorage.getItem("objStorage") === null) {
     localStorage.setItem("objStorage", JSON.stringify(objStorage));
   }
+};
+
+buttonClick = (event) => {
+  const name = filterClick(event.srcElement.className);
+  const child = nodes();
+  deleteNodes(...child);
+  renderCategory(name);
+
+  categoryName = document.querySelector(".categories__name");
+  categoryName.addEventListener("click", renderMainPage);
 };
 
 const getLocalStorage = () => {

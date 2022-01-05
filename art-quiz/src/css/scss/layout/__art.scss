@@ -56,8 +56,6 @@
 }
 
 .picture {
-  &__quiz {
-  }
   &__button {
     cursor: pointer;
     @include button-color;

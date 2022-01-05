@@ -1,6 +1,3 @@
-.settings {
-}
-
 .setting {
   &__wrapper {
     margin-top: 100px;
@@ -22,8 +19,6 @@
   &__text {
     color: $white-color;
     @include button-text;
-  }
-  &__close {
   }
   &__volume {
     display: flex;
@@ -58,10 +53,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  &__off {
-  }
-  &__on {
   }
 }
 

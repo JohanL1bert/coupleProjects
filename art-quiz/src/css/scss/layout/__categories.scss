@@ -1,6 +1,4 @@
 .categories {
-  &__inner {
-  }
   &__footer {
     height: 62px;
     margin-top: 30px;
@@ -12,14 +10,10 @@
     display: flex;
     justify-content: space-around;
   }
-  &__heading {
-  }
   &__name {
     @include button-text;
 
     color: $white-color;
-  }
-  &__setting {
   }
 }
 

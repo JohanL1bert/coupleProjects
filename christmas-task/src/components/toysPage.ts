@@ -104,12 +104,12 @@ export class ToysPage {
         }
     }
 
-    private async getImg(num: string) {
+    private async imgFetcher(num: string) {
         try {
             const imgNum = fetch(`https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/toys/${num}.png`);
             return (await imgNum).url;
         } catch (err) {
-            console.warn('getImg fetch error');
+            console.warn('imgFetcher fetch error');
         }
     }
 
@@ -122,7 +122,7 @@ export class ToysPage {
             }
 
             return value.map(async (el) => {
-                const num = this.getImg(el.num);
+                const num = this.imgFetcher(el.num);
                 return num.then((num) => {
                     return `
         <div class="toys__box" data-num="${el.num}">

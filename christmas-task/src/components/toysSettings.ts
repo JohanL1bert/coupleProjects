@@ -6,6 +6,7 @@ import {
     IdataMain,
     EsortedValue,
     IvalueObject,
+    CallbackType,
 } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
 import * as noUiSlider from 'nouislider';
@@ -189,7 +190,7 @@ class ValueFilter extends SwitchValue {
         super();
     }
 
-    public async getImg(num: number | string) {
+    public async imgFetcher(num: number | string) {
         const imgNum = fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/assets/toys/${num}.png`
         );
@@ -198,7 +199,7 @@ class ValueFilter extends SwitchValue {
 
     public renderHTML(data: IdataMain[]) {
         const allData = data.map((el) => {
-            const num = this.getImg(el.num);
+            const num = this.imgFetcher(el.num);
             return num.then((num) => {
                 return `
         <div class="toys__box" data-num="${el.num}">
@@ -399,12 +400,14 @@ class ValueFilter extends SwitchValue {
         valueDOM.map((el: Element) => el.remove());
     }
 
-    public debounceDecorator(fn: any, ms: number) {
+    //Как-то получилось  - убрал деструктиризацию в return (...args: Keyboardevent) и написад тип callBack, который ивент принимает. this получается
+    //не учитывается? У меня тип только один параметр принимает.
+    public debounceDecorator(fn: CallbackType, ms: number) {
         let isCooldown: ReturnType<typeof setTimeout>;
         //Не уверен что тут массив эвентов
-        return (...args: KeyboardEvent[]) => {
+        return (args: KeyboardEvent) => {
             const funCall = () => {
-                return fn.apply(this, args);
+                return fn.apply(this, [args]);
             };
 
             clearTimeout(isCooldown);
@@ -583,7 +586,7 @@ export class ToysSettingFilter extends ValueFilter {
         let dataCount: string[];
         let iterator: Array<string>;
         if (this.dataSet.length === 0) {
-            const result = arrayFrom.map((el: string) => this.getImg(el));
+            const result = arrayFrom.map((el: string) => this.imgFetcher(el));
             const imgUrl = Promise.all(result);
             const count = arrayFrom.map((el) => this.getDataJS(el));
             const promiseDataCount = Promise.all(count).catch((err) => console.warn(err, 'count is undefined'));
@@ -598,7 +601,7 @@ export class ToysSettingFilter extends ValueFilter {
             url = await imgUrl;
             iterator = dataCount;
         } else {
-            const result = this.dataSet.map((el: string) => this.getImg(el));
+            const result = this.dataSet.map((el: string) => this.imgFetcher(el));
             const imgUrl = Promise.all(result);
             const count = this.dataSet.map((el: string) => this.getDataJS(el));
             const promiseDataCount = Promise.all(count);

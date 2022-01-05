@@ -52,3 +52,5 @@ export interface IvalueObject {
     isSizeMedium: string;
     isSizeSmall: string;
 }
+
+export type CallbackType = (data: KeyboardEvent) => void;

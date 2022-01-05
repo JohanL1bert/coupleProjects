@@ -265,7 +265,6 @@ export class TreeSetting {
     }
 
     public dragOver(event: DragEvent) {
-        /* console.log('DragOver'); */
         event.preventDefault();
     }
 

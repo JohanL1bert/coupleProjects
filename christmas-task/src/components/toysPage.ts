@@ -41,25 +41,8 @@ export class ToysPage {
             },
 
             step: 1,
-
-            // Handles start at ...
             start: [1, 12],
-
-            // ... must be at least 300 apart
-            /* margin: 0, */
-
-            // ... but no more than 600
-            /*             limit: 600, */
-
-            // Display colored bars between handles
             connect: true,
-
-            // Put '0' at the bottom of the slider
-            /* direction: 'rtl', */
-
-            // Move handle on tap, bars are draggable
-            /* behaviour: 'tap-drag', */
-
             tooltips: wNumb({ decimals: 0 }),
         });
 
@@ -70,23 +53,10 @@ export class ToysPage {
             },
 
             step: 10,
-
-            // Handles start at ...
             start: [1940, 2020],
-
-            // ... must be at least 300 apart
             margin: 0,
-
-            // ... but no more than 600
             limit: 600,
-
-            // Display colored bars between handles
             connect: true,
-
-            // Put '0' at the bottom of the slider
-            /* direction: 'rtl', */
-
-            // Move handle on tap, bars are draggable
             behaviour: 'tap-drag',
             tooltips: wNumb({ decimals: 0 }),
         });

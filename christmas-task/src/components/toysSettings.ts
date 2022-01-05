@@ -336,25 +336,25 @@ class ValueFilter extends SwitchValue {
         return data;
     }
 
-    public getBtn() {
+    public getBtnHTML() {
         const formBtn = document.querySelector('.form__name');
         const colorBtn = document.querySelector('.color__name');
         const sizeBtn = document.querySelector('.size__name');
         return [formBtn, colorBtn, sizeBtn];
     }
 
-    public sortBtn() {
+    public getSortBtnHTML() {
         const sortReset = document.querySelector('.sort__reset');
         const sortSave = document.querySelector('.sort__save');
         return [sortReset, sortSave];
     }
 
-    public inputForm() {
+    public getInputFormHTML() {
         const inputForm = document.getElementById('search__data') as HTMLInputElement;
         return inputForm;
     }
 
-    public selectForm() {
+    public getSelectFormHTML() {
         const selectForm = document.querySelector('.sort__letter') as HTMLElement;
         return selectForm;
     }
@@ -427,7 +427,7 @@ export class ToysSettingFilter extends ValueFilter {
         super();
     }
 
-    public saveResetFun(event: Event) {
+    public saveResetMethod(event: Event) {
         const target = event.target as HTMLButtonElement;
         const formSelectors = document.querySelectorAll('.form__btn');
         const colorSelectorBtn = document.querySelectorAll('.color__btn');
@@ -443,7 +443,7 @@ export class ToysSettingFilter extends ValueFilter {
                 }
             });
             //Обнуляем ввод инпут
-            const resetInputForm = this.inputForm();
+            const resetInputForm = this.getInputFormHTML();
             resetInputForm.value = '';
             this.inputObject = '';
             //Обновляем слайдер лет
@@ -678,10 +678,10 @@ export class ToysSettingFilter extends ValueFilter {
     }
 
     private addListener() {
-        const arrayBtn = this.getBtn();
-        const saveClearBtn = this.sortBtn();
-        const inputForm = this.inputForm();
-        const selectForm = this.selectForm();
+        const arrayBtn = this.getBtnHTML();
+        const saveClearBtn = this.getSortBtnHTML();
+        const inputForm = this.getInputFormHTML();
+        const selectForm = this.getSelectFormHTML();
         const selectorCheckbox = this.checkBox();
         const cardContainer = this.getCardContainer();
 
@@ -696,7 +696,7 @@ export class ToysSettingFilter extends ValueFilter {
             if (el === null || el === undefined) {
                 throw new Error('el in saveClearBtn is undefined or null');
             }
-            el.addEventListener('click', this.saveResetFun.bind(this));
+            el.addEventListener('click', this.saveResetMethod.bind(this));
         });
         this.inputFormSort = this.debounceDecorator(this.inputFormSort, 2000);
         inputForm.addEventListener('keyup', this.inputFormSort);

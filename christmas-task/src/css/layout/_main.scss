@@ -87,8 +87,6 @@
     &__nav {
         display: flex;
         justify-content: space-between;
-        &__main {
-        }
         &__toys {
             @include main-fonts-style;
         }
@@ -136,8 +134,6 @@
     &__creator {
         display: flex;
         align-items: center;
-    }
-    &__logo {
     }
 }
 

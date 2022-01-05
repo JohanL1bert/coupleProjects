@@ -32,8 +32,8 @@ export class ToysPage {
         window.addEventListener('load', setLocalStorage);
     }
     public prerenderSlider() {
-        const getCountSlider = document.querySelector('.slider__count') as HTMLElement;
-        const getYearSlider = document.querySelector('.slider__year') as HTMLElement;
+        const getCountSlider: noUiSlider.target = document.querySelector('.slider__count') as HTMLElement;
+        const getYearSlider: noUiSlider.target = document.querySelector('.slider__year') as HTMLElement;
         noUiSlider.create(getCountSlider, {
             range: {
                 min: 1,

@@ -521,18 +521,19 @@
 
 .img__count {
     border-radius: 25%;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid #24c5db;
     background-color: #24c5db;
     width: 20px;
     height: 20px;
-    position: relative;
     margin-left: 50px;
     margin-top: 50px;
 }
 
 .count {
-    position: relative;
-    left: 30%;
+    display: block;
+    text-align: center;
+    color: white;
+    font-family: 'Neucha';
 }
 
 @media screen and (max-width: 1400px) {

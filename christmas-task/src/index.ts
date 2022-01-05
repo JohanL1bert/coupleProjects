@@ -29,7 +29,7 @@ class Router {
         this.playPage = playPage;
     }
 
-    public hideMainPage(event: Event) {
+    private hideMainPage(event: Event) {
         const target = event.target as HTMLElement;
         if (target.classList.value === 'header__nav__toys') {
             this.mainPage.style.display = 'none';

@@ -1,39 +1,8 @@
-interface JSON {
-    num: string;
-    name: string;
-    year: string;
-    shape: string;
-    color: string;
-    size: string;
-    favorite: boolean;
-}
-
-export interface JSONData {
-    [key: string]: Array<JSON>;
-}
-
-export type Callback<T> = (data: T) => void;
-
-export interface SettingObject {
+//Интерфейсы
+export interface SettingObjectBool {
     [key: string]: boolean;
 }
 
-export interface SortObject {
-    [key: string]: string;
-}
-
-export interface rangeObject {
-    min: number;
-    max: number;
-}
-
-export interface ObjectValue {
-    shape: string;
-    color: string;
-    size: string;
-}
-
-//Интерфейсы
 export interface IsliderYear {
     min: number;
     max: number;
@@ -66,4 +35,20 @@ export enum EsortedValue {
     SortNameMin = 'sort-name-min',
     SortMax = 'sort-max',
     SortMin = 'sort-min',
+}
+
+export interface IvalueObject {
+    isFormBall: string;
+    isFormBell: string;
+    isFormCone: string;
+    isFormSnowFlake: string;
+    isFormToy: string;
+    isColorWhite: string;
+    isColorYellow: string;
+    isColorRed: string;
+    isColorBlue: string;
+    isColorGreen: string;
+    isSizeBig: string;
+    isSizeMedium: string;
+    isSizeSmall: string;
 }

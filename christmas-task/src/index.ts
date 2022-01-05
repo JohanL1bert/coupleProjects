@@ -6,10 +6,8 @@ const run = () => {
     const toysArray = new ToysPage();
     void toysArray.prerender();
     toysArray.prerenderSlider();
+    const newSetting = new ToysSettingFilter();
+    newSetting.cycleSettings();
 };
 
 run();
-
-const newSetting = new ToysSettingFilter();
-
-newSetting.cycleSettings();

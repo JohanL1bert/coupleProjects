@@ -578,8 +578,15 @@ export class ToysSettingFilter extends ValueFilter {
         }
     }
 
+    private deleteImgFromTree() {
+        const getAllImg: NodeListOf<HTMLImageElement> = document.querySelectorAll('map > img');
+        getAllImg.forEach((item) => item.remove());
+    }
+
     public async cloneCard() {
         /* const result = this.dataSet.map((el: any) => this.getImg(el)); */
+
+        this.deleteImgFromTree();
 
         const arrayFrom = Array.from({ length: 20 }, (_, i) => (i + 1).toString());
         let url;

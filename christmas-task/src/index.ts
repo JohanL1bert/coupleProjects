@@ -1,7 +1,7 @@
 import './css/style.scss';
 import { ToysPage } from './components/toysPage';
 import { ToysSettingFilter } from './components/toysSettings';
-import { AudioTree } from './components/treePage';
+import { TreeSetting } from './components/treePage';
 
 class Router {
     headerMain: HTMLElement;
@@ -14,8 +14,8 @@ class Router {
     headerTree: HTMLElement;
     toysPage: ToysPage;
     newSetting: ToysSettingFilter;
-    playPage: AudioTree;
-    constructor(toysPage: ToysPage, newSetting: ToysSettingFilter, playPage: AudioTree) {
+    playPage: TreeSetting;
+    constructor(toysPage: ToysPage, newSetting: ToysSettingFilter, playPage: TreeSetting) {
         this.headerMain = document.querySelector('.header__nav__toys') as HTMLElement;
         this.headerNavTree = document.querySelector('.header__nav__tree') as HTMLElement;
         this.mainBtn = document.querySelector('.main__btn') as HTMLButtonElement;
@@ -72,7 +72,7 @@ class Router {
 
 const toys = new ToysPage();
 const settings = new ToysSettingFilter();
-const playPage = new AudioTree();
+const playPage = new TreeSetting();
 
 const app = new Router(toys, settings, playPage);
 app.defaultRender();

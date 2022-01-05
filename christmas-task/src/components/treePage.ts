@@ -1,7 +1,7 @@
 import '../assets/sounds/LetItSnow.mp3';
 import hexRgb, { RgbaObject } from 'hex-rgb';
 
-export class AudioTree {
+export class TreeSetting {
     isPlay: boolean;
     audio: HTMLAudioElement;
     isSnow: boolean;

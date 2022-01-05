@@ -1,14 +1,23 @@
-import { SettingObject, SortObject, rangeObject } from './inteface/templayTypes';
+import {
+    SettingObjectBool,
+    IsliderYear,
+    IsliderCount,
+    IshapeColorSize,
+    IdataMain,
+    EsortedValue,
+    IvalueObject,
+} from './inteface/templayTypes';
 import { ToysPage } from './toysPage';
+import * as noUiSlider from 'nouislider';
 
 class SwitchValue {
-    mainObject: SettingObject;
-    sortObject: SortObject;
+    mainObject: SettingObjectBool;
+    sortObject: string;
 
     inputObject: string;
     favoriteObject: boolean;
-    sliderYear: any;
-    sliderCount: any;
+    sliderYear: IsliderYear;
+    sliderCount: IsliderCount;
     constructor() {
         this.mainObject = {
             isFormBall: false,
@@ -26,9 +35,7 @@ class SwitchValue {
             isSizeSmall: false,
         };
 
-        this.sortObject = {
-            isSort: 'sort-name-max',
-        };
+        this.sortObject = '';
         this.inputObject = '';
         this.favoriteObject = false;
         this.sliderYear = {
@@ -72,8 +79,8 @@ class SwitchValue {
         }
     }
 
-    public secondFilteredData(data: any) {
-        const valueOject: any = {
+    public secondFilteredData(data: string[]) {
+        const valueOject: IvalueObject = {
             isFormBall: 'шар',
             isFormBell: 'колокольчик',
             isFormCone: 'шишка',
@@ -91,15 +98,15 @@ class SwitchValue {
 
         const arrayValue: string[] = [];
 
-        const filteredObject: any = {
+        const filteredObject: IshapeColorSize = {
             shape: [],
             color: [],
             size: [],
         };
 
-        data.map((el: any) => {
+        data.map((el: string) => {
             if (el in valueOject) {
-                arrayValue.push(valueOject[el]);
+                arrayValue.push(valueOject[el as keyof IvalueObject]);
             }
         });
 
@@ -119,93 +126,45 @@ class SwitchValue {
             }
         }
 
-        for (let k in filteredObject) {
-            if (filteredObject[k] == '') delete filteredObject[k];
+        for (const k in filteredObject) {
+            if (filteredObject[k as keyof IshapeColorSize].length === 0)
+                delete filteredObject[k as keyof IshapeColorSize];
         }
 
         return filteredObject;
     }
 
-    public sortCheckbox(data: any) {
-        return data.filter((el: any) => el['favorite'] === true);
+    public sortCheckbox(data: IdataMain[]) {
+        return data.filter((el) => el['favorite'] === true);
     }
 
-    public getFilteredData(data: any) {
-        const valueOject: any = {
-            isFormBall: 'шар',
-            isFormBell: 'колокольчик',
-            isFormCone: 'шишка',
-            isFormSnowFlake: 'снежинка',
-            isFormToy: 'фигурка',
-            isColorWhite: 'белый',
-            isColorYellow: 'желтый',
-            isColorRed: 'красный',
-            isColorBlue: 'синий',
-            isColorGreen: 'зелёный',
-            isSizeBig: 'большой',
-            isSizeMedium: 'средний',
-            isSizeSmall: 'малый',
-        };
-
-        const arrayValue: any = [];
-
-        data.map((el: any) => {
-            if (el in valueOject) {
-                arrayValue.push(valueOject[el]);
-            }
-        });
-
-        return arrayValue;
-    }
-
-    public returnData(data: any) {
-        if (data.length > 0) {
-            return data;
-        } else {
-            const arrayData = [
-                'шар',
-                'колокольчик',
-                'шишка',
-                'снежинка',
-                'фигурка',
-                'белый',
-                'желтый',
-                'красный',
-                'синий',
-                'зелёный',
-                'большой',
-                'средний',
-                'малый',
-            ];
-            return arrayData;
-        }
-    }
-
-    public filterSelectOption(sortedValue: any, data: any) {
+    public filterSelectOption(sortedValue: string, data: IdataMain[]) {
         if (sortedValue === 'sort-name-max') {
-            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
+            const value = data.sort((a, b) => (a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0));
             return value;
         } else if (sortedValue === 'sort-name-min') {
-            const value = data.sort((a: any, b: any) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
+            const value = data.sort((a, b) => (a.name !== b.name ? (a.name > b.name ? -1 : 1) : 0));
             return value;
         } else if (sortedValue === 'sort-max') {
-            const value = data.sort((a: any, b: any) => a.year - b.year);
+            const value = data.sort((a, b) => Number(a.year) - Number(b.year));
             return value;
         } else if (sortedValue === 'sort-min') {
-            const value = data.sort((a: any, b: any) => b.year - a.year);
+            const value = data.sort((a, b) => Number(b.year) - Number(a.year));
             return value;
         }
     }
 
-    public sortSliderByCount(dataJSON: any) {
+    public sortSliderByCount(dataJSON: IdataMain[]) {
         return dataJSON.filter(
-            (el: any) => this.sliderCount['min'] <= el['count'] && this.sliderCount['max'] >= el['count']
+            (el: Pick<IdataMain, 'count'>) =>
+                this.sliderCount['min'] <= Number(el['count']) && this.sliderCount['max'] >= Number(el['count'])
         );
     }
 
-    public sortSliderByYear(dataJSON: any) {
+    public sortSliderByYear(dataJSON: IdataMain[]) {
         return dataJSON.filter(
-            (el: any) => this.sliderYear['min'] <= el['year'] && this.sliderYear['max'] >= el['year']
+            (el: Pick<IdataMain, 'year'>) =>
+                this.sliderYear['min'] <= Number(el['year']) && this.sliderYear['max'] >= Number(el['year'])
         );
     }
 }
@@ -215,15 +174,15 @@ class ValueFilter extends SwitchValue {
         super();
     }
 
-    private async getImg(num: any) {
+    private async getImg(num: number | string) {
         const imgNum = fetch(
             `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/assets/toys/${num}.png`
         );
         return (await imgNum).url;
     }
 
-    public renderHTML(data: any) {
-        const allData = data.map((el: any) => {
+    public renderHTML(data: IdataMain[]) {
+        const allData = data.map((el) => {
             const num = this.getImg(el.num);
             return num.then((num) => {
                 return `
@@ -262,11 +221,17 @@ class ValueFilter extends SwitchValue {
     `;
             });
         });
-        const hookHTML = document.querySelector('.toys__inner');
-        Promise.all(allData).then((valueData: any) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')));
+        const hookHTML = document.querySelector('.toys__inner') as HTMLElement;
+        if (hookHTML === undefined) {
+            throw new Error('hookHTMK is undefined');
+        }
+
+        Promise.all(allData)
+            .then((valueData) => hookHTML.insertAdjacentHTML('afterbegin', valueData.join('')))
+            .catch((err) => console.warn(err, 'PromiseAll is undefined'));
     }
 
-    public filterArray(objectData: any) {
+    public filterArray(objectData: SettingObjectBool) {
         const arrayValue = [];
         for (const key in objectData) {
             if (objectData[key] === true) arrayValue.push(key);
@@ -279,9 +244,9 @@ class ValueFilter extends SwitchValue {
         idField.value = 'Ничего не найдено';
     }
 
-    public SortInput(array: any) {
-        const secondFilteredArray: any = [];
-        array.filter((el: any) => {
+    public SortInput(array: IdataMain[]) {
+        const secondFilteredArray: IdataMain[] = [];
+        array.filter((el) => {
             for (const key in el) {
                 if (key === 'name' || key === 'shape' || key === 'size' || key === 'color') {
                     if (el[key].toLowerCase().includes(this.inputObject.toLowerCase())) {
@@ -305,25 +270,31 @@ class ValueFilter extends SwitchValue {
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
-        const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
-        const arrayDataFiltered = this.returnData(valueFilteredFromData);
+        /*      const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
+        const arrayDataFiltered = this.returnData(valueFilteredFromData); */
         const dataFromJson = await data;
 
-        //Разобраться
-        function filterPlainArray(array: any, filters: any) {
-            const getValue = (value: any) => (typeof value === 'string' ? value.toUpperCase() : value);
-            const filterKeys = Object.keys(filters);
-
-            return array.filter((item: any) => {
-                // validates all filter criteria
-                return filterKeys.every((key) => {
-                    // ignores an empty filter
-                    if (!filters[key].length) return true;
-                    return filters[key].find((filter: any) => getValue(filter) === getValue(item[key]));
-                });
-            });
+        if (dataFromJson === undefined) {
+            throw new Error('data from JSON is Undefined');
         }
 
+        //Разобраться
+        function filterPlainArray(array: IdataMain[], filters: IshapeColorSize) {
+            const getValue = (value: string) => (typeof value === 'string' ? value.toUpperCase() : value);
+            const filterKeys = Object.keys(filters);
+
+            return array.filter((item: IdataMain) =>
+                /*итемы из Idatamain*/
+                /* validates all filter criteria*/
+                filterKeys.every((key: string) => {
+                    // ignores an empty filter
+                    if (!filters[key as keyof IshapeColorSize].length) return true;
+                    return filters[key as keyof IshapeColorSize].find(
+                        (filter: string) => getValue(filter) === getValue(item[key as keyof IshapeColorSize])
+                    );
+                })
+            );
+        }
         const filteredList = filterPlainArray(dataFromJson, filterData); //Фильт по значениях: Форма, Цвет, размер
         let filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
         if (filteredListFromSelectOption === undefined) {
@@ -344,7 +315,7 @@ class ValueFilter extends SwitchValue {
 
     public async getJSON() {
         const toys = new ToysPage();
-        const jsonData = toys.getData();
+        const jsonData = toys.dataFetcher();
         const data = await jsonData;
         return data;
     }
@@ -377,22 +348,22 @@ class ValueFilter extends SwitchValue {
         return checkBoxSelector;
     }
 
-    public sortSize(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortSize(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
 
-    public sortForm(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortForm(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active');
             return target.dataset.filter;
         }
     }
 
-    public sortColor(target: Event) {
-        if (target instanceof HTMLElement) {
+    public sortColor(target: HTMLButtonElement) {
+        if (target instanceof HTMLButtonElement) {
             target.classList.toggle('active__color');
             return target.dataset.filter;
         }
@@ -405,12 +376,12 @@ class ValueFilter extends SwitchValue {
 
     public nodeRemove() {
         const [...valueDOM] = document.querySelectorAll('.toys__box');
-        valueDOM.map((el: any) => el.remove());
+        valueDOM.map((el: Element) => el.remove());
     }
 
-    public debounceDecorator(fn: any, ms: any) {
-        let isCooldown: any;
-        return (...args: any) => {
+    public debounceDecorator(fn: any, ms: number) {
+        let isCooldown: ReturnType<typeof setTimeout>;
+        return (...args: KeyboardEvent[]) => {
             const funCall = () => {
                 return fn.apply(this, args);
             };
@@ -420,10 +391,10 @@ class ValueFilter extends SwitchValue {
         };
     }
 
-    public inputFormSort(event: any) {
-        const inputData: any = event.target.value;
+    public inputFormSort(event: KeyboardEvent) {
+        const inputData = (<HTMLInputElement>event.target).value;
         this.inputObject = inputData;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 }
 
@@ -432,12 +403,13 @@ export class ToysSettingFilter extends ValueFilter {
         super();
     }
 
-    public saveResetFun(event: any) {
+    public saveResetFun(event: Event) {
+        const target = event.target as HTMLButtonElement;
         const formSelectors = document.querySelectorAll('.form__btn');
         const colorSelectorBtn = document.querySelectorAll('.color__btn');
         const sizeSelectorBtn = document.querySelectorAll('.size__btn');
         const splitArray = [...formSelectors, ...colorSelectorBtn, ...sizeSelectorBtn];
-        if (event.target.classList.contains('sort__reset')) {
+        if (target.classList.contains('sort__reset')) {
             for (const key in this.mainObject) {
                 this.mainObject[key] = false;
             }
@@ -451,54 +423,55 @@ export class ToysSettingFilter extends ValueFilter {
             resetInputForm.value = '';
             this.inputObject = '';
             //Обновляем слайдер лет
-            const getSliderYear: any = document.querySelector('.slider__year');
-            getSliderYear.noUiSlider.set([1940, 2020]);
+            const getSliderYear: noUiSlider.target = document.querySelector('.slider__year') as HTMLElement;
+            getSliderYear.noUiSlider?.set([1940, 2020]);
             this.sliderYear['min'] = 1940;
             this.sliderYear['max'] = 2020;
             //обновляем слайдер количества
-            const getCountSlider: any = document.querySelector('.slider__count');
-            getCountSlider.noUiSlider.set([1, 12]);
+            const getCountSlider: noUiSlider.target = document.querySelector('.slider__count') as HTMLElement;
+            getCountSlider.noUiSlider?.set([1, 12]);
             this.sliderCount['min'] = 1;
             this.sliderCount['max'] = 12;
             //
             const checkbox = document.querySelector('.liked__toys') as HTMLInputElement;
             checkbox.checked = false;
             this.favoriteObject = false;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
-        if (event.target.classList.contains('sort__save')) {
+        if (target.classList.contains('sort__save')) {
             console.log('Она не работет. Сорри хВ');
         }
     }
 
-    public selectOptionsForm(event: any) {
-        const value = event.target.value;
+    public selectOptionsForm(event: Event) {
+        const target = event.target as HTMLInputElement;
+        const value = target.value;
         this.sortObject = value;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
-    public sortedValue(event: any) {
-        const target = event.target;
+    public sortedValue(event: Event) {
+        const target = event.target as HTMLButtonElement;
         if (target.classList.contains('form__btn')) {
-            const sortForm: any = super.sortForm(target);
-            const isValueResult: any = super.filterSwitchCase(sortForm);
+            const sortForm = super.sortForm(target) as string;
+            const isValueResult = super.filterSwitchCase(sortForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
         if (target.classList.contains('color__btn')) {
-            const colorForm: any = super.sortColor(target);
-            const isValueResult: any = super.filterSwitchCase(colorForm);
+            const colorForm = super.sortColor(target) as string;
+            const isValueResult = super.filterSwitchCase(colorForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
         if (target.classList.contains('size__btn')) {
-            const sizeForm: any = super.sortSize(target);
-            const isValueResult: any = super.filterSwitchCase(sizeForm);
+            const sizeForm = super.sortSize(target) as string;
+            const isValueResult = super.filterSwitchCase(sizeForm);
             const toggleValue = super.toggle(this.mainObject[isValueResult[0]]);
             this.mainObject[isValueResult[0]] = toggleValue;
-            this.filterAllObj();
+            void this.filterAllObj();
         }
     }
 
@@ -506,35 +479,35 @@ export class ToysSettingFilter extends ValueFilter {
     public favoriteCheckbox(event: Event) {
         const ischecked = (<HTMLInputElement>event.target).checked;
         this.favoriteObject = Boolean(ischecked);
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
-    public sliderOnChangeCount(eventHandler: any) {
+    public sliderOnChangeCount<T>(eventHandler: Array<T>): void {
         const [minimum, maximum] = eventHandler;
         const minNum = Math.round(+minimum);
         const maxNum = Math.round(+maximum);
         this.sliderCount['min'] = minNum;
         this.sliderCount['max'] = maxNum;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
-    public sliderOnChangeYear(eventHandler: any) {
+    public sliderOnChangeYear<T>(eventHandler: Array<T>): void {
         const [minimum, maximum] = eventHandler;
         const minNum = Math.round(+minimum);
         const maxNum = Math.round(+maximum);
         this.sliderYear['min'] = minNum;
         this.sliderYear['max'] = maxNum;
-        this.filterAllObj();
+        void this.filterAllObj();
     }
 
     public sliderChgangeYear() {
-        const getSliderYear: any = document.querySelector('.slider__year');
-        getSliderYear.noUiSlider.on('change', this.sliderOnChangeYear.bind(this));
+        const getSliderYear: noUiSlider.target = document.querySelector('.slider__year') as HTMLElement;
+        getSliderYear.noUiSlider?.on('change', this.sliderOnChangeYear.bind(this));
     }
 
     public sliderSelector() {
-        const getCountSlider: any = document.querySelector('.slider__count');
-        getCountSlider.noUiSlider.on('change', this.sliderOnChangeCount.bind(this));
+        const getCountSlider: noUiSlider.target = document.querySelector('.slider__count') as HTMLElement;
+        getCountSlider.noUiSlider?.on('change', this.sliderOnChangeCount.bind(this));
     }
 
     private addListener() {

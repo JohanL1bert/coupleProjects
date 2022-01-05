@@ -6,6 +6,7 @@ import {
     IdataMain,
     EsortedValue,
     IvalueObject,
+    CallbackType,
 } from './inteface/templayTypes';
 import { ToysPage } from './toysPage';
 import * as noUiSlider from 'nouislider';
@@ -379,11 +380,11 @@ class ValueFilter extends SwitchValue {
         valueDOM.map((el: Element) => el.remove());
     }
 
-    public debounceDecorator(fn: any, ms: number) {
+    public debounceDecorator(fn: CallbackType, ms: number) {
         let isCooldown: ReturnType<typeof setTimeout>;
-        return (...args: KeyboardEvent[]) => {
+        return (args: KeyboardEvent) => {
             const funCall = () => {
-                return fn.apply(this, args);
+                return fn.apply(this, [args]);
             };
 
             clearTimeout(isCooldown);

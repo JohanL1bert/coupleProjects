@@ -6,9 +6,9 @@ import {
     IdataMain,
     EsortedValue,
     IvalueObject,
-    JSONData,
 } from './interface/templayTypes';
 import { ToysPage } from './toysPage';
+import * as noUiSlider from 'nouislider';
 
 class SwitchValue {
     mainObject: SettingObjectBool;
@@ -237,9 +237,13 @@ class ValueFilter extends SwitchValue {
     `;
             });
         });
-        const hookHTML = document.querySelector('.toys__inner');
+        const hookHTML = document.querySelector('.toys__inner') as HTMLElement;
+        if (hookHTML === undefined) {
+            throw new Error('hookHTMK is undefined');
+        }
+
         Promise.all(allData)
-            .then((valueData) => hookHTML?.insertAdjacentHTML('afterbegin', valueData.join('')))
+            .then((valueData) => hookHTML.insertAdjacentHTML('afterbegin', valueData.join('')))
             .catch((err) => console.warn(err, 'PromiseAll is undefined'));
     }
 
@@ -288,23 +292,26 @@ class ValueFilter extends SwitchValue {
             throw new Error('data from JSON is Undefined');
         }
 
-        //Разобраться
-        function filterPlainArray(array: IdataMain[], filters: any) {
-            const getValue = (value: any) => (typeof value === 'string' ? value.toUpperCase() : value);
+        //Разобраться // Не особо понял почему здесь именны интерфейс IShape подходит. По сути массив строк тоже должен пройти
+        function filterPlainArray(array: IdataMain[], filters: IshapeColorSize) {
+            const getValue = (value: string) => (typeof value === 'string' ? value.toUpperCase() : value);
             const filterKeys = Object.keys(filters);
 
-            return array.filter((item: any) => {
-                // validates all filter criteria
-                return filterKeys.every((key) => {
+            return array.filter((item: IdataMain) =>
+                /*итемы из Idatamain*/
+                /* validates all filter criteria*/
+                filterKeys.every((key: string) => {
                     // ignores an empty filter
-                    if (!filters[key].length) return true;
-                    return filters[key].find((filter: any) => getValue(filter) === getValue(item[key]));
-                });
-            });
+                    if (!filters[key as keyof IshapeColorSize].length) return true;
+                    return filters[key as keyof IshapeColorSize].find(
+                        (filter: string) => getValue(filter) === getValue(item[key as keyof IshapeColorSize])
+                    );
+                })
+            );
         }
 
         const filteredList = filterPlainArray(dataFromJson, filterData); //Фильт по значениях: Форма, Цвет, размер
-        let filteredListFromSelectOption: any = this.filterSelectOption(this.sortObject, filteredList);
+        let filteredListFromSelectOption = this.filterSelectOption(this.sortObject, filteredList);
         if (filteredListFromSelectOption === undefined) {
             filteredListFromSelectOption = filteredList;
         }
@@ -392,9 +399,10 @@ class ValueFilter extends SwitchValue {
         valueDOM.map((el: Element) => el.remove());
     }
 
-    public debounceDecorator(fn: any, ms: any) {
-        let isCooldown: any;
-        return (...args: any) => {
+    public debounceDecorator(fn: any, ms: number) {
+        let isCooldown: ReturnType<typeof setTimeout>;
+        //Не уверен что тут массив эвентов
+        return (...args: KeyboardEvent[]) => {
             const funCall = () => {
                 return fn.apply(this, args);
             };
@@ -436,13 +444,13 @@ export class ToysSettingFilter extends ValueFilter {
             resetInputForm.value = '';
             this.inputObject = '';
             //Обновляем слайдер лет
-            const getSliderYear: any = document.querySelector('.slider__year');
-            getSliderYear.noUiSlider.set([1940, 2020]);
+            const getSliderYear: noUiSlider.target = document.querySelector('.slider__year') as HTMLElement;
+            getSliderYear.noUiSlider?.set([1940, 2020]); //Object is possibly undefined. нЕ понимаю как правильно затипизировать слайдер из библиотеки
             this.sliderYear['min'] = 1940;
             this.sliderYear['max'] = 2020;
             //обновляем слайдер количества
-            const getCountSlider: any = document.querySelector('.slider__count');
-            getCountSlider.noUiSlider.set([1, 12]);
+            const getCountSlider: noUiSlider.target = document.querySelector('.slider__count') as HTMLElement;
+            getCountSlider.noUiSlider?.set([1, 12]);
             this.sliderCount['min'] = 1;
             this.sliderCount['max'] = 12;
             //
@@ -500,32 +508,32 @@ export class ToysSettingFilter extends ValueFilter {
         void this.filterAllObj();
     }
 
-    public sliderOnChangeCount(eventHandler: any) {
-        const [minimum, maximum] = eventHandler;
-        const minNum = Math.round(+minimum);
-        const maxNum = Math.round(+maximum);
+    public sliderOnChangeCount<T>(eventHandler: Array<T>): void {
+        const [minimum, maximum] = eventHandler; //Не знаю правильно ли так делать. Приходит по идеи массив строк, но не получается его затипизировать. Это связнно наверное с типом слайдера
+        const minNum: number = Math.round(+minimum); //Получается просто дыра в типах. Пришло неизвестно что, но дальше мне это никуда возвращать не нужно
+        const maxNum: number = Math.round(+maximum);
         this.sliderCount['min'] = minNum;
         this.sliderCount['max'] = maxNum;
         void this.filterAllObj();
     }
 
-    public sliderOnChangeYear(eventHandler: any) {
+    public sliderOnChangeYear<T>(eventHandler: Array<T>): void {
         const [minimum, maximum] = eventHandler;
-        const minNum = Math.round(+minimum);
-        const maxNum = Math.round(+maximum);
+        const minNum: number = Math.round(+minimum);
+        const maxNum: number = Math.round(+maximum);
         this.sliderYear['min'] = minNum;
         this.sliderYear['max'] = maxNum;
         void this.filterAllObj();
     }
 
     public sliderChgangeYear() {
-        const getSliderYear: any = document.querySelector('.slider__year');
-        getSliderYear.noUiSlider.on('change', this.sliderOnChangeYear.bind(this));
+        const getSliderYear: noUiSlider.target = document.querySelector('.slider__year') as HTMLElement;
+        getSliderYear.noUiSlider?.on('change', this.sliderOnChangeYear.bind(this));
     }
 
     public sliderSelector() {
-        const getCountSlider: any = document.querySelector('.slider__count');
-        getCountSlider.noUiSlider.on('change', this.sliderOnChangeCount.bind(this));
+        const getCountSlider: noUiSlider.target = document.querySelector('.slider__count') as HTMLElement;
+        getCountSlider.noUiSlider?.on('change', this.sliderOnChangeCount.bind(this));
     }
 
     public createToysCard() {
@@ -548,17 +556,20 @@ export class ToysSettingFilter extends ValueFilter {
         container.appendChild(card);
     }
 
-    public async getDataJS(url: number | string) {
+    public async getDataJS(url: string) {
         try {
             const dataJSON = await fetch(
                 `https://raw.githubusercontent.com/JohanL1bert/christmas-assets/main/data.json`
             ).then((response) => response.json() as Promise<IdataMain[]>);
 
-            for (const key in dataJSON) {
-                if (url == dataJSON[key].num) {
-                    return dataJSON[key].count;
+            let arrayOfCount = '';
+
+            dataJSON.forEach((element) => {
+                if (url === element.num) {
+                    arrayOfCount = element.count;
                 }
-            }
+            });
+            return arrayOfCount;
         } catch (err) {
             console.warn(err, 'err in getDataJS');
         }
@@ -567,16 +578,23 @@ export class ToysSettingFilter extends ValueFilter {
     public async cloneCard() {
         /* const result = this.dataSet.map((el: any) => this.getImg(el)); */
 
-        const arrayFrom = Array.from({ length: 20 }, (_, i) => i + 1);
+        const arrayFrom = Array.from({ length: 20 }, (_, i) => (i + 1).toString());
         let url;
-        let dataCount: any;
+        let dataCount: string[];
         let iterator: Array<string>;
         if (this.dataSet.length === 0) {
-            const result = arrayFrom.map((el: number) => this.getImg(el));
+            const result = arrayFrom.map((el: string) => this.getImg(el));
             const imgUrl = Promise.all(result);
             const count = arrayFrom.map((el) => this.getDataJS(el));
-            const promiseDataCount = Promise.all(count);
-            dataCount = await promiseDataCount;
+            const promiseDataCount = Promise.all(count).catch((err) => console.warn(err, 'count is undefined'));
+            dataCount = (await promiseDataCount) as string[]; //ПРиходит void (string| undefined)[]. Без as не пропускает
+
+            dataCount.forEach((item) => {
+                if (item === undefined) {
+                    console.warn('item is undefined if === 0');
+                }
+            });
+
             url = await imgUrl;
             iterator = dataCount;
         } else {
@@ -584,7 +602,14 @@ export class ToysSettingFilter extends ValueFilter {
             const imgUrl = Promise.all(result);
             const count = this.dataSet.map((el: string) => this.getDataJS(el));
             const promiseDataCount = Promise.all(count);
-            dataCount = await promiseDataCount;
+            dataCount = (await promiseDataCount) as string[];
+            //Нужна проверка массив строк или массив undefined. Пока так написал
+            dataCount.forEach((item) => {
+                if (item === undefined) {
+                    console.warn('item is undefined');
+                }
+            });
+
             url = await imgUrl;
             iterator = dataCount;
         }

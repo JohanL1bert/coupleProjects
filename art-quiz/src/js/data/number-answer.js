@@ -1,7 +1,7 @@
 const numberCorrectAnswer = (arr) => {
   let points = 0;
-  arr.map((el) => {
-    if (el == true) {
+  arr.forEach((el) => {
+    if (el === true) {
       points += 1;
     }
   });

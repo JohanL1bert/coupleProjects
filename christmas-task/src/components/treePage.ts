@@ -26,7 +26,7 @@ export class AudioTree {
             music.currentTime = 0;
         } else {
             this.isPlay = true;
-            music.play();
+            void music.play(); //Проммис войд
         }
     }
 
@@ -254,52 +254,53 @@ export class AudioTree {
         });
     }
 
-    public dragStart(event: any) {
+    public dragStart(event: DragEvent) {
         event.stopImmediatePropagation();
-        const dataSet = event.currentTarget.getAttribute('data-number');
-        event.dataTransfer.setData('dragn__img', dataSet);
+        const currentTarget = event.currentTarget as HTMLElement; //По идеи currentTarget это EventTarget
+        const dataSet = currentTarget.getAttribute('data-number');
+        if (dataSet === null) {
+            throw new Error('dataset is null');
+        }
+        event.dataTransfer?.setData('dragn__img', dataSet); //пришлось писать ? chaining
     }
 
-    public Run() {
-        console.log('123');
-    }
-
-    getAttribute(arg0: string): string {
-        throw new Error('Method not implemented.');
-    }
-
-    public dragOver(event: Event) {
+    public dragOver(event: DragEvent) {
         /* console.log('DragOver'); */
         event.preventDefault();
     }
 
-    public dragLeave(event: Event) {}
+    public dragLeave(event: Event) {
+        console.warn('draGEvent leve');
+    }
 
-    public dragEnd(event: Event) {
+    public dragEnd(event: DragEvent) {
         event.preventDefault();
     }
 
     //Переписать высчитывать кастомно
-    public dragDrop(event: any) {
+    public dragDrop(event: DragEvent) {
         event.stopImmediatePropagation();
-        const dragData = event.dataTransfer.getData('dragn__img');
-        const dragedItem: any = document.querySelector(`[data-number="${dragData}"]`);
-        const element = document.querySelector('map');
-        element?.appendChild(dragedItem);
-        dragedItem.style.left = event.offsetX - 30 + 'px';
-        dragedItem.style.top = event.offsetY - 30 + 'px';
+        const dragData = event.dataTransfer?.getData('dragn__img') as string; //Объект возможно null. Не понимаю как правильно поймать и затипизировать это
+        if (dragData === null && dragData === undefined) {
+            throw new Error('dragData is null or undefined');
+        }
+        const dragedItem = document.querySelector(`[data-number="${dragData}"]`) as HTMLImageElement;
+        const element = document.querySelector('map') as HTMLMapElement;
+        element.appendChild(dragedItem);
+        dragedItem.style.left = `${event.offsetX - 30}px`;
+        dragedItem.style.top = `${event.offsetY - 30}px`;
         dragedItem.style.position = 'absolute';
-        dragedItem.style.margin = 0 + 'px';
+        dragedItem.style.margin = `${0}px`;
         if (dragData.length === 5) {
-            this.isNumberRemove = dragData.slice(0, 2);
+            this.isNumberRemove = Number(dragData.slice(0, 2));
         } else {
-            this.isNumberRemove = dragData.slice(0, 1);
+            this.isNumberRemove = Number(dragData.slice(0, 1));
         }
         this.removeCountToys();
     }
 
     public eventDragDrop() {
-        const dragDrop = document.querySelectorAll('.dragn__img');
+        const dragDrop: NodeListOf<HTMLImageElement> = document.querySelectorAll('.dragn__img');
         const treeMap = document.querySelector('area') as HTMLAreaElement;
         dragDrop.forEach((el) => {
             el.addEventListener('dragstart', this.dragStart.bind(this));
@@ -326,8 +327,8 @@ export class AudioTree {
         const toggleColorButton = document.querySelector('.toggle-button') as HTMLElement;
         const toysContainer = document.querySelector('.tree__toys__container') as HTMLElement;
         audioBtn.addEventListener('click', this.createAudio.bind(this));
-        familyBackground?.addEventListener('click', this.changeBackground.bind(this));
-        treeFamilyBackground?.addEventListener('click', this.changeTree.bind(this));
+        familyBackground.addEventListener('click', this.changeBackground.bind(this));
+        treeFamilyBackground.addEventListener('click', this.changeTree.bind(this));
         this.eventDragDrop();
 
         if (snowBtn.disabled) {
@@ -337,7 +338,7 @@ export class AudioTree {
         }
 
         colorButton.forEach((item) => item.addEventListener('click', this.garlandsInclusions.bind(this)));
-        toggleColorButton?.addEventListener('change', this.offGarlands.bind(this));
+        toggleColorButton.addEventListener('change', this.offGarlands.bind(this));
 
         const config = { attributes: true, childList: true, subtree: true };
         const obsever = new MutationObserver(this.toysChangeObserver.bind(this));

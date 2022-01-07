@@ -52,6 +52,13 @@ class Router {
             this.mainPage.style.display = 'block';
             this.headerMain.classList.remove('header__active');
             this.headerNavTree.classList.remove('header__active');
+        } else if (target.classList.value === 'main__btn') {
+            this.mainPage.style.display = 'none';
+            this.treePage.style.display = 'none';
+            this.settingPage.style.display = 'block';
+            this.formInput.style.display = 'block';
+            this.headerMain.classList.add('header__active');
+            this.headerNavTree.classList.remove('header__active');
         }
     }
 

@@ -21,9 +21,7 @@
     @include button-text;
   }
   &__volume {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    @include flex-colum-center;
     align-items: center;
     margin-top: 50px;
   }
@@ -43,8 +41,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
-  }
-  &__line {
   }
   &__text {
     color: $white-color;

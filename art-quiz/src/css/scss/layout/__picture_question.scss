@@ -2,9 +2,7 @@
   max-width: 829px;
   height: 498px;
   &__inner {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    @include flex-colum-center;
     gap: 40px;
   }
   &__timer {
@@ -15,9 +13,7 @@
     color: $white-color;
   }
   &__box {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    @include flex-colum-center;
     align-items: center;
   }
   &__authors {

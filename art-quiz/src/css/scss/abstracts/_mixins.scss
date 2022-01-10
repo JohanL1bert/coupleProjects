@@ -93,3 +93,13 @@
   justify-content: center;
   flex-direction: column;
 }
+
+@mixin point {
+  font-family: Gilroy;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 102px;
+  letter-spacing: 0em;
+  text-align: center;
+}

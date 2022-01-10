@@ -6,22 +6,10 @@
     @include box-setting;
   }
   &__text {
-    font-family: Gilroy;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 78px;
-    letter-spacing: 0em;
-    text-align: center;
+    @include point;
   }
   &__number {
-    font-family: Gilroy;
-    font-size: 42px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 102px;
-    letter-spacing: 0em;
-    text-align: center;
+    @include point;
   }
   &__button {
     display: flex;

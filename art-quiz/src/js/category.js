@@ -12,7 +12,7 @@ let choice;
 const createHTMLTemplate = async (dep) => {
   let iterator = 0;
   const array = [];
-  if (dep == "picture") {
+  if (dep === "picture") {
     iterator = 12;
   } else {
     iterator = 0;
@@ -30,13 +30,13 @@ const createHTMLTemplate = async (dep) => {
       array.push("");
     }
   }
-  if (dep == "picture") {
+  if (dep === "picture") {
     array.slice(11, 23);
   } else {
     array.slice(0, 11);
   }
   const numbers = [];
-  array.map((el) => {
+  array.forEach((el) => {
     if (el.length > 0) {
       numbers.push(el.length);
     } else {
@@ -53,7 +53,7 @@ const getEventPic = (event) => {
   ).textContent;
   const obj = filterImg(picName);
   const secondObj = filterPic(picName);
-  if (choice == "author") {
+  if (choice === "author") {
     renderArtist(dataHTML, selectors2, obj, choice);
   } else {
     renderImage(dataHTML, selectors2, secondObj, choice);

@@ -2,7 +2,7 @@ const filterPic = (name) => {
   switch (name) {
     case "Portrait":
       return {
-        name: "Portrait",
+        name: "Портрет",
         array: [120, 121, 122, 123, 124, 125, 126, 127, 128, 129],
         choice: 0,
         author: [
@@ -20,7 +20,7 @@ const filterPic = (name) => {
       };
     case "Landscape":
       return {
-        name: "Landscape",
+        name: "Пейзаж",
         array: [130, 131, 132, 133, 134, 135, 136, 137, 138, 139],
         choice: 0,
         author: [
@@ -38,7 +38,7 @@ const filterPic = (name) => {
       };
     case "Still Life":
       return {
-        name: "Still Life",
+        name: "Натюрморт",
         array: [140, 141, 142, 143, 144, 145, 146, 147, 148, 149],
         choice: 0,
         author: [
@@ -56,7 +56,7 @@ const filterPic = (name) => {
       };
     case "Graphic":
       return {
-        name: "Graphic",
+        name: "Графика",
         array: [150, 151, 152, 153, 154, 155, 156, 157, 158, 159],
         choice: 0,
         author: [
@@ -74,7 +74,7 @@ const filterPic = (name) => {
       };
     case "Antique":
       return {
-        name: "Antique",
+        name: "Античный",
         array: [160, 161, 162, 163, 164, 165, 166, 167, 168, 169],
         choice: 0,
         author: [
@@ -92,7 +92,7 @@ const filterPic = (name) => {
       };
     case "Avant-Garde":
       return {
-        name: "Avant-Garde",
+        name: "Авангард",
         array: [170, 171, 172, 173, 174, 175, 176, 177, 178, 179],
         choice: 0,
         author: [
@@ -110,7 +110,7 @@ const filterPic = (name) => {
       };
     case "Renaissance":
       return {
-        name: "Renaissance",
+        name: "Ренессанс",
         array: [180, 181, 182, 183, 184, 185, 186, 187, 188, 189],
         choice: 0,
         author: [
@@ -126,9 +126,9 @@ const filterPic = (name) => {
           "Рембрандт",
         ],
       };
-    case "Surrealistm":
+    case "Surrealism":
       return {
-        name: "Surrealistm",
+        name: "Сюрреализм",
         array: [190, 191, 192, 193, 194, 195, 196, 197, 198, 199],
         choice: 0,
         author: [
@@ -146,7 +146,7 @@ const filterPic = (name) => {
       };
     case "Kitsch":
       return {
-        name: "Kitsch",
+        name: "Китч",
         array: [200, 201, 202, 203, 204, 205, 206, 207, 208, 209],
         choice: 0,
         author: [
@@ -164,7 +164,7 @@ const filterPic = (name) => {
       };
     case "Minimalist":
       return {
-        name: "Minimalist",
+        name: "Минималистский",
         array: [210, 211, 212, 213, 214, 215, 216, 217, 218, 219],
         choice: 0,
         author: [
@@ -182,7 +182,7 @@ const filterPic = (name) => {
       };
     case "Avangard":
       return {
-        name: "Avangard",
+        name: "Авангард",
         array: [220, 221, 222, 223, 224, 225, 226, 227, 228, 229],
         choice: 0,
         author: [
@@ -200,7 +200,7 @@ const filterPic = (name) => {
       };
     default:
       return {
-        name: "Industrial",
+        name: "Промышленный",
         array: [230, 231, 232, 233, 234, 235, 236, 237, 238, 239],
         choice: 0,
         author: [

@@ -5,7 +5,7 @@ import deleteNodes from "../renderDelete/delete-page";
 
 const homePage = (choice) => {
   const pointNode = document.querySelector(".point__inner");
-  if (choice == "author") {
+  if (choice === "author") {
     const pictureNode = document.querySelector(".picture__question > div");
     deleteNodes(pointNode, pictureNode);
     window.location.reload();
@@ -20,7 +20,7 @@ const homePage = (choice) => {
 
 const categoryPage = (choice) => {
   const pointNode = document.querySelector(".point__inner");
-  if (choice == "author") {
+  if (choice === "author") {
     const pictureNode = document.querySelector(".picture__question > div");
     deleteNodes(pointNode, pictureNode);
     renderCategory(choice);

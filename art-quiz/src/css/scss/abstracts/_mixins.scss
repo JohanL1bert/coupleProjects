@@ -87,3 +87,9 @@
   letter-spacing: -1.147661805152893px;
   text-align: center;
 }
+
+@mixin flex-colum-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

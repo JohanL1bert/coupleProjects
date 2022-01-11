@@ -280,6 +280,7 @@ export class TreeSetting {
     public dragDrop(event: DragEvent) {
         event.stopImmediatePropagation();
         const dragData = event.dataTransfer?.getData('dragn__img') as string; //Объект возможно null. Не понимаю как правильно поймать и затипизировать это
+
         if (dragData === null && dragData === undefined) {
             throw new Error('dragData is null or undefined');
         }
@@ -298,8 +299,49 @@ export class TreeSetting {
         this.removeCountToys();
     }
 
+    private plusCountToys(index: number) {
+        const imgElement = document.querySelectorAll('.img__count')[index];
+        const getSpanOfImgelement = imgElement.querySelector('.count') as HTMLElement;
+        let spanContent = Number(getSpanOfImgelement.textContent);
+        spanContent++;
+        getSpanOfImgelement.innerHTML = String(spanContent);
+    }
+
+    public dragDropCard(event: DragEvent) {
+        event.stopImmediatePropagation();
+        const dragData = event.dataTransfer?.getData('dragn__img') as string; //Объект возможно null. Не понимаю как правильно поймать и затипизировать это
+
+        //Регулярка для индекса
+        const regexPatternIndexCard = /^(.?)[^-]/;
+        const indexCardArray = dragData.match(regexPatternIndexCard)?.[0] as string;
+        if (indexCardArray === null && indexCardArray === undefined) {
+            throw new Error('index card is null');
+        }
+
+        if (dragData === null && dragData === undefined) {
+            throw new Error('dragData is null or undefined');
+        }
+
+        const numIndex = Number(indexCardArray);
+        const dragedItem = document.querySelector(`[data-number="${dragData}"]`) as HTMLImageElement;
+        const element = document.querySelectorAll('.tree__toys__card')[numIndex] as HTMLMapElement;
+        element.appendChild(dragedItem);
+        dragedItem.style.top = `auto`;
+        dragedItem.style.left = `auto`;
+        dragedItem.style.marginBottom = `${20}px`;
+
+        if (dragData.length === 5) {
+            this.isNumberRemove = Number(dragData.slice(0, 2));
+        } else {
+            this.isNumberRemove = Number(dragData.slice(0, 1));
+        }
+
+        this.plusCountToys(numIndex);
+    }
+
     public eventDragDrop() {
         const dragDrop: NodeListOf<HTMLImageElement> = document.querySelectorAll('.dragn__img');
+        const allParentToysCard: NodeListOf<HTMLElement> = document.querySelectorAll('.tree__toys__card');
         const treeMap = document.querySelector('area') as HTMLAreaElement;
         dragDrop.forEach((el) => {
             el.addEventListener('dragstart', this.dragStart.bind(this));
@@ -311,6 +353,10 @@ export class TreeSetting {
         treeMap.addEventListener('dragleave', this.dragLeave);
         treeMap.addEventListener('dragover', this.dragOver.bind(this));
         treeMap.addEventListener('drop', this.dragDrop.bind(this));
+
+        allParentToysCard.forEach((item) => item.addEventListener('dragleave', this.dragLeave));
+        allParentToysCard.forEach((item) => item.addEventListener('dragover', this.dragOver.bind(this)));
+        allParentToysCard.forEach((item) => item.addEventListener('drop', this.dragDropCard.bind(this)));
     }
 
     public toysChangeObserver() {

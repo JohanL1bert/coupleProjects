@@ -55,20 +55,20 @@
 
 .address {
   &__name {
-    @include contacts__name-font;
+    @include radio-button-style;
     color: #000000;
   }
   &__paris {
-    @include contacts__desc-font;
+    @include radio-button-style;
   }
 }
 
 .phone {
   &__name {
-    @include contacts__name-font;
+    @include radio-button-style;
   }
   &__paris {
-    @include contacts__desc-font;
+    @include radio-button-style;
     color: black;
     text-decoration: none;
   }
@@ -76,10 +76,10 @@
 
 .mail {
   &__name {
-    @include contacts__name-font;
+    @include radio-button-style;
   }
   &__paris {
-    @include contacts__desc-font;
+    @include radio-button-style;
     color: black;
     text-decoration: none;
   }
@@ -98,7 +98,7 @@
   .contacts {
     &__name {
       width: 274px;
-      @include contacts-name_24;
+      @include explore-name_24;
     }
     &__rectangle {
       margin-bottom: 60px;
@@ -135,25 +135,31 @@
   .address {
     &__name {
       @include contacts-description_24;
+      line-height: 23px;
     }
     &__paris {
       @include contacts-description_24;
+      line-height: 23px;
     }
   }
   .phone {
     &__name {
       @include contacts-description_24;
+      line-height: 23px;
     }
     &__paris {
       @include contacts-description_24;
+      line-height: 23px;
     }
   }
   .mail {
     &__name {
       @include contacts-description_24;
+      line-height: 23px;
     }
     &__paris {
       @include contacts-description_24;
+      line-height: 23px;
     }
   }
 }
@@ -161,7 +167,7 @@
 @media (max-width: 768px) {
   .contacts {
     &__name {
-      @include contacts-name_68;
+      @include picture-exploer_68;
     }
     &__rectangle {
       margin-bottom: 40px;
@@ -210,26 +216,32 @@
   }
   .address {
     &__name {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
     &__paris {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
   }
   .phone {
     &__name {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
     &__paris {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
   }
   .mail {
     &__name {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
     &__paris {
-      @include frame-description_20;
+      @include frame-name_20;
+      font-weight: 300;
     }
   }
 }

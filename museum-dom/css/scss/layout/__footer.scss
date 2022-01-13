@@ -152,15 +152,19 @@
     }
     &__link {
       @include footer-link_24;
+      line-height: 26px;
     }
     &__date {
-      @include footer-bottom_24;
+      @include footer-link_24;
+      line-height: 26px;
     }
     &__copyright {
-      @include footer-bottom_24;
+      @include footer-link_24;
+      line-height: 22px;
     }
     &__name {
-      @include footer-bottom_24;
+      @include footer-link_24;
+      line-height: 22px;
     }
     &__upper {
       height: 242px;

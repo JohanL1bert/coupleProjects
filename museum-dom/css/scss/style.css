@@ -179,7 +179,7 @@ h1 {
     max-width: 983px;
   }
   .header__louvre {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -197,7 +197,7 @@ h1 {
 
 @media (max-width: 768px) {
   .header__louvre {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -210,7 +210,7 @@ h1 {
 
 @media (max-width: 420px) {
   .header__louvre {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -249,7 +249,7 @@ h1 {
 
 .num__item {
   color: #FFFFFF;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -260,7 +260,7 @@ h1 {
 
 .num__stick {
   color: #FFFFFF;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -374,7 +374,7 @@ h1 {
   }
   .welcome__header {
     margin: 50px 0 0 0;
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -383,7 +383,7 @@ h1 {
     text-align: left;
   }
   .welcome__description {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 24px;
     font-style: normal;
     font-weight: 300;
@@ -392,7 +392,7 @@ h1 {
     text-align: left;
   }
   .welcome__button {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
@@ -423,7 +423,7 @@ h1 {
     height: 861px;
   }
   .welcome__header {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -433,7 +433,7 @@ h1 {
     margin-top: 0;
   }
   .welcome__description {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
@@ -472,7 +472,7 @@ h1 {
 
 @media (max-width: 420px) {
   .welcome__header {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -481,7 +481,7 @@ h1 {
     text-align: center;
   }
   .welcome__description {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
@@ -586,7 +586,7 @@ h1 {
     padding-left: 17px;
   }
   .virtual__header {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -601,16 +601,17 @@ h1 {
     margin-bottom: 57px;
   }
   .palace__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
     line-height: 31px;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     text-align: left;
+    letter-spacing: 3px;
   }
   .palace__tour {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 200;
@@ -619,7 +620,7 @@ h1 {
     text-align: left;
   }
   .palace__google {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 200;
@@ -645,20 +646,20 @@ h1 {
     margin-bottom: 39px;
   }
   .virtual__header {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
     line-height: 60px;
     letter-spacing: 5px;
-    text-align: left;
+    text-align: center;
     margin-bottom: 20px;
   }
   .virtual__rectangle {
     margin-bottom: 40px;
   }
   .palace__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -667,7 +668,7 @@ h1 {
     text-align: left;
   }
   .palace__tour {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 18px;
     font-style: normal;
     font-weight: 200;
@@ -677,7 +678,7 @@ h1 {
     margin-bottom: 7px;
   }
   .palace__google {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 200;
@@ -701,7 +702,7 @@ h1 {
 
 @media (max-width: 420px) {
   .virtual__header {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -995,7 +996,7 @@ h1 {
     height: 1149px;
   }
   .explore__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -1005,12 +1006,12 @@ h1 {
     margin-bottom: 21px;
   }
   .explore__description {
-    font-family: 'Roboto';
-    font-size: 20px;
+    font-family: "Forum";
+    font-size: 50px;
     font-style: normal;
-    font-weight: 300;
-    line-height: 39px;
-    letter-spacing: 0em;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 5px;
     text-align: left;
     margin: 0 0;
   }
@@ -1050,7 +1051,7 @@ h1 {
   }
   .explore__name {
     margin-top: 40px;
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -1082,7 +1083,7 @@ h1 {
 
 @media (max-width: 420px) {
   .explore__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -1129,59 +1130,9 @@ h1 {
   column-gap: 36px;
 }
 
-/* .gallery__img{
-    &:first-child{
-        margin: 0 32px -110px 0;
-
-    }
-    &:nth-child(2){
-        margin: 0 32px  24px 0;
-
-    }
-    &:nth-child(3){
-        margin: 0 0 -150px 0;
-
-    }
-    &:nth-child(4){
-        margin: 24px 32px -150px 0;
-
-    }
-    &:nth-child(5){
-        margin: 0 32px 0 0;
-
-    }
-    &:nth-child(6){
-        margin: 0 0 -70px 0;
-
-    }
-    &:nth-child(7){
-        margin: 0 32px -82px 0;
-
-    }
-    &:nth-child(8){
-        margin: 24px 32px -32px 0;
-
-    }
-    &:nth-child(9){
-
-    }
-    &:nth-child(10){
-        margin: 0 32px 0 0;
-
-    }
-    &:nth-child(11){
-
-    }
-    &:last-child{
-        margin-top: 24px;
-        margin-left: 32px;
-    }
-
-}
- */
 @media (max-width: 1024px) {
   .gallery__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -1193,7 +1144,7 @@ h1 {
 
 @media (max-width: 768px) {
   .gallery__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -1254,7 +1205,7 @@ h1 {
 }
 
 .radio__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
@@ -1265,7 +1216,7 @@ h1 {
 }
 
 .amount__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
@@ -1325,7 +1276,7 @@ h1 {
 }
 
 .basic__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1377,7 +1328,7 @@ h1 {
 }
 
 .senior__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1425,7 +1376,7 @@ h1 {
 }
 
 label {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1464,11 +1415,11 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 1024px) {
   .tickets__name {
-    font-family: 'Forum';
-    font-size: 50px;
+    font-family: "Forum";
+    font-size: 28px;
     font-style: normal;
     font-weight: 400;
-    line-height: 75px;
+    line-height: 40px;
     letter-spacing: 5px;
     text-align: left;
     margin: 75px 0 20px 0;
@@ -1530,7 +1481,7 @@ input::-webkit-inner-spin-button {
     display: block;
   }
   .tickets__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -1595,7 +1546,7 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 420px) {
   .tickets__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -1626,7 +1577,7 @@ input::-webkit-inner-spin-button {
     margin: 0 0 6px 0;
   }
   .amount__total {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
@@ -1636,7 +1587,7 @@ input::-webkit-inner-spin-button {
   }
   .basic__name {
     margin: 0;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
@@ -1645,7 +1596,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .senior__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
@@ -1718,7 +1669,7 @@ input::-webkit-inner-spin-button {
 }
 
 .address__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1729,7 +1680,7 @@ input::-webkit-inner-spin-button {
 }
 
 .address__paris {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1739,7 +1690,7 @@ input::-webkit-inner-spin-button {
 }
 
 .phone__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1749,7 +1700,7 @@ input::-webkit-inner-spin-button {
 }
 
 .phone__paris {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1761,7 +1712,7 @@ input::-webkit-inner-spin-button {
 }
 
 .mail__name {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1771,7 +1722,7 @@ input::-webkit-inner-spin-button {
 }
 
 .mail__paris {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
@@ -1795,7 +1746,7 @@ input::-webkit-inner-spin-button {
   }
   .contacts__name {
     width: 274px;
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -1816,7 +1767,7 @@ input::-webkit-inner-spin-button {
   .frame__name {
     width: 185px;
     margin-bottom: 35px;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -1841,64 +1792,70 @@ input::-webkit-inner-spin-button {
     margin-bottom: 15px;
   }
   .address__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
   .address__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
   .phone__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
   .phone__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
   .mail__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
   .mail__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 23px;
+    line-height: 39px;
     letter-spacing: 0em;
     text-align: left;
+    line-height: 23px;
   }
 }
 
 @media (max-width: 768px) {
   .contacts__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -1914,7 +1871,7 @@ input::-webkit-inner-spin-button {
   }
   .frame__name {
     width: 155px;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -1923,7 +1880,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .frame__address {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 18px;
     font-style: normal;
     font-weight: 300;
@@ -1932,7 +1889,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .frame__phone {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 18px;
     font-style: normal;
     font-weight: 300;
@@ -1941,7 +1898,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .frame__mail {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 18px;
     font-style: normal;
     font-weight: 300;
@@ -1962,7 +1919,7 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 420px) {
   .contacts__name {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -1972,7 +1929,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 20px;
   }
   .frame__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -1983,58 +1940,64 @@ input::-webkit-inner-spin-button {
     margin-bottom: 40px;
   }
   .address__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
   .address__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
   .phone__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
   .phone__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
   .mail__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
   .mail__paris {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    font-weight: 300;
   }
 }
 
@@ -2113,7 +2076,7 @@ input::-webkit-inner-spin-button {
 
 .footer__date {
   color: #FFFFFF;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 200;
@@ -2125,7 +2088,7 @@ input::-webkit-inner-spin-button {
 
 .footer__copyright {
   color: #FFFFFF;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 200;
@@ -2137,7 +2100,7 @@ input::-webkit-inner-spin-button {
 
 .footer__name {
   color: #FFFFFF;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 22px;
   font-style: normal;
   font-weight: 200;
@@ -2209,7 +2172,7 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 1024px) {
   .footer__louvre {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -2218,40 +2181,40 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .footer__link {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
-    line-height: 26px;
     letter-spacing: 2px;
     text-align: left;
+    line-height: 26px;
   }
   .footer__date {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
-    line-height: 22px;
     letter-spacing: 2px;
     text-align: left;
+    line-height: 26px;
   }
   .footer__copyright {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
-    line-height: 22px;
     letter-spacing: 2px;
     text-align: left;
+    line-height: 22px;
   }
   .footer__name {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
-    line-height: 22px;
     letter-spacing: 2px;
     text-align: left;
+    line-height: 22px;
   }
   .footer__upper {
     height: 242px;
@@ -2319,7 +2282,7 @@ input::-webkit-inner-spin-button {
   }
   .footer__date {
     margin: 30px 0 30px 0;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
@@ -2329,7 +2292,7 @@ input::-webkit-inner-spin-button {
   }
   .footer__copyright {
     margin: 30px 0 30px 0;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
@@ -2339,7 +2302,7 @@ input::-webkit-inner-spin-button {
   }
   .footer__name {
     margin: 30px 0 30px 0;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 22px;
     font-style: normal;
     font-weight: 200;
@@ -2396,7 +2359,7 @@ input::-webkit-inner-spin-button {
     width: 29px;
   }
   .footer__louvre {
-    font-family: 'Forum';
+    font-family: "Forum";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -2405,7 +2368,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
   }
   .footer__link {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 200;
@@ -2423,7 +2386,7 @@ input::-webkit-inner-spin-button {
     padding-top: 0;
   }
   .footer__date {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 200;

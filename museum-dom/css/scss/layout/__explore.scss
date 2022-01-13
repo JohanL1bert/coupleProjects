@@ -110,7 +110,7 @@
       margin-bottom: 21px;
     }
     &__description {
-      @include explore-description_24;
+      @include explore-name_24;
       margin: 0 0;
     }
     &__inner {
@@ -182,7 +182,7 @@
 @media (max-width: 420px) {
   .explore {
     &__name {
-      @include explore-name_20;
+      @include virtual-header_20;
     }
     &__img-left {
       width: 380px;

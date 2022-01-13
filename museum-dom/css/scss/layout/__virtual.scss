@@ -111,7 +111,8 @@
   }
   .palace {
     &__name {
-      @include palace-name_24;
+      @include header-louvre_24;
+      letter-spacing: 3px;
     }
     &__tour {
       @include palace-tour_24;
@@ -141,7 +142,7 @@
   }
   .virtual {
     &__header {
-      @include virtual-header_68;
+      @include welcome-header_68;
       margin-bottom: 20px;
     }
     &__rectangle {

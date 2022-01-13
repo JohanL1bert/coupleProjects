@@ -1,207 +1,197 @@
-.virtual{
-    &__name{
-        
-    }
-    &__header{
-        color: $color-text-brown;
-        font-family: Forum;
-        font-size: 80px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 90px;
-        letter-spacing: 5px;
-        text-align: left;
-        margin-bottom: 25px;
-    }
-    &__rectangle{
-        @include red-line;
-        margin-bottom: 75px;
-    }
-    &__items{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
+.virtual {
+  &__name {
+  }
+  &__header {
+    color: $color-text-brown;
+    font-family: Forum;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90px;
+    letter-spacing: 5px;
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  &__rectangle {
+    @include red-line;
+    margin-bottom: 75px;
+  }
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
-.palace{
-    &__wrapper{
-
-    }
-    text-decoration: none;
-    &__img{
-        width: 100%; 
-        //440px;
-
-    }
-    &__name{
-        @include black-virtual-name;
-        font-family: 'Forum';
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 35px;
-        letter-spacing: 5px;
-        text-align: left;
-        margin-top: 21px;
-        margin-bottom: 10px;
-    }
-    &__rectangle{
-        border: none;
-        background-color: $color-line-red;
-        height: 2px;
-        width: 68%;
-    }
-    &__tour{
-        @include black-virtual-desc;
-        font-family: 'Roboto';
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 26px;
-        letter-spacing: 0em;
-        text-align: left;
-        margin-top: 10px;
-        margin-bottom: 0px;
-    }
-    &__google{
-        @include black-virtual-desc;
-        font-family: 'Roboto';
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 21px;
-        letter-spacing: 0em;
-        text-align: left;
-        margin-top: 10px;
-    }
+.palace {
+  &__wrapper {
+  }
+  text-decoration: none;
+  &__img {
+    width: 100%;
+    //440px;
+  }
+  &__name {
+    @include black-virtual-name;
+    font-family: "Forum";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 35px;
+    letter-spacing: 5px;
+    text-align: left;
+    margin-top: 21px;
+    margin-bottom: 10px;
+  }
+  &__rectangle {
+    border: none;
+    background-color: $color-line-red;
+    height: 2px;
+    width: 68%;
+  }
+  &__tour {
+    @include black-virtual-desc;
+    font-family: "Roboto";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+  &__google {
+    @include black-virtual-desc;
+    font-family: "Roboto";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-top: 10px;
+  }
 }
 
-.royal{
-    &__wrapper{
-        margin-bottom: 53px;
-        max-width: 424px;
-    }
-    &__palace{
-
-    }
+.royal {
+  &__wrapper {
+    margin-bottom: 53px;
+    max-width: 424px;
+  }
+  &__palace {
+  }
 }
 
-
-@media (max-width: 1024px){
-    .container{
-        margin: 0 20px;
-        max-width: 983px;
+@media (max-width: 1024px) {
+  .container {
+    margin: 0 20px;
+    max-width: 983px;
+  }
+  .royal {
+    &__wrapper {
+      width: 330px;
+      height: 345px;
+      margin-bottom: 60px;
+      padding-left: 17px;
     }
-    .royal{
-        &__wrapper{
-            width: 330px;
-            height: 345px;
-            margin-bottom: 60px;
-            padding-left: 17px;
-        }
+  }
+  .virtual {
+    &__name {
     }
-    .virtual{
-        &__name{
-
-        }
-        &__header{
-            @include virtual-header_24;
-        }
-        &__items{
-            justify-content: space-evenly;
-        }
-        &__rectangle{
-            margin-bottom: 57px;
-        }
+    &__header {
+      @include virtual-header_24;
     }
-    .palace{
-        &__name{
-            @include palace-name_24;
-        }
-        &__tour{
-            @include palace-tour_24;
-        }
-        &__google{
-            @include palace-google_24;
-        }
-        &__img{
-            width: 330px;
-        }
-        &__rectangle{
-            width: 40%;
-        }
+    &__items {
+      justify-content: space-evenly;
     }
-
+    &__rectangle {
+      margin-bottom: 57px;
+    }
+  }
+  .palace {
+    &__name {
+      @include palace-name_24;
+    }
+    &__tour {
+      @include palace-tour_24;
+    }
+    &__google {
+      @include palace-google_24;
+    }
+    &__img {
+      width: 330px;
+    }
+    &__rectangle {
+      width: 40%;
+    }
+  }
 }
 
-@media (max-width: 768px){
-    .visiting{
-        height: 1190px;
+@media (max-width: 768px) {
+  .visiting {
+    height: 1190px;
+  }
+  .royal {
+    &__wrapper {
+      width: 280px;
+      height: 301px;
+      margin-bottom: 39px;
     }
-    .royal{
-        &__wrapper{
-            width: 280px;
-            height: 301px;
-            margin-bottom: 39px;
-        }
+  }
+  .virtual {
+    &__header {
+      @include virtual-header_68;
+      margin-bottom: 20px;
     }
-    .virtual{
-        &__header{
-            @include virtual-header_68;
-            margin-bottom: 20px;
-        }
-        &__rectangle{
-            margin-bottom: 40px;
-        }
+    &__rectangle {
+      margin-bottom: 40px;
     }
-    .palace{
-        &__name{
-            @include palace-name_68;
-        }
-        &__tour{
-            @include palace-tour_68;
-            margin-bottom: 7px;
-        }
-        &__google{
-            @include palace-google_68;
-        }
-        &__img{
-            width: 280px;
-        }
-        &__rectangle{
-            width: 50%;
-        }
+  }
+  .palace {
+    &__name {
+      @include palace-name_68;
     }
-    
+    &__tour {
+      @include palace-tour_68;
+      margin-bottom: 7px;
+    }
+    &__google {
+      @include palace-google_68;
+    }
+    &__img {
+      width: 280px;
+    }
+    &__rectangle {
+      width: 50%;
+    }
+  }
 }
 
-@media (max-width: 650px){
-    .visiting{
-        height: 2185px;
-    }
+@media (max-width: 650px) {
+  .visiting {
+    height: 2185px;
+  }
 }
 
-@media (max-width: 420px){
-    .virtual{
-        &__header{
-            @include virtual-header_20;
-        }
+@media (max-width: 420px) {
+  .virtual {
+    &__header {
+      @include virtual-header_20;
     }
-    .royal{
-        &__wrapper{
-            height: 295px;
-            width: 280px;
-        }
+  }
+  .royal {
+    &__wrapper {
+      height: 295px;
+      width: 280px;
     }
-    .palace{
-        &__name{
-            margin-top: 15px;
-        }
-        &__google{
-            margin-top: 5px;
-        }
-
+  }
+  .palace {
+    &__name {
+      margin-top: 15px;
     }
-    
+    &__google {
+      margin-top: 5px;
+    }
+  }
 }

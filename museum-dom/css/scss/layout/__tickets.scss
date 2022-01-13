@@ -1,191 +1,178 @@
-.tickets{
-    &__inner{
-        margin-bottom: 70px;
-    }
-    &__name{
-        color: $color-text-brown;
-        font-family: 'Forum';
-        font-size: 80px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 90px;
-        letter-spacing: 5px;
-        text-align: left;
-        margin: 75px 0 25px 0;
-    }
-    &__rectangle{
-        @include red-line;
-        margin-bottom: 75px;
-    }
-
-
+.tickets {
+  &__inner {
+    margin-bottom: 70px;
+  }
+  &__name {
+    color: $color-text-brown;
+    font-family: "Forum";
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90px;
+    letter-spacing: 5px;
+    text-align: left;
+    margin: 75px 0 25px 0;
+  }
+  &__rectangle {
+    @include red-line;
+    margin-bottom: 75px;
+  }
 }
 
-.tickets{
-    &__wrapper{
-        display: flex;
-        justify-content: space-between;
-        
-    }
-    &__img{
-        &-wrapper{
-            max-width: 720px;
-            height: 440px;
-        }
-        &-mobile{
-            display: none;
-        }
-        width: 100%;
-        margin-bottom: 75px;
-
-    }
-    &__type{
-        max-width: 270px;
-        height: 211px;
-
-    }
-    &__amount{
-
-
-    }
-}
-
-.radio{
-    &__name{
-        @include tickets__name;
-        margin-top: 0;
-    }
-    &__item{
-
-    }
-}
-
-.amount{
-    &__name{
-        @include tickets__name;
-        margin-top: 0;
-        margin-left: 25px;
-    }
-    &__basic{
-
-    }
-    &__senior{
-
-    }
-    &__total{
-        font-family: 'Roboto';
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 33px;
-        letter-spacing: 1.649999976158142px;
-        text-align: left;
-    }
-    &__btn{
-        background-color: $color-black-background;
-        color: $color-white-text;
-        font-family: 'Roboto';
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 26px;
-        letter-spacing: 2px;
-        text-align: center;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 175px;
-        height: 50px;
-        cursor: pointer;
-        &-text{
-            font-family: 'Roboto';
-            font-size: 22px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 26px;
-            letter-spacing: 2px;
-            text-align: center;
-            margin: 12px 31px 12px 31px;
-        }
-    }
-}
-
-.basic{
-    width: 150px;
+.tickets {
+  &__wrapper {
     display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    margin-left: auto;
-    &__name{
-        @include amount__name-font;
+    justify-content: space-between;
+  }
+  &__img {
+    &-wrapper {
+      max-width: 720px;
+      height: 440px;
     }
-    &__group{
-        width: 150px;
-        border: 1px solid black;
+    &-mobile {
+      display: none;
     }
-    &__btn-minus{
-        @include button-border;
-        right: -5px;
-        cursor: pointer;
-    }
-    &__btn-field{
-        height: 33px;
-        width: 62px;
-        position: relative;
-        resize: vertical;
-        text-align: center;
-        border: none;
-    }
-    &__btn-plus{
-        @include button-border;
-        left: -5px;
-        cursor: pointer;
-    }
-
+    width: 100%;
+    margin-bottom: 75px;
+  }
+  &__type {
+    max-width: 270px;
+    height: 211px;
+  }
+  &__amount {
+  }
 }
 
+.radio {
+  &__name {
+    @include tickets__name;
+    margin-top: 0;
+  }
+  &__item {
+  }
+}
 
-.senior{
-    width: 150px;
+.amount {
+  &__name {
+    @include tickets__name;
+    margin-top: 0;
+    margin-left: 25px;
+  }
+  &__basic {
+  }
+  &__senior {
+  }
+  &__total {
+    font-family: "Roboto";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 33px;
+    letter-spacing: 1.649999976158142px;
+    text-align: left;
+  }
+  &__btn {
+    background-color: $color-black-background;
+    color: $color-white-text;
+    font-family: "Roboto";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 2px;
+    text-align: center;
+    border: none;
     display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    margin-left: auto;
-    &__name{
-        @include amount__name-font;
+    align-items: center;
+    justify-content: center;
+    width: 175px;
+    height: 50px;
+    cursor: pointer;
+    &-text {
+      font-family: "Roboto";
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 26px;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 12px 31px 12px 31px;
     }
-    &__group{
-        border: 1px solid black;
-        width: 150px;
-    }
-    &__btn-minus{
-        @include button-border;
-        right: -5px;
-        cursor: pointer;
-    }
-    &__field{
-        height: 33px;
-        width: 62px;
-        position: relative;
-        resize: vertical;
-        text-align: center;
-        border: none;
-    }
-    &__btn-plus{
-        @include button-border;
-        left: -5px;
-        cursor: pointer;
-    }
-
+  }
 }
 
-.tickets_img-low{
-    display: none
+.basic {
+  width: 150px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-left: auto;
+  &__name {
+    @include amount__name-font;
+  }
+  &__group {
+    width: 150px;
+    border: 1px solid black;
+  }
+  &__btn-minus {
+    @include button-border;
+    right: -5px;
+    cursor: pointer;
+  }
+  &__btn-field {
+    height: 33px;
+    width: 62px;
+    position: relative;
+    resize: vertical;
+    text-align: center;
+    border: none;
+  }
+  &__btn-plus {
+    @include button-border;
+    left: -5px;
+    cursor: pointer;
+  }
 }
 
-label{
-    @include radio-button-style;
+.senior {
+  width: 150px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-left: auto;
+  &__name {
+    @include amount__name-font;
+  }
+  &__group {
+    border: 1px solid black;
+    width: 150px;
+  }
+  &__btn-minus {
+    @include button-border;
+    right: -5px;
+    cursor: pointer;
+  }
+  &__field {
+    height: 33px;
+    width: 62px;
+    position: relative;
+    resize: vertical;
+    text-align: center;
+    border: none;
+  }
+  &__btn-plus {
+    @include button-border;
+    left: -5px;
+    cursor: pointer;
+  }
+}
+
+.tickets_img-low {
+  display: none;
+}
+
+label {
+  @include radio-button-style;
 }
 
 input::-webkit-outer-spin-button,
@@ -193,219 +180,211 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-input[type="button"]{
-    
+input[type="button"] {
 }
 
-.amount__total{
-    margin-top: 50px 0 60px 0;
+.amount__total {
+  margin-top: 50px 0 60px 0;
 }
 
-@media (max-width: 1231px){
-    .tickets__type{
-        display: none;
-    }
-    .tickets__amount{
-        padding-right: 29px;
-    }
+@media (max-width: 1231px) {
+  .tickets__type {
+    display: none;
+  }
+  .tickets__amount {
+    padding-right: 29px;
+  }
 }
 
-@media (max-width: 1447px){
-    .container{
-        margin: 0 auto;
-        max-width: 1224px;
-    }
-    .amount{
-        padding-right: 2px;
-    }
+@media (max-width: 1447px) {
+  .container {
+    margin: 0 auto;
+    max-width: 1224px;
+  }
+  .amount {
+    padding-right: 2px;
+  }
 }
 
-@media (max-width: 1024px){
-    .tickets{
-        &__name{
-            @include tickets-name_24;
-            margin: 75px 0 20px 0;
-        }
-        &__rectangle{
-            margin-bottom: 60px;
-        }
-        &__inner{
-            margin-bottom: 63px;
-        }
-    .amount{
-        padding-right: 12px;
-        &__name{
-            margin: 0 0;
-        }
-        &__basic{
-            margin: 0 0;
-        }
-        &__senior{
-            margin: 0 0;
-        }
-        &__total{
-            margin: 23px 0 0 0;
-        }
-        &__btn{
-            margin-top: 70px;
-        }
-    .basic{
-        &__name{
-            margin: 27px 0 0 0;
-        }
-        &__group{
-            margin-top: 14px;
-            width: 172px;
-            height: 45px;
-            display: flex;
-            justify-content: space-between;
-        }
+@media (max-width: 1024px) {
+  .tickets {
+    &__name {
+      @include tickets-name_24;
+      margin: 75px 0 20px 0;
     }
-    .senior{
-        &__name{
-            margin: 29px 0 0 0;
-        }
-        &__group{
-            margin-top: 14px;
-            width: 172px;
-            height: 45px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        }
-     }
+    &__rectangle {
+      margin-bottom: 60px;
     }
-
+    &__inner {
+      margin-bottom: 63px;
+    }
+    .amount {
+      padding-right: 12px;
+      &__name {
+        margin: 0 0;
+      }
+      &__basic {
+        margin: 0 0;
+      }
+      &__senior {
+        margin: 0 0;
+      }
+      &__total {
+        margin: 23px 0 0 0;
+      }
+      &__btn {
+        margin-top: 70px;
+      }
+      .basic {
+        &__name {
+          margin: 27px 0 0 0;
+        }
+        &__group {
+          margin-top: 14px;
+          width: 172px;
+          height: 45px;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .senior {
+        &__name {
+          margin: 29px 0 0 0;
+        }
+        &__group {
+          margin-top: 14px;
+          width: 172px;
+          height: 45px;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
 }
 
-@media (max-width: 768px){
-    .senior{
-        &__group{
-            margin-top: 10px;
-        }
+@media (max-width: 768px) {
+  .senior {
+    &__group {
+      margin-top: 10px;
     }
-    .tickets{
-        &__img{
-            display: none;
-            &-mobile{
-                display: block
-            }
-        }
-        &__name{
-            @include tickets-name_68;
-            margin-bottom: 20px;
-        }
-        &__rectangle{
-            margin-bottom: 40px;
-        }
-    .amount{
-        padding-right: 21px;
-        &__name{
-            margin: 0 0 10px 0;
-            }
-        &__total{
-            margin: 34px 0 0 0;
-        }
-        &__btn{
-            margin-top: 40px;
-        }
-        }
+  }
+  .tickets {
+    &__img {
+      display: none;
+      &-mobile {
+        display: block;
+      }
     }
-    
+    &__name {
+      @include tickets-name_68;
+      margin-bottom: 20px;
+    }
+    &__rectangle {
+      margin-bottom: 40px;
+    }
+    .amount {
+      padding-right: 21px;
+      &__name {
+        margin: 0 0 10px 0;
+      }
+      &__total {
+        margin: 34px 0 0 0;
+      }
+      &__btn {
+        margin-top: 40px;
+      }
+    }
+  }
 }
 
-@media (max-width: 680px){
-    .tickets{
-        &__wrapper{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        &__img-wrapper{
-            margin: auto;
-        }
-        &__amount{
-            margin: auto;
-        }
+@media (max-width: 680px) {
+  .tickets {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
+    &__img-wrapper {
+      margin: auto;
+    }
+    &__amount {
+      margin: auto;
+    }
+  }
 }
 
-@media (max-width: 645px){
-    .tickets{
-        &__wrapper{
-            flex-direction: column;
-        }
-    .amount{
-        &__name{
-            margin-left: 0;
-        }
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+@media (max-width: 645px) {
+  .tickets {
+    &__wrapper {
+      flex-direction: column;
     }
-    .basic{
+    .amount {
+      &__name {
         margin-left: 0;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+    .basic {
+      margin-left: 0;
     }
+  }
 }
 
-@media (max-width: 485px){
-    .tickets__img-mobile{
-        width: 100%;
-    }
-
+@media (max-width: 485px) {
+  .tickets__img-mobile {
+    width: 100%;
+  }
 }
 
-@media (max-width: 420px){
-    .tickets{
-        &__name{
-            @include tickets-name_20;
-        }
-        &__img-mobile{
-            display: none;
-        }
-        &_img-low{
-            display: block;
-        }
-        &__img{
-            &-wrapper{
-                height: 200px;
-            }
-        }
-        &__amount{
-            margin: 0 60px 0 80px;
-        }
+@media (max-width: 420px) {
+  .tickets {
+    &__name {
+      @include tickets-name_20;
     }
-    .amount{
-        &__name{
-            font-family: 'Roboto';
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 19px;
-            letter-spacing: 0em;
-            text-align: center;
-            margin: 0 0 6px 0;
-        }
-        &__total{
-            @include basic-senour-name_20;
-        }
+    &__img-mobile {
+      display: none;
     }
-    .basic{
-        &__name{
-            margin: 0;
-            @include basic-senour-name_20;
-        }
-        &__group{
-
-        }
+    &_img-low {
+      display: block;
     }
-    .senior{
-        &__name{
-            @include basic-senour-name_20;
-        }
+    &__img {
+      &-wrapper {
+        height: 200px;
+      }
     }
-    
+    &__amount {
+      margin: 0 60px 0 80px;
+    }
+  }
+  .amount {
+    &__name {
+      font-family: "Roboto";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: center;
+      margin: 0 0 6px 0;
+    }
+    &__total {
+      @include basic-senour-name_20;
+    }
+  }
+  .basic {
+    &__name {
+      margin: 0;
+      @include basic-senour-name_20;
+    }
+    &__group {
+    }
+  }
+  .senior {
+    &__name {
+      @include basic-senour-name_20;
+    }
+  }
 }
-

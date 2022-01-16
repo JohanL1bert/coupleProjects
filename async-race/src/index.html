@@ -7,11 +7,133 @@
         <title>Document</title>
     </head>
     <body>
-        <header class="header"></header>
+        <!--         <div id="root"></div> -->
+        <header class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <nav class="navigation">
+                        <ul class="navigation__menu">
+                            <li class="navigation__garage">
+                                <a class="navigation__garage__link" href="">Go to Garage</a>
+                            </li>
+                            <li class="navigation__winners">
+                                <a class="navigation__winners__link" href="">Go to Winners</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
         <main class="main">
-            <section class="garage"></section>
-            <section class="winners"></section>
+            <div class="container">
+                <div class="main__inner">
+                    <div class="main__border">
+                        <section class="garage">
+                            <div class="garage__inner">
+                                <div class="garage__wrapper">
+                                    <div class="race">
+                                        <div class="race__flag"></div>
+                                        <div class="race__info"></div>
+                                    </div>
+                                    <div class="garage__view"></div>
+                                    <div class="garage__settings">
+                                        <div class="garage__settings__name">
+                                            <input type="text" />
+                                            <input type="text" />
+                                            <button class="name__create"></button>
+                                        </div>
+                                        <div class="garage__settings__update">
+                                            <input type="text" />
+                                            <input type="text" />
+                                            <button class="update__update"></button>
+                                        </div>
+                                        <div class="garage__settings__race">
+                                            <button class="race__button"></button>
+                                            <button class="race__reset"></button>
+                                            <button class="race__generate"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="garage__border">
+                                    <div class="garage__info">Garage: (<span class="garage__count">1</span>)</div>
+                                    <div class="garage__page">1</div>
+                                    <div class="garage__items">
+                                        <div class="car">
+                                            <div class="car__setting">
+                                                <button class="car__select">Select</button>
+                                                <button class="car__remove">Remove</button>
+                                                <p class="car__name">Name</p>
+                                            </div>
+                                            <div class="car__race">
+                                                <div class="car__move">
+                                                    <button class="car__start">X</button>
+                                                    <button class="car__back">Y</button>
+                                                    <div class="car__item"></div>
+                                                    <div class="car__finish"></div>
+                                                </div>
+                                                <div class="car__ground"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!--  <section class="winners">
+                            <div class="winners__inner">
+                                <div class="winner__status">Winners: (<span class="winner__count">0</span>)</div>
+                                <div class="winners__page">
+                                    <table class="table" border="5">
+                                        <thead>
+                                            <tr>
+                                                <th>Numbers</th>
+                                                <th>Car</th>
+                                                <th>Name</th>
+                                                <th>winners</th>
+                                                <th>Best time (seconds)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Картинка</td>
+                                                <td>Назания</td>
+                                                <td>Количе тво</td>
+                                                <td>Best time</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Картинка</td>
+                                                <td>Назания</td>
+                                                <td>Количе тво</td>
+                                                <td>Best time</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Картинка</td>
+                                                <td>Назания</td>
+                                                <td>Количе тво</td>
+                                                <td>Best time</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section> -->
+                    </div>
+                </div>
+            </div>
         </main>
-        <footer class="footer"></footer>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__inner">
+                    <div class="footer__creator">
+                        <p class="copyright">©</p>
+                        <p class="year__create">2021</p>
+                        <a href="https://github.com/JohanL1bert" target="_blank" class="github__link">github</a>
+                    </div>
+                    <div class="footer__logo"></div>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

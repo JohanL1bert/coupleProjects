@@ -11,11 +11,23 @@ export class App {
         return createdElement;
     }
 
+    private classListRemoveFromElement() {}
+
     private appendToChild(elementToAppend: HTMLElement, appendChildElement: HTMLElement) {
         elementToAppend.appendChild(appendChildElement);
     }
 
     private AddTextContentToHTMLElement() {}
+
+    public getHTMLElement(elementName: string) {
+        const getElement = document.querySelector(`.${elementName}`) as HTMLElement;
+        if (getElement === null) {
+            throw new Error(`${elementName}, null is element`);
+        }
+        return getElement;
+    }
+
+    public getAllHTMLElement(elementArray: string) {}
 
     private createHeader() {
         const headerElement = this.createHTMLElement('header', ['header']);
@@ -66,10 +78,29 @@ export class App {
         this.appendToChild(footerInnerElement, foooterLogoElement);
     }
 
-    private createMain() {}
+    public buttonGar() {
+        console.log('13');
+    }
+
+    public buttonWin() {
+        console.log('9123');
+    }
+
+    private createMain() {
+        const mainElement = this.createHTMLElement('main', ['main']);
+        const containerElement = this.createHTMLElement('div', ['container']);
+        const mainInnerElement = this.createHTMLElement('div', ['main__inner']);
+
+        const buttonGarage = this.getHTMLElement('navigation__garage');
+        const buttonWinners = this.getHTMLElement('navigation__winners');
+
+        buttonGarage.addEventListener('click', this.buttonGar);
+        buttonWinners.addEventListener('click', this.buttonWin);
+    }
 
     public root() {
         this.createHeader();
         this.createFooter();
+        this.createMain();
     }
 }

@@ -1,12 +1,13 @@
-import { App } from '../routing';
+import { Router } from '../routing';
 
 class CreatorGarage {
-    creater: App;
-    constructor(creater: App) {
+    creater: Router;
+    constructor(creater: Router) {
         this.creater = creater;
     }
 
     public renderMainWrapper() {
+        console.log(this);
         const mainElement = this.creater.createHTMLElement('main', ['main']);
         const containerElement = this.creater.createHTMLElement('div', ['container']);
         const mainInnerElement = this.creater.createHTMLElement('div', ['main__inner']);
@@ -176,11 +177,12 @@ class CreatorGarage {
 }
 
 export class Garage extends CreatorGarage {
-    constructor(creater: App) {
+    constructor(creater: Router) {
         super(creater);
     }
 
     public initialEmptyGarage() {
+        console.log('this', this);
         this.renderMainWrapper();
         this.renderStatus();
         this.renderGarageCreateCar();

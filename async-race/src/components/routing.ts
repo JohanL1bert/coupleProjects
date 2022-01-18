@@ -1,6 +1,5 @@
-export class App {
+class Creater {
     private mainBody: HTMLElement;
-
     constructor() {
         this.mainBody = document.getElementById('root') as HTMLElement;
     }
@@ -9,6 +8,16 @@ export class App {
         const createdElement = document.createElement(`${element}`);
         createdElement.classList.add(...classElement);
         return createdElement;
+    }
+
+    public createHTMLElementArray(elementName: string[], classList: string[][]) {
+        const arr = elementName.map((className, index) => {
+            const element = document.createElement(`${className}`);
+            const getClassName = classList[index];
+            element.classList.add(...getClassName);
+            return element;
+        });
+        return arr;
     }
 
     public classListRemoveFromElement() {}
@@ -34,6 +43,10 @@ export class App {
     }
 
     public getAllHTMLElement(elementArray: string[]) {}
+
+    public removeNodes(nodes: HTMLElement[]) {
+        nodes.map((el) => el.remove());
+    }
 
     private createHeader() {
         const headerElement = this.createHTMLElement('header', ['header']);
@@ -70,16 +83,36 @@ export class App {
     }
 
     private createFooter() {
-        const footerElement = this.createHTMLElement('footer', ['footer']);
+        const arrayofTags = ['foooter', 'div', 'div', 'div', 'p', 'p', 'a'];
+        const arrayOfClassName = [
+            ['footer'],
+            ['container'],
+            ['main__footer__inner'],
+            ['footer__creator'],
+            ['copyright', 'xd'],
+            ['year__create', 'igor'],
+            ['github__link', 'someAnoter', 'etx'],
+        ];
+
+        const [
+            footerElement,
+            containerElement,
+            footerInnerElement,
+            footerCreator,
+            pCopyrightElement,
+            pYearelement,
+            aGithubElement,
+        ] = this.createHTMLElementArray(arrayofTags, arrayOfClassName);
+
+        /*         const footerElement = this.createHTMLElement('footer', ['footer']);
         const containerElement = this.createHTMLElement('div', ['container']);
         const footerInnerElement = this.createHTMLElement('div', ['main__footer__inner']);
         const footerCreator = this.createHTMLElement('div', ['footer__creator']);
         const pCopyrightElement = this.createHTMLElement('p', ['copyright']);
         const pYearelement = this.createHTMLElement('p', ['year__create']);
-        const aGithubElement = this.createHTMLElement('a', ['github__link']);
+        const aGithubElement = this.createHTMLElement('a', ['github__link']); */
 
         const foooterLogoElement = this.createHTMLElement('div', ['footer__logo']);
-
         //Append Section
         this.appendToChild(this.mainBody, footerElement);
         this.appendToChild(footerElement, containerElement);
@@ -92,29 +125,14 @@ export class App {
         this.appendToChild(footerInnerElement, foooterLogoElement);
     }
 
-    public buttonGar() {
-        console.log('13');
-    }
-
-    public buttonWin() {
-        console.log('9123');
-    }
-
-    private createMain() {
-        const mainElement = this.createHTMLElement('main', ['main']);
-        const containerElement = this.createHTMLElement('div', ['container']);
-        const mainInnerElement = this.createHTMLElement('div', ['main__inner']);
-
-        const buttonGarage = this.getHTMLElement('navigation__garage');
-        const buttonWinners = this.getHTMLElement('navigation__winners');
-
-        buttonGarage.addEventListener('click', this.buttonGar);
-        buttonWinners.addEventListener('click', this.buttonWin);
-    }
-
     public root() {
         this.createHeader();
         this.createFooter();
-        this.createMain();
+    }
+}
+
+export class Router extends Creater {
+    constructor() {
+        super();
     }
 }

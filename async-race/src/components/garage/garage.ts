@@ -7,7 +7,6 @@ class CreatorGarage {
     }
 
     public renderMainWrapper() {
-        console.log(this);
         const mainElement = this.creater.createHTMLElement('main', ['main']);
         const containerElement = this.creater.createHTMLElement('div', ['container']);
         const mainInnerElement = this.creater.createHTMLElement('div', ['main__inner']);
@@ -182,7 +181,6 @@ export class Garage extends CreatorGarage {
     }
 
     public initialEmptyGarage() {
-        console.log('this', this);
         this.renderMainWrapper();
         this.renderStatus();
         this.renderGarageCreateCar();

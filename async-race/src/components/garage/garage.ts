@@ -33,6 +33,9 @@ class CreatorGarage {
         const spanRaceWinnerElement = this.creater.createHTMLElement('span', ['span_winner']);
         const divGarageSettingsElement = this.creater.createHTMLElement('div', ['garage__settings']);
 
+        this.creater.AddTextContentToHTMLElement(spanRaceTextelement, 'Winner:');
+        this.creater.AddTextContentToHTMLElement(spanRaceWinnerElement, 'Number one');
+
         //Append
         const divGarageInnerElement = this.creater.getHTMLElement('garage__inner');
         this.creater.appendToChild(divGarageInnerElement, divGarageWrapperElement);
@@ -47,9 +50,13 @@ class CreatorGarage {
     public renderGarageCreateCar() {
         //TODO: /Инпуты дописать классы
         const divGarageSettingsInputElement = this.creater.createHTMLElement('div', ['garage__settings__input']);
-        const inputTextElement = this.creater.createHTMLElement('input', ['inputCLass']);
-        const inputColorElement = this.creater.createHTMLElement('input', ['input__color']);
-        const buttonInputButtonelement = this.creater.createHTMLElement('button', ['input__button']);
+        const inputTextElement = this.creater.createHTMLElement('input', ['inputCLass']) as HTMLInputElement;
+        const inputColorElement = this.creater.createHTMLElement('input', ['input__color']) as HTMLInputElement;
+        const buttonInputButtonelement = this.creater.createHTMLElement('button', [
+            'input__button',
+        ]) as HTMLButtonElement;
+
+        inputTextElement.type = 'text';
 
         const divGarageElement = this.creater.getHTMLElement('garage__settings');
         //Append
@@ -63,8 +70,8 @@ class CreatorGarage {
         //Секция Update
         const divGarageSettingsUpdateElement = this.creater.createHTMLElement('div', ['garage__settings__update']);
         //Еще один инпут должен быть
-        const inputTextElement = this.creater.createHTMLElement('input', ['input__element']);
-        const inputUpdateColorElement = this.creater.createHTMLElement('input', ['update__color']);
+        const inputTextElement = this.creater.createHTMLElement('input', ['input__element']) as HTMLInputElement;
+        const inputUpdateColorElement = this.creater.createHTMLElement('input', ['update__color']) as HTMLInputElement;
         const buttonUpdateButtonElement = this.creater.createHTMLElement('button', ['update__button']);
 
         const divGarageElement = this.creater.getHTMLElement('garage__settings');
@@ -77,9 +84,15 @@ class CreatorGarage {
     public renderGarageSettingsBtn() {
         //Секция Кнопок рейс
         const divGarageSettingRaceElement = this.creater.createHTMLElement('div', ['garage__settings__race']);
-        const buttonRaceButtonElement = this.creater.createHTMLElement('button', ['race__button']);
-        const buttonRaceResetElement = this.creater.createHTMLElement('button', ['race__reset']);
-        const buttonRaceGenerateElement = this.creater.createHTMLElement('button', ['race__generate']);
+        const buttonRaceButtonElement = this.creater.createHTMLElement('button', ['race__button']) as HTMLButtonElement;
+        const buttonRaceResetElement = this.creater.createHTMLElement('button', ['race__reset']) as HTMLButtonElement;
+        const buttonRaceGenerateElement = this.creater.createHTMLElement('button', [
+            'race__generate',
+        ]) as HTMLButtonElement;
+
+        this.creater.AddTextContentToHTMLElement(buttonRaceButtonElement, 'race');
+        this.creater.AddTextContentToHTMLElement(buttonRaceResetElement, 'reset');
+        this.creater.AddTextContentToHTMLElement(buttonRaceGenerateElement, 'generate cars');
 
         const divGarageElement = this.creater.getHTMLElement('garage__settings');
         this.creater.appendToChild(divGarageElement, divGarageSettingRaceElement);
@@ -111,8 +124,8 @@ class CreatorGarage {
     public renderCarItem() {
         const divCarElement = this.creater.createHTMLElement('div', ['car']);
         const carSettingElement = this.creater.createHTMLElement('div', ['car__setting']);
-        const buttonCarSelectElement = this.creater.createHTMLElement('button', ['car__select']);
-        const buttonCarRemoveElement = this.creater.createHTMLElement('button', ['car__remove']);
+        const buttonCarSelectElement = this.creater.createHTMLElement('button', ['car__select']) as HTMLButtonElement;
+        const buttonCarRemoveElement = this.creater.createHTMLElement('button', ['car__remove']) as HTMLButtonElement;
         const pCarNameElement = this.creater.createHTMLElement('p', ['car__name']);
         const divCarRaceElement = this.creater.createHTMLElement('div', ['car__race']);
         const divCarMove = this.creater.createHTMLElement('div', ['car__move']);

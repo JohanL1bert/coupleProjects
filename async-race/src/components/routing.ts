@@ -5,19 +5,21 @@ export class App {
         this.mainBody = document.getElementById('root') as HTMLElement;
     }
 
-    private createHTMLElement(element: string, classElement: string[]) {
+    public createHTMLElement(element: string, classElement: string[]) {
         const createdElement = document.createElement(`${element}`);
         createdElement.classList.add(...classElement);
         return createdElement;
     }
 
-    private classListRemoveFromElement() {}
+    public classListRemoveFromElement() {}
 
-    private appendToChild(elementToAppend: HTMLElement, appendChildElement: HTMLElement) {
-        elementToAppend.appendChild(appendChildElement);
+    public appendToChild(elementToAppend: HTMLElement, appendChildElement: HTMLElement) {
+        elementToAppend.insertAdjacentElement('beforeend', appendChildElement);
     }
 
-    private AddTextContentToHTMLElement() {}
+    public AddTextContentToHTMLElement(element: HTMLElement, text: string) {
+        element.textContent = text;
+    }
 
     public getHTMLElement(elementName: string) {
         const getElement = document.querySelector(`.${elementName}`) as HTMLElement;
@@ -27,7 +29,11 @@ export class App {
         return getElement;
     }
 
-    public getAllHTMLElement(elementArray: string) {}
+    public appendToNeighbor(firstElement: HTMLElement, secondELement: HTMLElement) {
+        firstElement.insertAdjacentElement('afterend', secondELement);
+    }
+
+    public getAllHTMLElement(elementArray: string[]) {}
 
     private createHeader() {
         const headerElement = this.createHTMLElement('header', ['header']);
@@ -39,6 +45,14 @@ export class App {
         const aElement = this.createHTMLElement('a', ['navigation__garage__link']);
         const liElementWinners = this.createHTMLElement('li', ['navigation__winners']);
         const aElementWinners = this.createHTMLElement('a', ['navigation__winners__link']);
+
+        //textContent
+        this.AddTextContentToHTMLElement(aElement, 'Go to Garage');
+        aElement.setAttribute('href', '#');
+
+        this.AddTextContentToHTMLElement(aElementWinners, 'Go to Winners');
+
+        aElementWinners.setAttribute('href', '#');
 
         //Append Section
         this.appendToChild(this.mainBody, headerElement);

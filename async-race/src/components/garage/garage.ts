@@ -122,6 +122,11 @@ class CreatorGarage {
         const divCarItemElement = this.creater.createHTMLElement('div', ['car__item']);
         const divCarFinishElement = this.creater.createHTMLElement('div', ['car__finish']);
         const divCarGroundElement = this.creater.createHTMLElement('div', ['car__ground']);
+
+        const divGarageItemsElement = this.creater.getHTMLElement('garage__items');
+        this.creater.appendToChild(divGarageItemsElement, divCarElement);
+
+        this.creater.appendToChild(divGarageItemsElement, carSettingElement);
     }
 }
 

@@ -111,11 +111,11 @@ class CreatorGarage {
     public renderCarItem() {
         const divCarElement = this.creater.createHTMLElement('div', ['car']);
         const carSettingElement = this.creater.createHTMLElement('div', ['car__setting']);
-        const buttonCarSelectElement = this.creater.createHTMLElement('button', ['car__seleect']);
+        const buttonCarSelectElement = this.creater.createHTMLElement('button', ['car__select']);
         const buttonCarRemoveElement = this.creater.createHTMLElement('button', ['car__remove']);
         const pCarNameElement = this.creater.createHTMLElement('p', ['car__name']);
         const divCarRaceElement = this.creater.createHTMLElement('div', ['car__race']);
-        const buttonCarMove = this.creater.createHTMLElement('div', ['car__move']);
+        const divCarMove = this.creater.createHTMLElement('div', ['car__move']);
         const buttonCarStartElement = this.creater.createHTMLElement('button', ['car__start']);
         const buttonCarBackElement = this.creater.createHTMLElement('button', ['car__back']);
         const divCarTrackElement = this.creater.createHTMLElement('div', ['car__track']);
@@ -123,10 +123,33 @@ class CreatorGarage {
         const divCarFinishElement = this.creater.createHTMLElement('div', ['car__finish']);
         const divCarGroundElement = this.creater.createHTMLElement('div', ['car__ground']);
 
+        this.creater.AddTextContentToHTMLElement(buttonCarStartElement, 'X');
+        this.creater.AddTextContentToHTMLElement(buttonCarBackElement, 'Y');
+        this.creater.AddTextContentToHTMLElement(buttonCarSelectElement, 'Select');
+        this.creater.AddTextContentToHTMLElement(buttonCarRemoveElement, 'Remove');
+
         const divGarageItemsElement = this.creater.getHTMLElement('garage__items');
         this.creater.appendToChild(divGarageItemsElement, divCarElement);
+        this.creater.appendToChild(divCarElement, carSettingElement);
+        this.creater.appendToChild(divCarElement, divCarRaceElement);
 
-        this.creater.appendToChild(divGarageItemsElement, carSettingElement);
+        //Car Settings
+        this.creater.appendToChild(divCarElement, buttonCarSelectElement);
+        this.creater.appendToChild(divCarElement, buttonCarRemoveElement);
+        this.creater.appendToChild(divCarElement, pCarNameElement);
+
+        //car race
+        this.creater.appendToChild(divCarRaceElement, divCarMove);
+        this.creater.appendToChild(divCarRaceElement, divCarGroundElement);
+
+        //car move
+        this.creater.appendToChild(divCarMove, buttonCarStartElement);
+        this.creater.appendToChild(divCarMove, buttonCarBackElement);
+        this.creater.appendToChild(divCarMove, divCarTrackElement);
+        //
+        this.creater.appendToChild(divCarTrackElement, divCarItemElement);
+
+        this.creater.appendToChild(divCarMove, divCarFinishElement);
     }
 }
 
@@ -142,5 +165,6 @@ export class Garage extends CreatorGarage {
         this.renderGarageUpdate();
         this.renderGarageSettingsBtn();
         this.renderCarGarage();
+        this.renderCarItem();
     }
 }

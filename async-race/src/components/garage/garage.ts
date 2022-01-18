@@ -58,6 +58,10 @@ class CreatorGarage {
 
         inputTextElement.type = 'text';
 
+        inputColorElement.type = 'color';
+
+        this.creater.AddTextContentToHTMLElement(buttonInputButtonelement, 'create');
+
         const divGarageElement = this.creater.getHTMLElement('garage__settings');
         //Append
         this.creater.appendToChild(divGarageElement, divGarageSettingsInputElement);
@@ -73,6 +77,11 @@ class CreatorGarage {
         const inputTextElement = this.creater.createHTMLElement('input', ['input__element']) as HTMLInputElement;
         const inputUpdateColorElement = this.creater.createHTMLElement('input', ['update__color']) as HTMLInputElement;
         const buttonUpdateButtonElement = this.creater.createHTMLElement('button', ['update__button']);
+
+        inputTextElement.type = 'text';
+        inputUpdateColorElement.type = 'color';
+
+        this.creater.AddTextContentToHTMLElement(buttonUpdateButtonElement, 'update');
 
         const divGarageElement = this.creater.getHTMLElement('garage__settings');
         this.creater.appendToChild(divGarageElement, divGarageSettingsUpdateElement);

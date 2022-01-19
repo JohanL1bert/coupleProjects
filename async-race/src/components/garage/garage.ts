@@ -8,14 +8,14 @@ class CreatorGarage {
     }
 
     public renderMainWrapper() {
-        const arrayOfTags: Array<string> = ['main', 'div', 'div', 'div', 'section', 'div'];
+        const arrayOfTags: Array<string> = ['main', 'div', 'div', 'div' /* 'section', 'div' */];
         const arrayOfClassName: TArrayClassName = [
             ['main'],
             ['container'],
             ['main__inner'],
             ['main__border'],
-            ['garage'],
-            ['garage__inner'],
+            /*             ['garage'],
+            ['garage__inner'], */
         ];
 
         const [
@@ -23,8 +23,8 @@ class CreatorGarage {
             containerElement,
             mainInnerElement,
             mainBorderElement,
-            sectionGarageElement,
-            divGarageInnerElement,
+            /*             sectionGarageElement,
+            divGarageInnerElement, */
         ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName);
 
         //FIXME: Remove later
@@ -41,13 +41,15 @@ class CreatorGarage {
         this.creater.appendToChild(mainElement, containerElement);
         this.creater.appendToChild(containerElement, mainInnerElement);
         this.creater.appendToChild(mainInnerElement, mainBorderElement);
-        this.creater.appendToChild(mainBorderElement, sectionGarageElement);
-        this.creater.appendToChild(sectionGarageElement, divGarageInnerElement);
+        /*         this.creater.appendToChild(mainBorderElement, sectionGarageElement);
+        this.creater.appendToChild(sectionGarageElement, divGarageInnerElement); */
     }
 
     public renderStatus() {
-        const arrayOfTags: Array<string> = ['div', 'div', 'div', 'div', 'span', 'span', 'div'];
+        const arrayOfTags: Array<string> = ['section', 'div', 'div', 'div', 'div', 'div', 'span', 'span', 'div'];
         const arrayOfClassName: TArrayClassName = [
+            ['garage'],
+            ['garage__inner'],
             ['garage__wrapper'],
             ['race'],
             ['race__flag'],
@@ -58,6 +60,8 @@ class CreatorGarage {
         ];
 
         const [
+            sectionGarageElement,
+            divGarageInnerElement,
             divGarageWrapperElement,
             divRaceElement,
             divRaceFlagElement,
@@ -80,7 +84,9 @@ class CreatorGarage {
         this.creater.AddTextContentToHTMLElement(spanRaceWinnerElement, 'Number one');
 
         //Append
-        const divGarageInnerElement = this.creater.getHTMLElement('garage__inner');
+        const mainBorderElement = this.creater.getHTMLElement('main__border');
+        this.creater.appendToChild(mainBorderElement, sectionGarageElement);
+        this.creater.appendToChild(sectionGarageElement, divGarageInnerElement);
         this.creater.appendToChild(divGarageInnerElement, divGarageWrapperElement);
         this.creater.appendToChild(divGarageWrapperElement, divRaceElement);
         this.creater.appendToChild(divRaceElement, divRaceFlagElement);
@@ -98,7 +104,7 @@ class CreatorGarage {
             ['garage__settings__input'],
             ['inputClass'],
             ['input__color'],
-            ['button'],
+            ['input__button'],
         ];
 
         const [divGarageSettingsInputElement, inputTextElement, inputColorElement, buttonInputButtonelement] =
@@ -335,6 +341,17 @@ export class Garage extends CreatorGarage {
 
     public initialEmptyGarage() {
         this.renderMainWrapper();
+        this.renderStatus();
+        this.renderGarageCreateCar();
+        this.renderGarageUpdate();
+        this.renderGarageSettingsBtn();
+        this.renderCarGarage();
+        this.renderCarItem();
+    }
+
+    public renderPageWithRemove() {
+        const sectionGarage = this.creater.getHTMLElement('garage');
+        this.creater.removeNodes([sectionGarage]);
         this.renderStatus();
         this.renderGarageCreateCar();
         this.renderGarageUpdate();

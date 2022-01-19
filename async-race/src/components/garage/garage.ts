@@ -1,4 +1,5 @@
 import { Router } from '../routing';
+import { TArrayClassName, TCarItem, TGarageSet } from '../interfaces/interface';
 
 class CreatorGarage {
     creater: Router;
@@ -7,12 +8,32 @@ class CreatorGarage {
     }
 
     public renderMainWrapper() {
-        const mainElement = this.creater.createHTMLElement('main', ['main']);
+        const arrayOfTags: Array<string> = ['main', 'div', 'div', 'div', 'section', 'div'];
+        const arrayOfClassName: TArrayClassName = [
+            ['main'],
+            ['container'],
+            ['main__inner'],
+            ['main__border'],
+            ['garage'],
+            ['garage__inner'],
+        ];
+
+        const [
+            mainElement,
+            containerElement,
+            mainInnerElement,
+            mainBorderElement,
+            sectionGarageElement,
+            divGarageInnerElement,
+        ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName);
+
+        //FIXME: Remove later
+        /*         const mainElement = this.creater.createHTMLElement('main', ['main']);
         const containerElement = this.creater.createHTMLElement('div', ['container']);
         const mainInnerElement = this.creater.createHTMLElement('div', ['main__inner']);
         const mainBorderElement = this.creater.createHTMLElement('div', ['main__border']);
         const sectionGarageElement = this.creater.createHTMLElement('section', ['garage']);
-        const divGarageInnerElement = this.creater.createHTMLElement('div', ['garage__inner']);
+        const divGarageInnerElement = this.creater.createHTMLElement('div', ['garage__inner']); */
 
         //Append
         const headerEl = this.creater.getHTMLElement('header');
@@ -25,13 +46,35 @@ class CreatorGarage {
     }
 
     public renderStatus() {
-        const divGarageWrapperElement = this.creater.createHTMLElement('div', ['garage__wrapper']);
+        const arrayOfTags: Array<string> = ['div', 'div', 'div', 'div', 'span', 'span', 'div'];
+        const arrayOfClassName: TArrayClassName = [
+            ['garage__wrapper'],
+            ['race'],
+            ['race__flag'],
+            ['race__info'],
+            ['race__text'],
+            ['span__winner'],
+            ['garage__settings'],
+        ];
+
+        const [
+            divGarageWrapperElement,
+            divRaceElement,
+            divRaceFlagElement,
+            divRaceInfoElement,
+            spanRaceTextelement,
+            spanRaceWinnerElement,
+            divGarageSettingsElement,
+        ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName);
+
+        //FIXME: Delete later
+        /*         const divGarageWrapperElement = this.creater.createHTMLElement('div', ['garage__wrapper']);
         const divRaceElement = this.creater.createHTMLElement('div', ['race']);
         const divRaceFlagElement = this.creater.createHTMLElement('div', ['race__flag']);
         const divRaceInfoElement = this.creater.createHTMLElement('div', ['race__info']);
         const spanRaceTextelement = this.creater.createHTMLElement('span', ['race__text']);
         const spanRaceWinnerElement = this.creater.createHTMLElement('span', ['span_winner']);
-        const divGarageSettingsElement = this.creater.createHTMLElement('div', ['garage__settings']);
+        const divGarageSettingsElement = this.creater.createHTMLElement('div', ['garage__settings']); */
 
         this.creater.AddTextContentToHTMLElement(spanRaceTextelement, 'Winner:');
         this.creater.AddTextContentToHTMLElement(spanRaceWinnerElement, 'Number one');
@@ -49,12 +92,23 @@ class CreatorGarage {
 
     public renderGarageCreateCar() {
         //TODO: /Инпуты дописать классы
-        const divGarageSettingsInputElement = this.creater.createHTMLElement('div', ['garage__settings__input']);
+
+        const arrayOfTags: Array<string> = ['div', 'input', 'input', 'button'];
+        const arrayOfClassName: TArrayClassName = [
+            ['garage__settings__input'],
+            ['inputClass'],
+            ['input__color'],
+            ['button'],
+        ];
+
+        const [divGarageSettingsInputElement, inputTextElement, inputColorElement, buttonInputButtonelement] =
+            this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName) as TGarageSet;
+        /*         const divGarageSettingsInputElement = this.creater.createHTMLElement('div', ['garage__settings__input']);
         const inputTextElement = this.creater.createHTMLElement('input', ['inputCLass']) as HTMLInputElement;
         const inputColorElement = this.creater.createHTMLElement('input', ['input__color']) as HTMLInputElement;
         const buttonInputButtonelement = this.creater.createHTMLElement('button', [
             'input__button',
-        ]) as HTMLButtonElement;
+        ]) as HTMLButtonElement; */
 
         inputTextElement.type = 'text';
 
@@ -71,12 +125,23 @@ class CreatorGarage {
     }
 
     public renderGarageUpdate() {
+        const arrayOfTags: Array<string> = ['div', 'input', 'input', 'button'];
+        const arrayOfClassName: TArrayClassName = [
+            ['garage__settings__update'],
+            ['input__element'],
+            ['update__color'],
+            ['update__button'],
+        ];
+
+        const [divGarageSettingsUpdateElement, inputTextElement, inputUpdateColorElement, buttonUpdateButtonElement] =
+            this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName) as TGarageSet;
+
         //Секция Update
-        const divGarageSettingsUpdateElement = this.creater.createHTMLElement('div', ['garage__settings__update']);
+        /*         const divGarageSettingsUpdateElement = this.creater.createHTMLElement('div', ['garage__settings__update']);
         //Еще один инпут должен быть
         const inputTextElement = this.creater.createHTMLElement('input', ['input__element']) as HTMLInputElement;
         const inputUpdateColorElement = this.creater.createHTMLElement('input', ['update__color']) as HTMLInputElement;
-        const buttonUpdateButtonElement = this.creater.createHTMLElement('button', ['update__button']);
+        const buttonUpdateButtonElement = this.creater.createHTMLElement('button', ['update__button']); */
 
         inputTextElement.type = 'text';
         inputUpdateColorElement.type = 'color';
@@ -91,14 +156,34 @@ class CreatorGarage {
     }
 
     public renderGarageSettingsBtn() {
+        const arrayOfTags: Array<string> = ['div', 'button', 'button', 'button'];
+        const arrayOfClassName: TArrayClassName = [
+            ['garage__settings__race'],
+            ['race__button'],
+            ['race__reset'],
+            ['race__generate'],
+        ];
+
+        const [
+            divGarageSettingRaceElement,
+            buttonRaceButtonElement,
+            buttonRaceResetElement,
+            buttonRaceGenerateElement,
+        ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName) as [
+            HTMLElement,
+            HTMLButtonElement,
+            HTMLButtonElement,
+            HTMLButtonElement
+        ];
+
         //Секция Кнопок рейс
-        const divGarageSettingRaceElement = this.creater.createHTMLElement('div', ['garage__settings__race']);
+        /*         const divGarageSettingRaceElement = this.creater.createHTMLElement('div', ['garage__settings__race']);
         const buttonRaceButtonElement = this.creater.createHTMLElement('button', ['race__button']) as HTMLButtonElement;
         const buttonRaceResetElement = this.creater.createHTMLElement('button', ['race__reset']) as HTMLButtonElement;
         const buttonRaceGenerateElement = this.creater.createHTMLElement('button', [
             'race__generate',
         ]) as HTMLButtonElement;
-
+ */
         this.creater.AddTextContentToHTMLElement(buttonRaceButtonElement, 'race');
         this.creater.AddTextContentToHTMLElement(buttonRaceResetElement, 'reset');
         this.creater.AddTextContentToHTMLElement(buttonRaceGenerateElement, 'generate cars');
@@ -111,13 +196,32 @@ class CreatorGarage {
     }
 
     public renderCarGarage() {
+        const arrayOfTags: Array<string> = ['div', 'div', 'span', 'div', 'span', 'div'];
+        const arrayOfClassName: TArrayClassName = [
+            ['garage__border'],
+            ['garage__info'],
+            ['garage__count'],
+            ['carage__page'],
+            ['garage__page__count'],
+            ['garage__items'],
+        ];
+
+        const [
+            divGarageBorderElement,
+            divGarageInfoElement,
+            spanGarageCountElement,
+            divGaragePage,
+            spanGaragePageCountElement,
+            divGarageItesmElement,
+        ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName);
+
         //Секция Гаража
-        const divGarageBorderElement = this.creater.createHTMLElement('div', ['garage__border']);
+        /*         const divGarageBorderElement = this.creater.createHTMLElement('div', ['garage__border']);
         const divGarageInfoElement = this.creater.createHTMLElement('div', ['garage__info']);
         const spanGarageCountElement = this.creater.createHTMLElement('span', ['garage__count']);
         const divGaragePage = this.creater.createHTMLElement('div', ['garage__page']);
         const spanGaragePageCountElement = this.creater.createHTMLElement('span', ['garage__page__count']);
-        const divGarageItesmElement = this.creater.createHTMLElement('div', ['garage__items']);
+        const divGarageItesmElement = this.creater.createHTMLElement('div', ['garage__items']); */
 
         const divGarageElement = this.creater.getHTMLElement('garage__inner');
         this.creater.appendToNeighbor(divGarageElement, divGarageBorderElement);
@@ -131,7 +235,56 @@ class CreatorGarage {
     }
 
     public renderCarItem() {
-        const divCarElement = this.creater.createHTMLElement('div', ['car']);
+        const arrayOfTags: Array<string> = [
+            'div',
+            'div',
+            'button',
+            'button',
+            'p',
+            'div',
+            'div',
+            'button',
+            'button',
+            'div',
+            'div',
+            'div',
+            'div',
+        ];
+
+        const arrayOfClassName: TArrayClassName = [
+            ['car'],
+            ['car__setting'],
+            ['car__select'],
+            ['car__remove'],
+            ['car__name'],
+            ['car__race'],
+            ['car__move'],
+            ['car__start'],
+            ['car__back'],
+            ['car__track'],
+            ['car__item'],
+            ['car__finish'],
+            ['car__ground'],
+        ];
+
+        const [
+            divCarElement,
+            carSettingElement,
+            buttonCarSelectElement,
+            buttonCarRemoveElement,
+            pCarNameElement,
+            divCarRaceElement,
+            divCarMove,
+            buttonCarStartElement,
+            buttonCarBackElement,
+            divCarTrackElement,
+            divCarItemElement,
+            divCarFinishElement,
+            divCarGroundElement,
+        ] = this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName) as TCarItem;
+
+        //FIXME: Remove later
+        /*         const divCarElement = this.creater.createHTMLElement('div', ['car']);
         const carSettingElement = this.creater.createHTMLElement('div', ['car__setting']);
         const buttonCarSelectElement = this.creater.createHTMLElement('button', ['car__select']) as HTMLButtonElement;
         const buttonCarRemoveElement = this.creater.createHTMLElement('button', ['car__remove']) as HTMLButtonElement;
@@ -143,7 +296,7 @@ class CreatorGarage {
         const divCarTrackElement = this.creater.createHTMLElement('div', ['car__track']);
         const divCarItemElement = this.creater.createHTMLElement('div', ['car__item']);
         const divCarFinishElement = this.creater.createHTMLElement('div', ['car__finish']);
-        const divCarGroundElement = this.creater.createHTMLElement('div', ['car__ground']);
+        const divCarGroundElement = this.creater.createHTMLElement('div', ['car__ground']); */
 
         this.creater.AddTextContentToHTMLElement(buttonCarStartElement, 'X');
         this.creater.AddTextContentToHTMLElement(buttonCarBackElement, 'Y');

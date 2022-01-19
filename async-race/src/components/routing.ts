@@ -11,13 +11,12 @@ class Creater {
     }
 
     public createHTMLElementArray(elementName: string[], classList: string[][]) {
-        const arr = elementName.map((className, index) => {
+        return elementName.map((className, index) => {
             const element = document.createElement(`${className}`);
             const getClassName = classList[index];
             element.classList.add(...getClassName);
             return element;
         });
-        return arr;
     }
 
     public classListRemoveFromElement() {}
@@ -49,7 +48,33 @@ class Creater {
     }
 
     private createHeader() {
-        const headerElement = this.createHTMLElement('header', ['header']);
+        const arrayOfTags: Array<string> = ['header', 'div', 'div', 'nav', 'ul', 'li', 'a', 'li', 'a'];
+        const arrayOfClassName: Array<string[]> = [
+            ['header'],
+            ['container'],
+            ['header__inner'],
+            ['navigation'],
+            ['navigation__menu'],
+            ['navigation__garage'],
+            ['navigation__garage__link'],
+            ['navigation__winners'],
+            ['navigation__winners__link'],
+        ];
+
+        const [
+            headerElement,
+            containerElement,
+            headerInnerElement,
+            navElement,
+            ulElement,
+            liElement,
+            aElement,
+            liElementWinners,
+            aElementWinners,
+        ] = this.createHTMLElementArray(arrayOfTags, arrayOfClassName);
+
+        //FIXME: Remove later
+        /*         const headerElement = this.createHTMLElement('header', ['header']);
         const containerElement = this.createHTMLElement('div', ['container']);
         const headerInnerElement = this.createHTMLElement('div', ['header__inner']);
         const navElement = this.createHTMLElement('nav', ['navigation']);
@@ -57,7 +82,7 @@ class Creater {
         const liElement = this.createHTMLElement('li', ['navigation__garage']);
         const aElement = this.createHTMLElement('a', ['navigation__garage__link']);
         const liElementWinners = this.createHTMLElement('li', ['navigation__winners']);
-        const aElementWinners = this.createHTMLElement('a', ['navigation__winners__link']);
+        const aElementWinners = this.createHTMLElement('a', ['navigation__winners__link']); */
 
         //textContent
         this.AddTextContentToHTMLElement(aElement, 'Go to Garage');
@@ -83,8 +108,8 @@ class Creater {
     }
 
     private createFooter() {
-        const arrayofTags = ['foooter', 'div', 'div', 'div', 'p', 'p', 'a'];
-        const arrayOfClassName = [
+        const arrayofTags: Array<string> = ['foooter', 'div', 'div', 'div', 'p', 'p', 'a'];
+        const arrayOfClassName: Array<string[]> = [
             ['footer'],
             ['container'],
             ['main__footer__inner'],
@@ -104,6 +129,7 @@ class Creater {
             aGithubElement,
         ] = this.createHTMLElementArray(arrayofTags, arrayOfClassName);
 
+        //FIXME: Remove later
         /*         const footerElement = this.createHTMLElement('footer', ['footer']);
         const containerElement = this.createHTMLElement('div', ['container']);
         const footerInnerElement = this.createHTMLElement('div', ['main__footer__inner']);

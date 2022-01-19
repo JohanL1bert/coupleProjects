@@ -1,3 +1,6 @@
+import { TArrayClassName } from '../components/interfaces/interface';
+import axios from 'axios';
+
 class Creater {
     private mainBody: HTMLElement;
     constructor() {
@@ -49,7 +52,7 @@ class Creater {
 
     private createHeader() {
         const arrayOfTags: Array<string> = ['header', 'div', 'div', 'nav', 'ul', 'li', 'a', 'li', 'a'];
-        const arrayOfClassName: Array<string[]> = [
+        const arrayOfClassName: TArrayClassName = [
             ['header'],
             ['container'],
             ['header__inner'],
@@ -109,14 +112,14 @@ class Creater {
 
     private createFooter() {
         const arrayofTags: Array<string> = ['foooter', 'div', 'div', 'div', 'p', 'p', 'a'];
-        const arrayOfClassName: Array<string[]> = [
+        const arrayOfClassName: TArrayClassName = [
             ['footer'],
             ['container'],
             ['main__footer__inner'],
             ['footer__creator'],
-            ['copyright', 'xd'],
-            ['year__create', 'igor'],
-            ['github__link', 'someAnoter', 'etx'],
+            ['copyright'],
+            ['year__create'],
+            ['github__link'],
         ];
 
         const [
@@ -160,5 +163,50 @@ class Creater {
 export class Router extends Creater {
     constructor() {
         super();
+    }
+
+    //Testins Нужно подумать куда лучше это вынести
+    public async createCar() {
+        console.log(this);
+        console.log('sda');
+        try {
+            const getCar = await axios.get(`http://127.0.0.1:3000/garage/1`).then((response) => {
+                console.log(response);
+            });
+        } catch (err) {
+            throw new Error('sds');
+        }
+    }
+
+    public async UpdateCar() {
+        await console.log('update');
+    }
+
+    public async raceAllCar() {
+        await console.log('race all');
+    }
+
+    public async raceResetCar() {
+        await console.log('race reset Car');
+    }
+
+    public async generateCar() {
+        await console.log('generate Car');
+    }
+
+    public async startCar() {
+        await console.log('startCart');
+    }
+
+    public async removeCarToPreviousPos() {
+        await console.log('removeCarToPrev');
+    }
+
+    public async selectCar() {
+        await console.log('selectCar');
+    }
+
+    public async removeCar() {
+        await console.log('remove car');
     }
 }

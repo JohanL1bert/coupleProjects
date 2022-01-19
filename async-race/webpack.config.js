@@ -22,6 +22,7 @@ module.exports = {
         open: true,
         port: 8000,
         watchFiles: ['./src/index.html'],
+        hot: true,
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -57,7 +58,7 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
             },
         ],
     },

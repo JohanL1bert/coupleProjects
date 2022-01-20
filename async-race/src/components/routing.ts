@@ -1,10 +1,15 @@
 import { TArrayClassName } from '../components/interfaces/interface';
-import axios from 'axios';
 
 class Creater {
     private mainBody: HTMLElement;
+    baseUrl: string;
+    garage: string;
+    engine: string;
     constructor() {
         this.mainBody = document.getElementById('root') as HTMLElement;
+        this.baseUrl = `http://127.0.0.1:3000`;
+        this.garage = `${this.baseUrl}/garage`;
+        this.engine = `${this.baseUrl}/engine`;
     }
 
     public createHTMLElement(element: string, classElement: string[]) {
@@ -49,6 +54,12 @@ class Creater {
     public removeNodes(nodes: HTMLElement[]) {
         nodes.map((el) => el.remove());
     }
+
+    public removeChildNode(node: HTMLElement) {
+        node.replaceChildren();
+    }
+
+    public hexToRgbColor() {}
 
     private createHeader() {
         const arrayOfTags: Array<string> = ['header', 'div', 'div', 'nav', 'ul', 'li', 'a', 'li', 'a'];
@@ -165,48 +176,195 @@ export class Router extends Creater {
         super();
     }
 
+    public getColorFromCreateInput() {
+        const inputColor = this.getHTMLElement('input__color') as HTMLInputElement;
+        const color = inputColor.value;
+        return color;
+    }
+
+    public randomColor() {}
+
+    public randomModelCar() {
+        const modelsCars: Array<string> = [
+            'Roadster',
+            'S',
+            'X',
+            '3',
+            'Y',
+            'Cybertruck',
+            'X5',
+            'X7',
+            'X3',
+            'X6',
+            'GT4',
+            'FXX',
+            '599 GTO',
+            'Enzo',
+            '458 Italia',
+            '250 GTO',
+            'Priora',
+            '4x4',
+            'Rio',
+            'Focus',
+            'Kalina',
+            'Vesta',
+            'Spark',
+            'Lacetti',
+            'Nexia',
+            'Matiz',
+            'Cobalt',
+            'Captiva',
+            'A7',
+            'A5',
+            'A3',
+            'A8',
+            'TT',
+            'Corolla',
+            'Camry',
+            'RAV4',
+            'Impreza',
+            'WRX',
+            'ES',
+            'LS',
+            'RX',
+            'GX',
+            'LX',
+            'GS',
+            'LC500',
+            'Gallardo',
+            'Aventador',
+            '911',
+            'Cayenne',
+            'FX37',
+        ];
+    }
+
+    public randomName() {
+        const brandsCars: Array<string> = [
+            'Audi',
+            'Alfa Romeo',
+            'Alpina',
+            'Aston Martin',
+            'Axon',
+            'Ford',
+            'Ferrari',
+            'Fiat',
+            'GAZ',
+            'GMC',
+            'Honda',
+            'Hummer',
+            'Hyundai',
+            'Infiniti',
+            'Isuzu',
+            'JAC',
+            'Jaguar',
+            'Jeep',
+            'Kamaz',
+            'Lada',
+            'Lexus',
+            'Lotus',
+            'MAN',
+            'Maybach',
+            'MAZ',
+            'Mazda',
+            'McLaren',
+            'Nissan',
+            'Opel',
+            'Paccar',
+            'Pagani',
+            'Pontiac',
+            'Porsche',
+            'Renault',
+            'Å koda',
+            'Smart',
+            'Subaru',
+            'Suzuki',
+            'Tesla',
+            'Toyota',
+            'UAZ',
+            'Volvo',
+            'ZAZ',
+            'XPeng',
+            'TVR',
+            'Saab',
+            'RAM',
+            'Chevrolet',
+            'Mazzanti',
+            'Daewoo',
+        ];
+    }
+
+    public errorHandler(res: Response) {}
+
     //Testins Нужно подумать куда лучше это вынести
     public async createCar() {
-        console.log(this);
-        console.log('sda');
-        try {
-            const getCar = await axios.get(`http://127.0.0.1:3000/garage/1`).then((response) => {
-                console.log(response);
-            });
-        } catch (err) {
-            throw new Error('sds');
+        const response = await fetch(`${this.garage}`, {
+            method: 'POST',
+            /* body: JSON.stringify(), */
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        this.errorHandler(response);
+        if (response.status === 200) {
+            const res = await response.json();
+            return res;
         }
     }
 
     public async UpdateCar() {
-        await console.log('update');
+        try {
+        } catch (err) {}
     }
 
     public async raceAllCar() {
         await console.log('race all');
+        try {
+        } catch (err) {}
     }
 
     public async raceResetCar() {
-        await console.log('race reset Car');
+        try {
+        } catch (err) {}
     }
 
-    public async generateCar() {
-        await console.log('generate Car');
+    public async generateCar(): Promise<void> {
+        const response = await fetch(`${this.baseUrl}`);
     }
 
     public async startCar() {
-        await console.log('startCart');
+        try {
+        } catch (err) {}
     }
 
     public async removeCarToPreviousPos() {
-        await console.log('removeCarToPrev');
+        try {
+        } catch (err) {}
     }
 
-    public async selectCar() {
-        await console.log('selectCar');
+    public async selectCar(id: string): Promise<void> {
+        const response = await fetch(`${this.garage}/${id}`);
+        await response.json();
     }
 
-    public async removeCar() {
-        await console.log('remove car');
+    public async removeCar(id: string) {
+        try {
+            const response = await fetch(`${this.garage}/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.status === 200) {
+                const res = await response.json();
+                return res;
+            } else {
+                throw new Error('erorr with remove car');
+            }
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 }

@@ -350,13 +350,89 @@ export class Garage extends CreatorGarage {
     }
 
     public renderPageWithRemove() {
-        const sectionGarage = this.creater.getHTMLElement('garage');
-        this.creater.removeNodes([sectionGarage]);
+        const mainBorderNode = this.creater.getHTMLElement('main__border');
+        this.creater.removeChildNode(mainBorderNode);
         this.renderStatus();
         this.renderGarageCreateCar();
         this.renderGarageUpdate();
         this.renderGarageSettingsBtn();
         this.renderCarGarage();
         this.renderCarItem();
+        this.getAllListener();
+    }
+
+    public EventCreateCar() {
+        const btnCreateCar = this.creater.getHTMLElement('input__button');
+        btnCreateCar.addEventListener('click', () => {
+            void this.creater.createCar();
+        });
+    }
+
+    public EventUpdateCar() {
+        const btnUpdateCar = this.creater.getHTMLElement('update__button');
+        btnUpdateCar.addEventListener('click', () => {
+            void this.creater.UpdateCar();
+        });
+    }
+
+    public EventRaceCar() {
+        const btnRaceCar = this.creater.getHTMLElement('race__button');
+        btnRaceCar.addEventListener('click', () => {
+            void this.creater.raceAllCar();
+        });
+    }
+
+    public EventResetCar() {
+        const btnRaceReset = this.creater.getHTMLElement('race__reset');
+        btnRaceReset.addEventListener('click', () => {
+            void this.creater.raceResetCar();
+        });
+    }
+
+    public EventGenerateManyCar() {
+        const btnGenerateCar = this.creater.getHTMLElement('race__generate');
+        btnGenerateCar.addEventListener('click', () => {
+            void this.creater.raceResetCar();
+        });
+    }
+
+    public EventStartCarMove() {
+        const getBtnCarMove = this.creater.getHTMLElement('car__start');
+        getBtnCarMove.addEventListener('click', () => {
+            void this.creater.startCar();
+        });
+    }
+
+    public EventReturCarToPrevPosition() {
+        const getBtnCarToPrevPosition = this.creater.getHTMLElement('car__back');
+        getBtnCarToPrevPosition.addEventListener('click', () => {
+            void this.creater.removeCarToPreviousPos();
+        });
+    }
+
+    public EventSelectCar() {
+        const getBtnCarSelect = this.creater.getHTMLElement('car__select');
+        getBtnCarSelect.addEventListener('click', () => {
+            void this.creater.selectCar();
+        });
+    }
+
+    public EventRemoveCar() {
+        const getBtnCarRemove = this.creater.getHTMLElement('car__remove');
+        getBtnCarRemove.addEventListener('click', () => {
+            void this.creater.removeCar();
+        });
+    }
+
+    public getAllListener() {
+        this.EventCreateCar();
+        this.EventUpdateCar();
+        this.EventRaceCar();
+        this.EventResetCar();
+        this.EventGenerateManyCar();
+        this.EventStartCarMove();
+        this.EventReturCarToPrevPosition();
+        this.EventSelectCar();
+        this.EventRemoveCar();
     }
 }

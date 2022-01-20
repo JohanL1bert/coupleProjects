@@ -4,30 +4,152 @@
     &__inner {
     }
     &__info {
+        font-family: 'INVASION2000';
+        font-size: 25px;
+        padding-left: 25px;
+        margin: 10px 0 10px 0;
     }
     &__count {
     }
     &__page {
+        font-family: 'INVASION2000';
+        padding-left: 25px;
+        font-size: 25px;
+        &__count {
+        }
     }
     &__border {
-        height: 60vh;
+        display: block;
+        height: 50%;
         border: 2px solid $full-black-color;
         border-radius: 25px;
+    }
+    &__settings {
+        &__name {
+        }
+    }
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+.input {
+    &__color {
+    }
+    &__button {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
+    }
+}
+
+.update {
+    &__color {
+    }
+    &__button {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
+    }
+}
+
+.race {
+    display: flex;
+    align-content: center;
+    align-items: flex-end;
+    &__flag {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        background: url('../../assets/1.gif');
+        background-size: 70px 100px;
+        background-repeat: no-repeat;
+    }
+    &__info {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 90px;
+        border: 2px solid black;
+        border-radius: 15px;
+    }
+    &__button {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
+    }
+    &__reset {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
+    }
+    &__generate {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
+    }
+    &__text {
+        display: inline-block;
+        font-family: 'BACKTO1982';
+        font-size: 26px;
+        margin-left: 20px;
+    }
+    &__winner {
     }
 }
 
 .car {
     &__setting {
         display: flex;
-        width: 300px;
         justify-content: space-between;
-        margin-bottom: 20px;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 250px;
     }
     &__select {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
     }
     &__remove {
+        @include buttonCar;
+        &:hover {
+            @include retroButtonHover;
+        }
+        &:active {
+            @include retroButtonActive;
+        }
     }
     &__name {
+        font-family: 'INVASION2000';
+        padding-left: 10px;
+        font-size: 20px;
     }
     &__race {
     }
@@ -64,7 +186,25 @@
         }
     }
     &__item {
+        display: inline-block;
+        background: url('../../assets/car.svg');
+        background-repeat: no-repeat;
+        width: 120px;
+        height: 52px;
+        background-size: cover;
+        transform: scaleX(-1) translateX(-50px);
+        margin-left: 20px;
+        margin-top: 7px;
+        fill: green;
     }
     &__finish {
+    }
+    &__track {
+        display: block;
+        margin-left: 5px;
+        height: 100px;
+        background: url('../../assets/3.png');
+        background-repeat: no-repeat;
+        z-index: 10;
     }
 }

@@ -10,7 +10,7 @@
     "parserOptions": {
         "project": ["./tsconfig.json"]
     },
-    "ignorePatterns": ["webpack.config.js"],
+    "ignorePatterns": ["webpack.config.js", "postcss.config.js"],
     "rules": {
         "no-console": 1,
         "class-methods-use-this": "off",

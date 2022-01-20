@@ -3,8 +3,10 @@ import { TArrayClassName, TCarItem, TGarageSet } from '../interfaces/interface';
 
 class CreatorGarage {
     creater: Router;
+    baseUrl: string;
     constructor(creater: Router) {
         this.creater = creater;
+        this.baseUrl = `http://127.0.0.1:3000`;
     }
 
     public renderMainWrapper() {
@@ -413,14 +415,24 @@ export class Garage extends CreatorGarage {
     public EventSelectCar() {
         const getBtnCarSelect = this.creater.getHTMLElement('car__select');
         getBtnCarSelect.addEventListener('click', () => {
-            void this.creater.selectCar();
+            void this.creater.selectCar('4');
         });
     }
 
     public EventRemoveCar() {
         const getBtnCarRemove = this.creater.getHTMLElement('car__remove');
         getBtnCarRemove.addEventListener('click', () => {
-            void this.creater.removeCar();
+            void this.creater.removeCar('1');
+        });
+    }
+
+    public EventInputCreateColor() {
+        const getColorValue = this.creater.getHTMLElement('input__color');
+        getColorValue.addEventListener('change', () => {
+            const hexColor = this.creater.getColorFromCreateInput();
+            const colorRgb = this.creater.hexToRgbColor(hexColor);
+            console.log(colorRgb);
+            return colorRgb;
         });
     }
 
@@ -434,5 +446,6 @@ export class Garage extends CreatorGarage {
         this.EventReturCarToPrevPosition();
         this.EventSelectCar();
         this.EventRemoveCar();
+        this.EventInputCreateColor();
     }
 }

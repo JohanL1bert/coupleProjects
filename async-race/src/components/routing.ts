@@ -349,7 +349,7 @@ export class Router extends Creater {
 
     public async updateCar(id: number, carObj: Pick<IcreateCar, 'name' | 'color'>) {
         try {
-            const response = await fetch(`${this.garage}/:${id}`, {
+            const response = await fetch(`${this.garage}/${id}`, {
                 method: 'PUT',
                 cache: 'no-cache',
                 body: JSON.stringify(carObj),
@@ -358,7 +358,7 @@ export class Router extends Creater {
                 },
             });
             const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log(res);
+            console.log('update', res);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;
@@ -383,23 +383,62 @@ export class Router extends Creater {
         /* const response = await fetch(`${this.baseUrl}`); */
     }
 
-    public async startCar() {
+    public async startCar(id: number) {
         try {
-            const response = await fetch(`${this.engine}`);
-            const res = await this.errorHandler(response);
-            console.log(res);
-            console.log(res);
-        } catch (err) {}
+            const response = await fetch(`${this.engine}?id=${id}&status=started`, {
+                method: 'PATCH',
+                cache: 'no-cache',
+                body: JSON.stringify(id),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            console.log('update', res);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
-    public async removeCarToPreviousPos() {
+    public async removeCarToPreviousPos(id: number) {
         try {
-        } catch (err) {}
+            const response = await fetch(`${this.engine}?id=${id}&status=stopped`, {
+                method: 'PATCH',
+                cache: 'no-cache',
+                body: JSON.stringify(id),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            console.log('update', res);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
-    public async selectCar(id: string): Promise<void> {
-        const response = await fetch(`${this.garage}/${id}`);
-        await response.json();
+    public async selectCar(id: number) {
+        try {
+            const response = await fetch(`${this.garage}/${id}`, {
+                method: 'GET',
+            });
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            console.log(res);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
     public async removeCar(id: number) {

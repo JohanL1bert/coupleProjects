@@ -1,12 +1,15 @@
 import { Router } from '../routing';
 import { TArrayClassName, TCarItem, TGarageSet } from '../interfaces/interface';
+import { StateManager } from '../state';
 
 class CreatorGarage {
     creater: Router;
     baseUrl: string;
-    constructor(creater: Router) {
+    state: StateManager;
+    constructor(creater: Router, state: StateManager) {
         this.creater = creater;
         this.baseUrl = `http://127.0.0.1:3000`;
+        this.state = state;
     }
 
     public renderMainWrapper() {
@@ -104,7 +107,7 @@ class CreatorGarage {
         const arrayOfTags: Array<string> = ['div', 'input', 'input', 'button'];
         const arrayOfClassName: TArrayClassName = [
             ['garage__settings__input'],
-            ['inputClass'],
+            ['input__name'],
             ['input__color'],
             ['input__button'],
         ];
@@ -337,8 +340,8 @@ class CreatorGarage {
 }
 
 export class Garage extends CreatorGarage {
-    constructor(creater: Router) {
-        super(creater);
+    constructor(creater: Router, state: StateManager) {
+        super(creater, state);
     }
 
     public initialEmptyGarage() {
@@ -364,16 +367,30 @@ export class Garage extends CreatorGarage {
     }
 
     public EventCreateCar() {
+        const templateString = 'input__color';
         const btnCreateCar = this.creater.getHTMLElement('input__button');
+
         btnCreateCar.addEventListener('click', () => {
-            void this.creater.createCar();
+            const inputText = this.creater.getInputFromInput('input__name');
+            const getColor = this.creater.getColorFromInput(templateString);
+            const carObj = {
+                name: inputText,
+                color: getColor,
+            };
+
+            this.state.mainObject.objectColorName = {
+                name: inputText,
+                color: getColor,
+            };
+
+            void this.creater.createCar(carObj);
         });
     }
 
     public EventUpdateCar() {
         const btnUpdateCar = this.creater.getHTMLElement('update__button');
         btnUpdateCar.addEventListener('click', () => {
-            void this.creater.UpdateCar();
+            void this.creater.updateCar(1, { name: 'Tesla', color: 'blue' });
         });
     }
 
@@ -401,38 +418,47 @@ export class Garage extends CreatorGarage {
     public EventStartCarMove() {
         const getBtnCarMove = this.creater.getHTMLElement('car__start');
         getBtnCarMove.addEventListener('click', () => {
-            void this.creater.startCar();
+            void this.creater.startCar(4);
+            /*             const carItem = this.creater.getHTMLElement('car__item');
+            console.log(carItem.style);
+            let acc = 1;
+            setInterval(() => {
+                carItem.style.transform = `scaleX(-1) translateX(-${acc}px)`;
+                console.log(acc);
+                console.log(carItem.style.transform);
+                acc += 3;
+            }, 100); */
         });
     }
 
     public EventReturCarToPrevPosition() {
         const getBtnCarToPrevPosition = this.creater.getHTMLElement('car__back');
         getBtnCarToPrevPosition.addEventListener('click', () => {
-            void this.creater.removeCarToPreviousPos();
+            void this.creater.removeCarToPreviousPos(1);
         });
     }
 
     public EventSelectCar() {
         const getBtnCarSelect = this.creater.getHTMLElement('car__select');
         getBtnCarSelect.addEventListener('click', () => {
-            void this.creater.selectCar('4');
+            void this.creater.selectCar(4);
         });
     }
 
     public EventRemoveCar() {
         const getBtnCarRemove = this.creater.getHTMLElement('car__remove');
         getBtnCarRemove.addEventListener('click', () => {
-            void this.creater.removeCar('1');
+            void this.creater.removeCar(1);
         });
     }
 
     public EventInputCreateColor() {
-        const getColorValue = this.creater.getHTMLElement('input__color');
+        const templateString = 'input__color';
+        const getColorValue = this.creater.getHTMLElement(templateString);
+
         getColorValue.addEventListener('change', () => {
-            const hexColor = this.creater.getColorFromCreateInput();
+            const hexColor = this.creater.getColorFromInput(templateString);
             const colorRgb = this.creater.hexToRgbColor(hexColor);
-            console.log(colorRgb);
-            return colorRgb;
         });
     }
 

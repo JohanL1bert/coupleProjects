@@ -1,4 +1,5 @@
 import { TArrayClassName } from '../components/interfaces/interface';
+import hexRgb, { RgbaObject } from 'hex-rgb';
 
 class Creater {
     private mainBody: HTMLElement;
@@ -59,7 +60,14 @@ class Creater {
         node.replaceChildren();
     }
 
-    public hexToRgbColor() {}
+    public hexToRgbColor(value: string) {
+        const rgbColor: RgbaObject = hexRgb(value);
+        return rgbColor;
+    }
+
+    public changeColor() {
+        const getElement = this.getHTMLElement('car__item');
+    }
 
     private createHeader() {
         const arrayOfTags: Array<string> = ['header', 'div', 'div', 'nav', 'ul', 'li', 'a', 'li', 'a'];
@@ -294,25 +302,44 @@ export class Router extends Creater {
         ];
     }
 
-    public errorHandler(res: Response) {}
+    public async errorHandler(res: Response) {
+        if (res.ok) {
+            return res.json();
+        }
 
-    //Testins Нужно подумать куда лучше это вынести
-    public async createCar() {
-        const response = await fetch(`${this.garage}`, {
-            method: 'POST',
-            /* body: JSON.stringify(), */
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        this.errorHandler(response);
-        if (response.status === 200) {
-            const res = await response.json();
-            return res;
+        if (res.status === 404) {
+            throw new Error(res.statusText);
+        }
+
+        if (res.status === 400) {
+            throw new Error(res.statusText);
+        }
+
+        if (res.status === 429) {
+            throw new Error(res.statusText);
+        }
+
+        if (res.status === 500) {
+            throw new Error(res.statusText);
         }
     }
 
-    public async UpdateCar() {
+    //Testins Нужно подумать куда лучше это вынести
+    public async createCar(carObj: object) {
+        try {
+            const response = await fetch(`${this.garage}`, {
+                method: 'POST',
+                body: JSON.stringify(carObj),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const res = await this.errorHandler(response);
+            console.log(res);
+        } catch (err) {}
+    }
+
+    public async updateCar() {
         try {
         } catch (err) {}
     }
@@ -334,6 +361,9 @@ export class Router extends Creater {
 
     public async startCar() {
         try {
+            const response = await fetch(`${this.engine}`);
+            const res = await this.errorHandler(response);
+            console.log(res);
         } catch (err) {}
     }
 

@@ -1,15 +1,19 @@
 import { Router } from '../routing';
-import { TArrayClassName, TCarItem, TGarageSet } from '../interfaces/interface';
+import { TArrayClassName, TCarItem, TGarageSet, TColorText } from '../interfaces/interface';
 import { StateManager } from '../state';
 
 class CreatorGarage {
     creater: Router;
     baseUrl: string;
     state: StateManager;
+    templateColor: string;
+    templateName: string;
     constructor(creater: Router, state: StateManager) {
         this.creater = creater;
         this.baseUrl = `http://127.0.0.1:3000`;
         this.state = state;
+        this.templateColor = 'input__color';
+        this.templateName = 'input__name';
     }
 
     public renderMainWrapper() {
@@ -102,8 +106,6 @@ class CreatorGarage {
     }
 
     public renderGarageCreateCar() {
-        //TODO: /Инпуты дописать классы
-
         const arrayOfTags: Array<string> = ['div', 'input', 'input', 'button'];
         const arrayOfClassName: TArrayClassName = [
             ['garage__settings__input'],
@@ -122,6 +124,11 @@ class CreatorGarage {
         ]) as HTMLButtonElement; */
 
         inputTextElement.type = 'text';
+        inputTextElement.setAttribute('placeholder', '');
+        inputTextElement.setAttribute('value', '');
+        const { name }: TColorText = this.state.mainObject.objectColorName;
+        this.creater.changePlaceHolder(inputTextElement, name);
+        this.creater.changeValueForm(inputTextElement, name);
 
         inputColorElement.type = 'color';
 
@@ -367,19 +374,19 @@ export class Garage extends CreatorGarage {
     }
 
     public EventCreateCar() {
-        const templateString = 'input__color';
         const btnCreateCar = this.creater.getHTMLElement('input__button');
 
         btnCreateCar.addEventListener('click', () => {
-            const inputText = this.creater.getInputFromInput('input__name');
-            const getColor = this.creater.getColorFromInput(templateString);
-            const carObj = {
-                name: inputText,
+            const textContent = this.creater.getInputFromInput(this.templateName);
+            console.log(textContent);
+            const getColor = this.creater.getColorFromInput(this.templateColor);
+            const carObj: TColorText = {
+                name: textContent,
                 color: getColor,
             };
 
             this.state.mainObject.objectColorName = {
-                name: inputText,
+                name: textContent,
                 color: getColor,
             };
 
@@ -452,7 +459,21 @@ export class Garage extends CreatorGarage {
         });
     }
 
+    public EventInputCreaterContent() {
+        const getInputText = this.creater.getHTMLElement(this.templateName);
+
+        getInputText.addEventListener('change', () => {
+            const textContent = this.creater.getInputFromInput(this.templateName);
+            const getColor = this.creater.getColorFromInput(this.templateColor);
+            this.state.mainObject.objectColorName = {
+                name: textContent,
+                color: getColor,
+            };
+        });
+    }
+
     public EventInputCreateColor() {
+        //FIXME: Переписать
         const templateString = 'input__color';
         const getColorValue = this.creater.getHTMLElement(templateString);
 
@@ -461,6 +482,10 @@ export class Garage extends CreatorGarage {
             const colorRgb = this.creater.hexToRgbColor(hexColor);
         });
     }
+
+    public EventInputUpdateColor() {}
+
+    public EventInputUpdateContent() {}
 
     public getAllListener() {
         this.EventCreateCar();
@@ -472,6 +497,7 @@ export class Garage extends CreatorGarage {
         this.EventReturCarToPrevPosition();
         this.EventSelectCar();
         this.EventRemoveCar();
+        this.EventInputCreaterContent();
         this.EventInputCreateColor();
     }
 }

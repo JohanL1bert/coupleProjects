@@ -1,4 +1,4 @@
-import { TArrayClassName } from '../components/interfaces/interface';
+import { IcreateCar, TArrayClassName } from '../components/interfaces/interface';
 import hexRgb, { RgbaObject } from 'hex-rgb';
 
 class Creater {
@@ -302,6 +302,7 @@ export class Router extends Creater {
         ];
     }
 
+    //Переписать. Добавить енумы. Возвращать что-то явно
     public async errorHandler(res: Response) {
         if (res.ok) {
             return res.json();
@@ -325,23 +326,46 @@ export class Router extends Creater {
     }
 
     //Testins Нужно подумать куда лучше это вынести
-    public async createCar(carObj: object) {
+    public async createCar(carObj: Pick<IcreateCar, 'name' | 'color'>) {
         try {
             const response = await fetch(`${this.garage}`, {
                 method: 'POST',
+                cache: 'no-cache',
                 body: JSON.stringify(carObj),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            const res = await this.errorHandler(response);
+            const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
             console.log(res);
-        } catch (err) {}
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
-    public async updateCar() {
+    public async updateCar(id: number, carObj: Pick<IcreateCar, 'name' | 'color'>) {
         try {
-        } catch (err) {}
+            const response = await fetch(`${this.garage}/:${id}`, {
+                method: 'PUT',
+                cache: 'no-cache',
+                body: JSON.stringify(carObj),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            console.log(res);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
     public async raceAllCar() {
@@ -355,14 +379,15 @@ export class Router extends Creater {
         } catch (err) {}
     }
 
-    public async generateCar(): Promise<void> {
-        const response = await fetch(`${this.baseUrl}`);
+    public async generateCar() {
+        /* const response = await fetch(`${this.baseUrl}`); */
     }
 
     public async startCar() {
         try {
             const response = await fetch(`${this.engine}`);
             const res = await this.errorHandler(response);
+            console.log(res);
             console.log(res);
         } catch (err) {}
     }
@@ -377,18 +402,13 @@ export class Router extends Creater {
         await response.json();
     }
 
-    public async removeCar(id: string) {
+    public async removeCar(id: number) {
         try {
             const response = await fetch(`${this.garage}/${id}`, {
                 method: 'DELETE',
             });
-
-            if (response.status === 200) {
-                const res = await response.json();
-                return res;
-            } else {
-                throw new Error('erorr with remove car');
-            }
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            console.log(res);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;

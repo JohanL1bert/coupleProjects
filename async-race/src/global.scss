@@ -1,7 +1,9 @@
 @import './components/scssSettings/globalSetting.scss';
 
+html,
 body {
-    background-color: $black-color;
+    height: 100%;
+    background-color: #455281;
 }
 
 .container {
@@ -24,7 +26,8 @@ body {
     &__garage {
         @include buttonCar;
         @include buttonMain;
-        /*         @include centerButtonText; */
+        background-color: $gray-button-color;
+        @include centerButtonText;
         &__link {
             @include resetButtonLink;
             font-family: 'Box2';
@@ -33,11 +36,11 @@ body {
     &__winners {
         @include buttonCar;
         @include buttonMain;
-        /* @include centerButtonText; */
+        background-color: $gray-button-color;
+        @include centerButtonText;
         &__link {
             @include resetButtonLink;
             font-family: 'Box2';
-            /* font-family: 'BACKTO1982'; */
         }
     }
     &__link {
@@ -49,28 +52,6 @@ body {
     height: 75%;
     display: block;
     &__border {
-    }
-}
-
-.race {
-    display: flex;
-    align-content: center;
-    &__flag {
-        width: 100px;
-        height: 100px;
-        border: 1px solid black;
-        background: url('./assets/1.gif');
-        background-size: 70px 100px;
-        background-repeat: no-repeat;
-    }
-
-    &__info {
-        width: 100%;
-        height: 90px;
-        border: 2px solid black;
-        border-radius: 15px;
-    }
-    &__text {
     }
 }
 
@@ -97,4 +78,26 @@ body {
 .github__link {
     @include resetButtonLink;
     cursor: pointer;
+}
+
+.pixelated-scroll {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    background-image: url(https://codeshack.io/web/img/uploads/pixelated-buildings.png);
+    background-size: 50%;
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    border-bottom: 100px solid black;
+    box-sizing: border-box;
+    animation: slide 10s linear infinite;
+    z-index: -5;
+}
+@keyframes slide {
+    from {
+        background-position: left bottom;
+    }
+    to {
+        background-position: 100% bottom;
+    }
 }

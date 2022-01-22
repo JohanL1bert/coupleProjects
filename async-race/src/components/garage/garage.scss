@@ -126,7 +126,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        width: 250px;
+        width: 300px;
     }
     &__select {
         @include buttonCar;
@@ -185,18 +185,6 @@
                 inset 0.5rem 0.5rem 0.5rem rgba(255, 255, 255, 0.2);
         }
     }
-    &__item {
-        display: inline-block;
-        background: url('../../assets/car.svg');
-        background-repeat: no-repeat;
-        width: 120px;
-        height: 52px;
-        background-size: cover;
-        transform: scaleX(-1) translateX(-50px);
-        margin-left: 20px;
-        margin-top: 7px;
-        fill: green;
-    }
     &__finish {
     }
     &__track {
@@ -207,4 +195,11 @@
         background-repeat: no-repeat;
         z-index: 10;
     }
+}
+
+svg {
+    display: block;
+    width: 100px;
+    height: 60px;
+    margin-left: 10px;
 }

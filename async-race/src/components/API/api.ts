@@ -13,6 +13,15 @@ class API {
         this.state = state;
     }
     //Переписать. Добавить енумы. Возвращать что-то явно
+
+    public errorHandlerUndefined(res: IcreateCar | undefined): IcreateCar {
+        if (res === undefined) {
+            throw new Error('object is undefined');
+        } else {
+            return res;
+        }
+    }
+
     public async errorHandler(res: Response) {
         if (res.ok) {
             return res.json();
@@ -74,7 +83,7 @@ class API {
                     'Content-Type': 'application/json',
                 },
             });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
+            const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
             return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -85,10 +94,20 @@ class API {
         }
     }
 
-    public async raceAllCar() {
-        await console.log('race all');
+    public async getCars(page: number, limit = 7) {
         try {
-        } catch (err) {}
+            const response = await fetch(`${this.engine}?id=${page}&limit=${limit}`, {
+                method: 'GET',
+                cache: 'no-cache',
+            });
+            const res = (await this.errorHandler(response)) as unknown; //Переписать
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                err.message;
+            } else {
+                throw new Error('err');
+            }
+        }
     }
 
     public async raceResetCar() {
@@ -100,7 +119,7 @@ class API {
         /* const response = await fetch(`${this.baseUrl}`); */
     }
 
-    public async startCar(id: number) {
+    public async getStartEngined(id: number) {
         try {
             const response = await fetch(`${this.engine}?id=${id}&status=started`, {
                 method: 'PATCH',
@@ -111,7 +130,6 @@ class API {
                 },
             });
             const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;
@@ -142,7 +160,7 @@ class API {
         }
     }
 
-    public async removeCarToPreviousPos(id: number) {
+    public async getStopEngined(id: number) {
         try {
             const response = await fetch(`${this.engine}?id=${id}&status=stopped`, {
                 method: 'PATCH',
@@ -163,13 +181,13 @@ class API {
         }
     }
 
-    public async selectCar(id: number) {
+    public async getCar(id: number) {
         try {
             const response = await fetch(`${this.garage}/${id}`, {
                 method: 'GET',
             });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log(res);
+            const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
+            return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;
@@ -185,7 +203,7 @@ class API {
                 method: 'DELETE',
             });
             const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log(res);
+            return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;

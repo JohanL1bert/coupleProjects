@@ -17,3 +17,15 @@ export type TCarItem = [
     HTMLElement,
     HTMLElement
 ];
+
+export interface IcreateCarArry {
+    [key: string | number]: string | number;
+}
+
+export interface IcreateCar extends IcreateCarArry {
+    name: string;
+    color: string;
+    id: number;
+}
+
+export type TColorText = Pick<IcreateCar, 'name' | 'color'>;

@@ -133,43 +133,58 @@ class Manager {
         const btnGenerateCar = this.updateManager.getHTMLElement('race__generate');
         btnGenerateCar.addEventListener('click', () => {
             const value = this.randomModelCar();
-            value.map((item) => item.then((value) => this.garagePage.renderCarItem(value)));
-        });
-    }
-
-    public EventStartCarMove() {
-        const getBtnCarMove = this.updateManager.getHTMLElement('car__start');
-        getBtnCarMove.addEventListener('click', () => {
-            /* void this.api.getStartEngined(4); */
-            const value = this.updateManager.closestAttribute();
-            const idElement = Number(value);
-            this.state.mainObject.selectedCar = idElement;
-        });
-    }
-
-    public EventReturCarToPrevPosition() {
-        const getBtnCarToPrevPosition = this.updateManager.getHTMLElement('car__back');
-        getBtnCarToPrevPosition.addEventListener('click', () => {
-            /* void this.api.getStopEngined(1); */
-            const value = this.updateManager.closestAttribute();
-            console.log(value);
+            value.map((item) =>
+                item.then((value) => {
+                    this.garagePage.renderCarItem(value);
+                })
+            );
+            Promise.all(value)
+                .then((_) => this.getCarListner())
+                .catch((err: Error) => console.log(`${err.message} in promise all when generate many carr`));
         });
     }
 
     public EventSelectCar() {
-        const getBtnCarSelect = this.updateManager.getHTMLElement('car__select');
-        getBtnCarSelect.addEventListener('click', () => {
-            const value = this.updateManager.closestAttribute();
-            const number = value?.getAttribute('data-value');
-            this.state.mainObject.selectedCar = Number(number);
+        const getBtnCarSelect = this.updateManager.getAllHTMLElement('car__select');
+        getBtnCarSelect.forEach((item) => {
+            item.addEventListener('click', () => {
+                console.log('selectCar', item);
+                const value = this.updateManager.closestAttribute();
+                const number = value?.getAttribute('data-value');
+                this.state.mainObject.selectedCar = Number(number);
+            });
+        });
+    }
+
+    public EventStartCarMove() {
+        const getBtnCarMove = this.updateManager.getAllHTMLElement('car__start');
+        getBtnCarMove.forEach((item) => {
+            item.addEventListener('click', () => {
+                console.log('eventStarMove', item);
+                const value = this.updateManager.closestAttribute();
+                const idElement = Number(value);
+                this.state.mainObject.selectedCar = idElement;
+            });
+        });
+    }
+
+    public EventReturCarToPrevPosition() {
+        const getBtnCarToPrevPosition = this.updateManager.getAllHTMLElement('car__back');
+        getBtnCarToPrevPosition.forEach((item) => {
+            item.addEventListener('click', () => {
+                console.log('removeCarToBack', item);
+                const value = this.updateManager.closestAttribute();
+            });
         });
     }
 
     public EventRemoveCar() {
-        const getBtnCarRemove = this.updateManager.getHTMLElement('car__remove');
-        getBtnCarRemove.addEventListener('click', () => {
-            const value = this.updateManager.closestAttribute();
-            console.log(value);
+        const getBtnCarRemove = this.updateManager.getAllHTMLElement('car__remove');
+        getBtnCarRemove.forEach((item) => {
+            item.addEventListener('click', () => {
+                console.log('eventRemovCar', item);
+                const value = this.updateManager.closestAttribute();
+            });
         });
     }
 
@@ -240,12 +255,17 @@ class Manager {
     public renderPageWinner() {
         const bntWinnerPage = this.updateManager.getHTMLElement('navigation__winners');
         bntWinnerPage.addEventListener('click', () => {
-            console.log(event);
-
             this.winnersPage.renderWinners();
             /* this.renderPageGarage(); */
             //TODO: Рендерить листенеры на странице таблицы
         });
+    }
+
+    public getCarListner() {
+        this.EventSelectCar();
+        this.EventRemoveCar();
+        this.EventStartCarMove();
+        this.EventReturCarToPrevPosition();
     }
 
     public getSettingListener() {

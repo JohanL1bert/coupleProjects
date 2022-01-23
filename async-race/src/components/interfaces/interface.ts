@@ -29,3 +29,8 @@ export interface IcreateCar extends IcreateCarArry {
 }
 
 export type TColorText = Pick<IcreateCar, 'name' | 'color'>;
+
+export type TVelocity = {
+    velocity: number;
+    distance: number;
+};

@@ -167,7 +167,7 @@ class CreatorGarage {
             ['garage__border'],
             ['garage__info'],
             ['garage__count'],
-            ['carage__page'],
+            ['garage__page'],
             ['garage__page__count'],
             ['garage__items'],
         ];
@@ -182,6 +182,9 @@ class CreatorGarage {
         ] = this.updateManager.createHTMLElementArray(arrayOfTags, arrayOfClassName);
 
         //Секция Гаража
+
+        divGarageInfoElement.textContent = 'Garage';
+        divGaragePage.textContent = 'Page';
 
         const divGarageElement = this.updateManager.getHTMLElement('garage__inner');
         this.updateManager.appendToNeighbor(divGarageElement, divGarageBorderElement);
@@ -273,7 +276,7 @@ class CreatorGarage {
         this.updateManager.appendToChild(divCarMove, divCarTrackElement);
         //
 
-        this.updateManager.appendToChild(divCarMove, divCarFinishElement);
+        this.updateManager.appendToChild(divCarTrackElement, divCarFinishElement);
     }
 }
 
@@ -285,11 +288,19 @@ export class Garage extends CreatorGarage {
     public renderPageWithRemove() {
         const mainBorderNode = this.updateManager.getHTMLElement('main__border');
         this.updateManager.removeChildNode(mainBorderNode);
-        this.renderMainWrapper();
         this.renderStatus();
         this.renderGarageCreateCar();
         this.renderGarageUpdate();
         this.renderGarageSettingsBtn();
         this.renderCarGarage();
+    }
+
+    public updateGarage() {
+        const { garageCount, pageCount } = this.state.mainObject.currentData;
+        /*         const allEl = this.updateManager.getAllHTMLElement('car'); */
+        const garage = this.updateManager.getHTMLElement('garage__count');
+        garage.textContent = String(`(${garageCount})`);
+        const page = this.updateManager.getHTMLElement('garage__page__count');
+        page.textContent = String(`${pageCount}`);
     }
 }

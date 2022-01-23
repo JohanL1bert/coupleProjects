@@ -7,7 +7,7 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, TColorText, IcreateCarArry, TVelocity } from './components/interfaces/interface';
+import { IcreateCar, TColorText, TVelocity } from './components/interfaces/interface';
 
 class Manager {
     updateManager: UpdateManager;
@@ -76,6 +76,9 @@ class Manager {
                 .createCar(carObj)
                 .then((value) => this.api.errorHandlerUndefined(value))
                 .then((value) => this.garagePage.renderCarItem(value))
+                .then((_) => {
+                    this.getDataFromGarage();
+                })
                 .then((_) => this.garagePage.updateGarage())
                 .then((_) => this.getCarListner())
                 .catch((err: Error) => err);
@@ -132,20 +135,25 @@ class Manager {
         });
     }
 
+    private refereceEventGenerateManyCar = (event: PointerEvent) => {
+        const value = this.randomModelCar();
+        value.map((item) =>
+            item.then((value) => {
+                this.garagePage.renderCarItem(value);
+            })
+        );
+        Promise.all(value)
+            .then((_) => this.getCarListner())
+            .then((_) => {
+                this.getDataFromGarage();
+                this.garagePage.updateGarage();
+            })
+            .catch((err: Error) => console.log(`${err.message} in promise all when generate many carr`));
+    };
+
     public EventGenerateManyCar() {
         const btnGenerateCar = this.updateManager.getHTMLElement('race__generate');
-        btnGenerateCar.addEventListener('click', () => {
-            const value = this.randomModelCar();
-            value.map((item) =>
-                item.then((value) => {
-                    this.garagePage.renderCarItem(value);
-                })
-            );
-            Promise.all(value)
-                .then((_) => this.getCarListner())
-                .then((_) => this.garagePage.updateGarage())
-                .catch((err: Error) => console.log(`${err.message} in promise all when generate many carr`));
-        });
+        btnGenerateCar.addEventListener('click', this.refereceEventGenerateManyCar as EventListener);
     }
 
     private referenceSelectCar = (event: PointerEvent) => {
@@ -183,7 +191,7 @@ class Manager {
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
-    public startAnimation() {}
+    public startAnimation(time: number) {}
 
     public returnToPosition() {}
 
@@ -200,6 +208,7 @@ class Manager {
             const time = distance / velocity;
             const { success } = (await this.api.driveMode(num)) as { success: boolean };
             console.log(success);
+            console.log(time);
         })();
         /*         const callback = async () => {
             const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
@@ -250,6 +259,7 @@ class Manager {
                     return;
                 }
                 this.updateManager.removeNodes([element]);
+                this.getDataFromGarage();
                 this.garagePage.updateGarage();
             });
         });
@@ -305,24 +315,55 @@ class Manager {
         });
     }
 
+    private refereRenderPageGarage = (event: PointerEvent) => {
+        this.garagePage.renderPageWithRemove();
+        this.getSettingListener();
+        const { cars } = this.state.mainObject.currentData;
+        (() => {
+            cars.forEach((item) => {
+                const result = this.api.getCar(item);
+                result
+                    .then((value) => this.api.errorHandlerUndefined(value))
+                    .then((item) => this.garagePage.renderCarItem(item))
+                    .catch((err: Error) => console.warn(err));
+            });
+        })();
+        this.garagePage.updateGarage();
+        this.getAllListener();
+    };
+
     public renderPageGarage() {
         const btnGaragePage = this.updateManager.getHTMLElement('navigation__garage');
+        console.log(btnGaragePage);
+        btnGaragePage.addEventListener('click', this.refereRenderPageGarage as EventListener);
+    }
 
-        btnGaragePage.addEventListener('click', () => {
-            this.garagePage.renderPageWithRemove();
-            this.getSettingListener();
+    public getDataFromGarage() {
+        const garage = this.updateManager.getHTMLElement('garage__count');
+        const page = this.updateManager.getHTMLElement('garage__page__count');
+        const cars = this.updateManager.getAllHTMLElement('car');
 
-            /*             //пЕРЕПИСАТЬ
-            this.renderPageWinner();
-            this.getSettingListener();
-            //Нужны данные чтобы рендерит все листенеры
-            /*  this.getAllListener(); */
+        const getPageInfo = page.textContent;
+        const arrayOfId: Array<number> = [];
+
+        cars.forEach((element) => {
+            const el = element as HTMLElement;
+            const value = el.dataset.value;
+            arrayOfId.push(Number(value));
         });
+
+        const getGarageInfo = cars.length;
+        this.state.mainObject.currentData = {
+            garageCount: Number(getGarageInfo),
+            pageCount: Number(getPageInfo),
+            cars: arrayOfId,
+        };
     }
 
     public renderPageWinner() {
         const bntWinnerPage = this.updateManager.getHTMLElement('navigation__winners');
         bntWinnerPage.addEventListener('click', () => {
+            this.getDataFromGarage();
             this.winnersPage.renderWinners();
             /* this.renderPageGarage(); */
             //TODO: Рендерить листенеры на странице таблицы
@@ -390,6 +431,7 @@ class Manager {
             this.garagePage.renderGarageUpdate();
             this.garagePage.renderGarageSettingsBtn();
             this.garagePage.renderCarGarage();
+            this.garagePage.updateGarage();
             this.preloadCarItem();
         });
     }

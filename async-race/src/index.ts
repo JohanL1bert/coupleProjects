@@ -7,7 +7,7 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, TColorText, IcreateCarArry } from './components/interfaces/interface';
+import { IcreateCar, TColorText, IcreateCarArry, TVelocity } from './components/interfaces/interface';
 
 class Manager {
     updateManager: UpdateManager;
@@ -76,6 +76,8 @@ class Manager {
                 .createCar(carObj)
                 .then((value) => this.api.errorHandlerUndefined(value))
                 .then((value) => this.garagePage.renderCarItem(value))
+                .then((_) => this.garagePage.updateGarage())
+                .then((_) => this.getCarListner())
                 .catch((err: Error) => err);
         });
     }
@@ -111,6 +113,7 @@ class Manager {
                     const lastChild = parent.lastElementChild as HTMLElement;
                     parent.replaceChild(lastChild, element);
                 })
+                .then((_) => this.getCarListner())
                 .catch((err: Error) => err);
         });
     }
@@ -140,31 +143,84 @@ class Manager {
             );
             Promise.all(value)
                 .then((_) => this.getCarListner())
+                .then((_) => this.garagePage.updateGarage())
                 .catch((err: Error) => console.log(`${err.message} in promise all when generate many carr`));
         });
     }
 
+    private referenceSelectCar = (event: PointerEvent) => {
+        const element = event.target as HTMLElement;
+        const value = element.closest('.car');
+        const number = value?.getAttribute('data-value');
+        this.state.mainObject.selectedCar = Number(number);
+        /*         this.api
+            .getStartEngined(Number(number))
+            .then((value) => console.log(value))
+            .catch((err: Error) => err.message); */
+    };
+
     public EventSelectCar() {
         const getBtnCarSelect = this.updateManager.getAllHTMLElement('car__select');
         getBtnCarSelect.forEach((item) => {
-            item.addEventListener('click', () => {
-                console.log('selectCar', item);
-                const value = this.updateManager.closestAttribute();
-                const number = value?.getAttribute('data-value');
-                this.state.mainObject.selectedCar = Number(number);
-            });
+            item.addEventListener('click', this.referenceSelectCar as EventListener);
         });
     }
+
+    public getPosition(element: HTMLElement) {
+        const { top, left, width, height } = element.getBoundingClientRect();
+        return {
+            x: left + width / 2,
+            y: top + height / 2,
+        };
+    }
+
+    public getDistanceBeetwenElement() {
+        const car = document.querySelector('.car') as HTMLElement;
+        const finish = document.querySelector('.car__finish') as HTMLElement;
+        const CarPosition = this.getPosition(car);
+        const FinishPosition = this.getPosition(finish);
+
+        return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
+    }
+
+    public startAnimation() {}
+
+    public returnToPosition() {}
+
+    private referenceCarMove = (event: PointerEvent) => {
+        const element = event.target as HTMLElement;
+        const value = element.closest('.car');
+        const number = value?.getAttribute('data-value');
+        /*  this.state.mainObject.selectedCar = Number(number); */
+        const num = Number(number);
+        void (async () => {
+            const distanceElement = this.getDistanceBeetwenElement();
+            console.log('idst', distanceElement);
+            const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
+            const time = distance / velocity;
+            const { success } = (await this.api.driveMode(num)) as { success: boolean };
+            console.log(success);
+        })();
+        /*         const callback = async () => {
+            const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
+            console.log(velocity);
+            console.log(distance);
+            const { succes } = (await this.api.driveMode(num)) as { succes: boolean };
+
+            console.log(succes);
+        }; */
+
+        /*        this.api
+            .getStartEngined(num)
+            .then((velocity) => console.log(velocity))
+            .then((_) => this.api.driveMode(num).then((succes) => console.log(succes)))
+            .catch((err: Error) => err.message); */
+    };
 
     public EventStartCarMove() {
         const getBtnCarMove = this.updateManager.getAllHTMLElement('car__start');
         getBtnCarMove.forEach((item) => {
-            item.addEventListener('click', () => {
-                console.log('eventStarMove', item);
-                const value = this.updateManager.closestAttribute();
-                const idElement = Number(value);
-                this.state.mainObject.selectedCar = idElement;
-            });
+            item.addEventListener('click', this.referenceCarMove as EventListener);
         });
     }
 
@@ -182,8 +238,19 @@ class Manager {
         const getBtnCarRemove = this.updateManager.getAllHTMLElement('car__remove');
         getBtnCarRemove.forEach((item) => {
             item.addEventListener('click', () => {
+                //FIXME: порефакторить
                 console.log('eventRemovCar', item);
-                const value = this.updateManager.closestAttribute();
+                const value = item.closest('.car');
+                const number = value?.getAttribute('data-value');
+                const id = Number(number);
+                console.log('id', id);
+                this.api.removeCar(id).catch((err: Error) => err.message);
+                const element = document.querySelector(`[data-value="${id}"]`) as HTMLElement;
+                if (element === null || element === undefined) {
+                    return;
+                }
+                this.updateManager.removeNodes([element]);
+                this.garagePage.updateGarage();
             });
         });
     }
@@ -243,6 +310,7 @@ class Manager {
 
         btnGaragePage.addEventListener('click', () => {
             this.garagePage.renderPageWithRemove();
+            this.getSettingListener();
 
             /*             //пЕРЕПИСАТЬ
             this.renderPageWinner();

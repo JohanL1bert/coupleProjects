@@ -9,6 +9,8 @@ import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
 import { IcreateCar, TColorText, TVelocity } from './components/interfaces/interface';
 
+//transform: scaleX(-1) translateX(-50px);
+
 class Manager {
     updateManager: UpdateManager;
     garagePage: Garage;
@@ -132,6 +134,7 @@ class Manager {
         const btnRaceReset = this.updateManager.getHTMLElement('race__reset');
         btnRaceReset.addEventListener('click', () => {
             void this.api.raceResetCar();
+            this.returnToPositionAll();
         });
     }
 
@@ -183,17 +186,28 @@ class Manager {
     }
 
     public getDistanceBeetwenElement() {
-        const car = document.querySelector('.car') as HTMLElement;
+        const car = document.querySelector('svg') as unknown;
         const finish = document.querySelector('.car__finish') as HTMLElement;
-        const CarPosition = this.getPosition(car);
+        const carElement = car as HTMLElement;
+        const CarPosition = this.getPosition(carElement);
+        console.log('carPosition', CarPosition);
         const FinishPosition = this.getPosition(finish);
+        console.log('finish', FinishPosition);
 
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
     public startAnimation(time: number) {}
 
-    public returnToPosition() {}
+    public returnToPositionAll() {
+        console.log(this);
+        const getAllSvg: NodeListOf<Element> = document.querySelectorAll('svg');
+        console.log(getAllSvg);
+        getAllSvg.forEach((item) => {
+            const element = item as HTMLElement;
+            element.style.transform = `translateX(${0}px`;
+        });
+    }
 
     private referenceCarMove = (event: PointerEvent) => {
         const element = event.target as HTMLElement;
@@ -202,13 +216,35 @@ class Manager {
         /*  this.state.mainObject.selectedCar = Number(number); */
         const num = Number(number);
         void (async () => {
-            const distanceElement = this.getDistanceBeetwenElement();
-            console.log('idst', distanceElement);
+            const svg = document.querySelector('svg') as SVGElement;
+            const distanceElement = this.getDistanceBeetwenElement() - 20;
             const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
-            const time = distance / velocity;
+            const time = Math.round(distance / velocity);
+            let start: any = null;
+            const doAnimation = (timeStomp: number) => {
+                if (!start) start = timeStomp;
+                const getTime = timeStomp - start;
+                /* console.log('getTime', getTime); */
+                const passed = Math.round(getTime * (distanceElement / time));
+                /*  console.log('passes', passed); */
+                /*  console.log('pass', passed); */
+                const getVal = Math.min(passed, distanceElement);
+                /* console.log(getVal); */
+                svg.style.transform = `translateX(${getVal}px`;
+                if (passed < distanceElement) {
+                    requestAnimationFrame(doAnimation);
+                }
+            };
+            const id = requestAnimationFrame(doAnimation);
+            console.log(id);
+
+            /*             const funArr = () => {
+                const newSpeed = speed + 50;
+                svg.style.transform = `translateX(${counter++}px`;
+            };
+            setInterval(funArr, speed); */
             const { success } = (await this.api.driveMode(num)) as { success: boolean };
             console.log(success);
-            console.log(time);
         })();
         /*         const callback = async () => {
             const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
@@ -319,22 +355,29 @@ class Manager {
         this.garagePage.renderPageWithRemove();
         this.getSettingListener();
         const { cars } = this.state.mainObject.currentData;
-        (() => {
-            cars.forEach((item) => {
+        void (async () => {
+            for (const item of cars) {
+                const result = await this.api.getCar(item);
+                const value = this.api.errorHandlerUndefined(result);
+                this.garagePage.renderCarItem(value);
+            }
+            this.garagePage.updateGarage();
+            this.getAllListener();
+            /*             cars.forEach((item) => {
                 const result = this.api.getCar(item);
                 result
                     .then((value) => this.api.errorHandlerUndefined(value))
                     .then((item) => this.garagePage.renderCarItem(item))
                     .catch((err: Error) => console.warn(err));
-            });
+            }); */
         })();
-        this.garagePage.updateGarage();
-        this.getAllListener();
+        /*         this.garagePage.updateGarage();
+        this.getAllListener(); */
+        /* this.getCarListner(); */
     };
 
     public renderPageGarage() {
         const btnGaragePage = this.updateManager.getHTMLElement('navigation__garage');
-        console.log(btnGaragePage);
         btnGaragePage.addEventListener('click', this.refereRenderPageGarage as EventListener);
     }
 

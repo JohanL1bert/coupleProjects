@@ -131,7 +131,6 @@ class Manager {
             void (async () => {
                 const distanceElement = this.getDistanceBeetwenElement() - 20;
                 const svg: NodeListOf<Element> = document.querySelectorAll('svg');
-                /*                 const countWinners: Array<number> = []; */
                 svg.forEach(async (item): Promise<void> => {
                     const element = item as SVGElement;
                     const carElementWithDataValue = item.closest('.car') as HTMLElement;
@@ -272,8 +271,11 @@ class Manager {
     public EventReturCarToPrevPosition() {
         const getBtnCarToPrevPosition = this.updateManager.getAllHTMLElement('car__back');
         getBtnCarToPrevPosition.forEach((item) => {
-            item.addEventListener('click', () => {
-                /*  console.log('removeCarToBack', item) */ const value = this.updateManager.closestAttribute();
+            item.addEventListener('click', (event: Event) => {
+                const element = event.target as HTMLElement;
+                const value = element.closest('.car') as HTMLElement;
+                const svg = value.querySelector('svg') as SVGElement;
+                svg.style.transform = `translateX(${0}px`;
             });
         });
     }

@@ -9,8 +9,6 @@ import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
 import { IcreateCar, TColorText, TVelocity } from './components/interfaces/interface';
 
-//transform: scaleX(-1) translateX(-50px);
-
 class Manager {
     updateManager: UpdateManager;
     garagePage: Garage;
@@ -126,7 +124,43 @@ class Manager {
     public EventRaceCar() {
         const btnRaceCar = this.updateManager.getHTMLElement('race__button');
         btnRaceCar.addEventListener('click', () => {
-            void this.api.getCars(1, 1);
+            /*             void this.api.getCars(1, 1); */
+            void (async () => {
+                const distanceElement = this.getDistanceBeetwenElement() - 20;
+                const svg: NodeListOf<Element> = document.querySelectorAll('svg');
+                const countWinners: Array<number> = [];
+                svg.forEach(async (item): Promise<void> => {
+                    const element = item as HTMLElement;
+                    const carElementWithDataValue = item.closest('.car') as HTMLElement;
+                    const number = carElementWithDataValue.dataset.value;
+                    const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
+                    const time = Math.round(distance / velocity);
+                    const id = this.startAnimation(element, time, distanceElement, Number(number));
+                });
+                /*                 svg.forEach(async (num) => {
+                    const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
+                    const time = Math.round(distance / velocity);
+                    let start: any = null;
+                    const doAnimation = (timeStomp: number) => {
+                        if (!start) start = timeStomp;
+                        const getTime = timeStomp - start;
+                        const passed = Math.round(getTime * (distanceElement / time));
+
+                        const getVal = Math.min(passed, distanceElement);
+
+                        item.style.transform = `translateX(${getVal}px`;
+                        if (passed < distanceElement) {
+                            requestAnimationFrame(doAnimation);
+                        }
+                    };
+                    const id = requestAnimationFrame(doAnimation);
+                    console.log('id', id);
+                });
+
+
+                const { success } = (await this.api.driveMode(num)) as { success: boolean };
+                console.log(success); */
+            })();
         });
     }
 
@@ -197,7 +231,27 @@ class Manager {
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
-    public startAnimation(time: number) {}
+    public async startAnimation(element: HTMLElement, time: number, distanceElement: number, num: number) {
+        let start: any = null;
+        let indexAnimation;
+        const doAnimation = (timeStomp: number) => {
+            if (!start) start = timeStomp;
+            const getTime = timeStomp - start;
+            const passed = Math.round(getTime * (distanceElement / time));
+
+            const getVal = Math.min(passed, distanceElement);
+
+            element.style.transform = `translateX(${getVal}px`;
+            if (passed < distanceElement) {
+                indexAnimation = requestAnimationFrame(doAnimation);
+            }
+        };
+        const id = requestAnimationFrame(doAnimation);
+        const { success } = (await this.api.driveMode(num)) as { success: boolean };
+        if (success === false) {
+            window.cancelAnimationFrame(Number(indexAnimation));
+        }
+    }
 
     public returnToPositionAll() {
         console.log(this);
@@ -236,15 +290,13 @@ class Manager {
                 }
             };
             const id = requestAnimationFrame(doAnimation);
-            console.log(id);
+            console.log('id');
 
             /*             const funArr = () => {
                 const newSpeed = speed + 50;
                 svg.style.transform = `translateX(${counter++}px`;
             };
             setInterval(funArr, speed); */
-            const { success } = (await this.api.driveMode(num)) as { success: boolean };
-            console.log(success);
         })();
         /*         const callback = async () => {
             const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
@@ -273,8 +325,7 @@ class Manager {
         const getBtnCarToPrevPosition = this.updateManager.getAllHTMLElement('car__back');
         getBtnCarToPrevPosition.forEach((item) => {
             item.addEventListener('click', () => {
-                console.log('removeCarToBack', item);
-                const value = this.updateManager.closestAttribute();
+                /*  console.log('removeCarToBack', item) */ const value = this.updateManager.closestAttribute();
             });
         });
     }
@@ -284,11 +335,11 @@ class Manager {
         getBtnCarRemove.forEach((item) => {
             item.addEventListener('click', () => {
                 //FIXME: порефакторить
-                console.log('eventRemovCar', item);
+                /*                 console.log('eventRemovCar', item); */
                 const value = item.closest('.car');
                 const number = value?.getAttribute('data-value');
                 const id = Number(number);
-                console.log('id', id);
+                /*  console.log('id', id); */
                 this.api.removeCar(id).catch((err: Error) => err.message);
                 const element = document.querySelector(`[data-value="${id}"]`) as HTMLElement;
                 if (element === null || element === undefined) {

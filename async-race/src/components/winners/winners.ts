@@ -59,9 +59,9 @@ class CreateWinners {
     }
 
     public renderDataOfWinners(data: any) {
-        console.log('data', data);
+        /* console.log('data', data); */
         const element = data.map((item: any) => {
-            console.log(item.id);
+            /* console.log(item.id); */
             return `<tr>
                 <td>${item.id}</td>
                 <td>${svgImage}</td>

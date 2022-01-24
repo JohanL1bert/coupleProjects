@@ -56,7 +56,7 @@ class HTMLManager {
     }
 
     public getAllHTMLElement(elementName: string) {
-        const getElement = document.querySelectorAll(`${elementName}`);
+        const getElement = document.querySelectorAll(`.${elementName}`);
         if (getElement === null) {
             throw new Error(`${elementName}, null is element`);
         }

@@ -298,15 +298,40 @@ class Manager {
         const element = event.target as HTMLElement;
         const value = element.closest('.car') as HTMLElement;
         const number = value?.getAttribute('data-value');
-        /*  this.state.mainObject.selectedCar = Number(number); */
-        const num = Number(number);
+        const distanceElement = this.getDistanceBeetwenElement() - 20;
+
+        let flag = true;
+        const dataSetLikeNumber = Number(number);
         void (async () => {
             const svg = value.querySelector('svg') as SVGElement;
-            const distanceElement = this.getDistanceBeetwenElement() - 20;
-            const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
-            const time = Math.round(distance / velocity);
-
-            const id = this.startAnimation(svg, time, distanceElement, num);
+            const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
+            const timeSeconds = Math.round(distance / velocity);
+            const id = this.startAnimation(svg, timeSeconds, distanceElement, Number(number));
+            const { success } = (await this.api.driveMode(dataSetLikeNumber)) as { success: boolean };
+            if (success === false) {
+                window.cancelAnimationFrame(globalVariable);
+            } else {
+                if (flag === true) {
+                    flag = false;
+                    const car = await this.api.getCar(dataSetLikeNumber);
+                    const carElement = this.api.errorHandlerUndefined(car);
+                    const element = this.updateManager.getHTMLElement('span__winner');
+                    const { name, id }: Pick<IcreateCar, 'name' | 'id'> = carElement;
+                    const time = timeSeconds / 1000;
+                    const wins = 1;
+                    const splitData = `${name}, Time: ${time} s`;
+                    this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                    const isExistInState = this.filterState(id);
+                    if (isExistInState === undefined) {
+                        await this.api.createWinner({ id, wins, time });
+                        this.state.mainObject.winners.push({ id, wins, time });
+                    } else {
+                        isExistInState.wins += 1;
+                        this.filterStateBySpeed(time, isExistInState);
+                        await this.api.updateWinner(isExistInState);
+                    }
+                }
+            }
         })();
     };
 
@@ -323,8 +348,11 @@ class Manager {
             item.addEventListener('click', (event: Event) => {
                 const element = event.target as HTMLElement;
                 const value = element.closest('.car') as HTMLElement;
+                const number = value.dataset.value;
                 const svg = value.querySelector('svg') as SVGElement;
                 svg.style.transform = `translateX(${0}px`;
+                this.api.getStopEngined(Number(number)).catch((err: Error) => console.warn(err));
+                cancelAnimationFrame(globalVariable);
             });
         });
     }
@@ -477,7 +505,7 @@ class Manager {
         this.getDataFromGarage();
         this.winnersPage.renderWinners();
         const objWinners = this.state.mainObject.winners;
-        console.log(objWinners);
+        /* console.log(objWinners); */
         const getWinners = this.filterStateWinners(objWinners);
         const callback = async () => {
             const sortBy = 'id';
@@ -575,3 +603,23 @@ const garage: Garage = new Garage(newApp, getInstanceOfStateManager);
 const winners: Winners = new Winners(newApp, getInstanceOfStateManager);
 const app = new Manager(newApp, garage, winners, getInstanceOfStateManager, api);
 app.root();
+
+console.log(`
+Если есть возможность, то проверьте в среду. Постараюсь допилить таблицу полностью
+Чего нет: 
+1. пагинации на страницах
+2. состояние сохраняется (инпуты), кроме вывески победителя
+3. Удаления пока не удаляет из таблицы победителей
+4. Кнопки не дисейблится когда идет анимация
+5. Нет возможности сортировать таблицу
+6. Есть возможность остановить движения, но тогда байк попадает сразу в начальное положения
+
+Баги: вроде иногда вылетает листенер таблицы победителей. 
+Есть баг если делать много запросов, анимация начинает очень медлено работать
+Если кто-то на финише и нажать еще раз заезд, то анимация и гонка не сработают. Нужно всех расставить на начало
+Если вовремя гонки перейти на другую страницу и назад то гараж не отрендерится. Нужно дожидатся пока все приедут
+Изначально 4 байка рендерится из массива из 4 элементов по ид, поэтому если удалить 
+кого-то из 1-4 и перегрузить(не перейти, а именно перегрузить страницу), то байки не отренедирятся. Так как не будет чему
+Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
+
+`);

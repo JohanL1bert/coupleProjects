@@ -326,15 +326,6 @@ class HTMLManager {
             aGithubElement,
         ] = this.createHTMLElementArray(arrayofTags, arrayOfClassName);
 
-        //FIXME: Remove later
-        /*         const footerElement = this.createHTMLElement('footer', ['footer']);
-        const containerElement = this.createHTMLElement('div', ['container']);
-        const footerInnerElement = this.createHTMLElement('div', ['main__footer__inner']);
-        const footerCreator = this.createHTMLElement('div', ['footer__creator']);
-        const pCopyrightElement = this.createHTMLElement('p', ['copyright']);
-        const pYearelement = this.createHTMLElement('p', ['year__create']);
-        const aGithubElement = this.createHTMLElement('a', ['github__link']); */
-
         const foooterLogoElement = this.createHTMLElement('div', ['footer__logo']);
         //Append Section
         this.appendToChild(this.mainBody, footerElement);

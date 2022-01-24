@@ -139,57 +139,58 @@ class Manager {
         });
     }
 
-    public EventRaceCar() {
-        const btnRaceCar = this.updateManager.getHTMLElement('race__button');
-        btnRaceCar.addEventListener('click', () => {
-            /*             void this.api.getCars(1, 1); */
-            (() => {
-                const distanceElement = this.getDistanceBeetwenElement() - 20;
-                const svg: NodeListOf<Element> = document.querySelectorAll('svg');
+    private referecneEventRaceCar = () => {
+        (() => {
+            const distanceElement = this.getDistanceBeetwenElement() - 20;
+            const svg: NodeListOf<Element> = document.querySelectorAll('svg');
 
-                const arayOfNumbers: Array<{ element: SVGElement; number: number }> = [];
+            const arayOfNumbers: Array<{ element: SVGElement; number: number }> = [];
 
-                for (const item of svg) {
-                    const element = item as SVGElement;
-                    const carElementWithDataValue = item.closest('.car') as HTMLElement;
-                    const number = carElementWithDataValue.dataset.value;
-                    arayOfNumbers.push({ element: element, number: Number(number) });
-                }
+            for (const item of svg) {
+                const element = item as SVGElement;
+                const carElementWithDataValue = item.closest('.car') as HTMLElement;
+                const number = carElementWithDataValue.dataset.value;
+                arayOfNumbers.push({ element: element, number: Number(number) });
+            }
 
-                let flag = true;
-                const timeWinner = arayOfNumbers.map(async (item) => {
-                    const { element, number } = item as { element: SVGElement; number: number };
-                    const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
-                    const time = Math.round(distance / velocity);
-                    const id = this.startAnimation(element, time, distanceElement, Number(number));
-                    const { success } = (await this.api.driveMode(Number(number))) as { success: boolean };
-                    if (success === false) {
-                        window.cancelAnimationFrame(globalVariable);
-                    } else {
-                        if (flag === true) {
-                            flag = false;
-                            const car = await this.api.getCar(number);
-                            const carElement = this.api.errorHandlerUndefined(car);
-                            const element = this.updateManager.getHTMLElement('span__winner');
-                            const { name, id }: Pick<IcreateCar, 'name' | 'id'> = carElement;
-                            const timeToSeconds = time / 1000;
-                            const wins = 1;
-                            const splitData = `${name}, Time: ${timeToSeconds} s`;
-                            this.updateManager.AddTextContentToHTMLElement(element, splitData);
-                            const isExistInState = this.filterState(id);
-                            if (isExistInState === undefined) {
-                                await this.api.createWinner({ id, wins, time });
-                                this.state.mainObject.winners.push({ id, wins, time });
-                            } else {
-                                isExistInState.wins += 1;
-                                this.filterStateBySpeed(time, isExistInState);
-                                await this.api.updateWinner(isExistInState);
-                            }
+            let flag = true;
+            const timeWinner = arayOfNumbers.map(async (item) => {
+                const { element, number } = item as { element: SVGElement; number: number };
+                const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
+                const timeSeconds = Math.round(distance / velocity);
+                const id = this.startAnimation(element, timeSeconds, distanceElement, Number(number));
+                const { success } = (await this.api.driveMode(Number(number))) as { success: boolean };
+                if (success === false) {
+                    window.cancelAnimationFrame(globalVariable);
+                } else {
+                    if (flag === true) {
+                        flag = false;
+                        const car = await this.api.getCar(number);
+                        const carElement = this.api.errorHandlerUndefined(car);
+                        const element = this.updateManager.getHTMLElement('span__winner');
+                        const { name, id }: Pick<IcreateCar, 'name' | 'id'> = carElement;
+                        const time = timeSeconds / 1000;
+                        const wins = 1;
+                        const splitData = `${name}, Time: ${time} s`;
+                        this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                        const isExistInState = this.filterState(id);
+                        if (isExistInState === undefined) {
+                            await this.api.createWinner({ id, wins, time });
+                            this.state.mainObject.winners.push({ id, wins, time });
+                        } else {
+                            isExistInState.wins += 1;
+                            this.filterStateBySpeed(time, isExistInState);
+                            await this.api.updateWinner(isExistInState);
                         }
                     }
-                });
-            })();
-        });
+                }
+            });
+        })();
+    };
+
+    public EventRaceCar() {
+        const btnRaceCar = this.updateManager.getHTMLElement('race__button');
+        btnRaceCar.addEventListener('click', this.referecneEventRaceCar);
     }
 
     public EventResetCar() {
@@ -472,27 +473,22 @@ class Manager {
         return arrayOfData;
     }
 
-    /* data = this.splitWinnersData(getWinnersData, getCars); */
-
     private referencePageWinner = () => {
         this.getDataFromGarage();
         this.winnersPage.renderWinners();
         const objWinners = this.state.mainObject.winners;
+        console.log(objWinners);
         const getWinners = this.filterStateWinners(objWinners);
-        if (getWinners.length !== 0) {
-            const callback = async () => {
-                const sortBy = 'id';
-                const orderBy = 'ASC';
-                const getWinnersData = (await this.api.getWinners(sortBy, orderBy)) as IWinner[];
-                const getLen = getWinnersData.length;
-                const getCars = (await this.api.getCars(getLen)) as IcreateCar[];
-                const data = this.splitWinnersData(getWinnersData, getCars);
-                void Promise.all(data).then((value) => this.winnersPage.renderDataOfWinners(value));
-            };
-            void callback();
-        } else {
-            return;
-        }
+        const callback = async () => {
+            const sortBy = 'id';
+            const orderBy = 'ASC';
+            const getWinnersData = (await this.api.getWinners(sortBy, orderBy)) as IWinner[];
+            const getLen = getWinnersData.length;
+            const getCars = (await this.api.getCars(getLen)) as IcreateCar[];
+            const data = this.splitWinnersData(getWinnersData, getCars);
+            void Promise.all(data).then((value) => this.winnersPage.renderDataOfWinners(value));
+        };
+        void callback();
     };
 
     public renderPageWinner() {

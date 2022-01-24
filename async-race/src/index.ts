@@ -56,33 +56,36 @@ class Manager {
         return getValueName;
     }
 
+    private refereceEventCar = () => {
+        console.log(this);
+        const textContent = this.updateManager.getInputFromInput(this.templateName);
+        const getColor = this.updateManager.getColorFromInput(this.templateColor);
+        const carObj: TColorText = {
+            name: textContent,
+            color: getColor,
+        };
+
+        this.state.mainObject.objectColorName = {
+            name: textContent,
+            color: getColor,
+        };
+
+        this.api
+            .createCar(carObj)
+            .then((value) => this.api.errorHandlerUndefined(value))
+            .then((value) => this.garagePage.renderCarItem(value))
+            .then((_) => {
+                this.getDataFromGarage();
+            })
+            .then((_) => this.garagePage.updateGarage())
+            .then((_) => this.getCarListner())
+            .catch((err: Error) => err);
+    };
+
     public EventCreateCar() {
         const btnCreateCar = this.updateManager.getHTMLElement('input__button');
 
-        btnCreateCar.addEventListener('click', () => {
-            const textContent = this.updateManager.getInputFromInput(this.templateName);
-            const getColor = this.updateManager.getColorFromInput(this.templateColor);
-            const carObj: TColorText = {
-                name: textContent,
-                color: getColor,
-            };
-
-            this.state.mainObject.objectColorName = {
-                name: textContent,
-                color: getColor,
-            };
-
-            this.api
-                .createCar(carObj)
-                .then((value) => this.api.errorHandlerUndefined(value))
-                .then((value) => this.garagePage.renderCarItem(value))
-                .then((_) => {
-                    this.getDataFromGarage();
-                })
-                .then((_) => this.garagePage.updateGarage())
-                .then((_) => this.getCarListner())
-                .catch((err: Error) => err);
-        });
+        btnCreateCar.addEventListener('click', this.refereceEventCar);
     }
 
     public EventUpdateCar() {
@@ -173,6 +176,9 @@ class Manager {
     }
 
     private refereceEventGenerateManyCar = (event: PointerEvent) => {
+        const btnGenerateCar = this.updateManager.getHTMLElement('race__generate');
+        btnGenerateCar.removeEventListener('click', this.refereceEventGenerateManyCar as EventListener);
+
         const value = this.randomModelCar();
         value.map((item) =>
             item.then((value) => {

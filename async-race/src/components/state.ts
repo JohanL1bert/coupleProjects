@@ -1,13 +1,11 @@
+import { IcreateCar, ICurrentData } from './interfaces/interface';
+
 export class StateManager {
     mainObject: {
-        currentData: {
-            garageCount: number;
-            pageCount: number;
-            cars: Array<number>;
-        };
+        currentData: ICurrentData;
         selectedCar: number;
         initialRender: number;
-        objectCar: Array<object>;
+        objectCar: Array<IcreateCar>;
         objectColorName: {
             name: string;
             color: string;
@@ -16,15 +14,23 @@ export class StateManager {
             name: string;
             color: string;
         };
+        winners: [
+            {
+                id: number;
+                wins: number;
+                time: number;
+            }
+        ];
     };
     brandsCars: Array<string>;
     modelsCars: Array<string>;
     constructor() {
         this.mainObject = {
             currentData: {
-                garageCount: 0,
-                pageCount: 0,
+                garageCount: 4,
+                pageCount: 1,
                 cars: [],
+                winnerState: '',
             },
             selectedCar: 0,
             initialRender: 0,
@@ -37,6 +43,13 @@ export class StateManager {
                 color: '',
                 name: '',
             },
+            winners: [
+                {
+                    id: 1,
+                    wins: 1,
+                    time: 10,
+                },
+            ],
         };
         this.brandsCars = [
             'Audi',

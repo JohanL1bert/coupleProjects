@@ -1,6 +1,7 @@
 import { UpdateManager } from '../routing';
 import { TArrayClassName } from '../interfaces/interface';
 import { StateManager } from '../state';
+import svgImage from '../svgData';
 
 class CreateWinners {
     creater: UpdateManager;
@@ -37,9 +38,9 @@ class CreateWinners {
     }
 
     public createTable() {
-        const arrayOfTags: Array<string> = ['table', 'thead', 'tr', 'th' /* 'tbody', 'td' */];
+        const arrayOfTags: Array<string> = ['table', 'thead', 'tr', 'th', 'tbody' /* 'td' */];
         const arrayOfClassName: TArrayClassName = [['table']];
-        const [tableElement, theadeElement, trElement, thElement /* tbodyElement, tdElement */, ,] =
+        const [tableElement, theadeElement, trElement, thElement, tbodyElement /* tdElement, */, ,] =
             this.creater.createHTMLElementArray(arrayOfTags, arrayOfClassName);
 
         const parentNode = this.creater.getHTMLElement('winners__page');
@@ -48,20 +49,30 @@ class CreateWinners {
         this.creater.appendToChild(theadeElement, trElement);
 
         tableElement.setAttribute('border', '5');
-        this.creater.cloneNodeCustom(thElement, 5);
+        const arrayOfTh = this.creater.cloneNodeCustom(thElement, 5);
 
-        const value = this.creater.cloneNodeCustom(thElement, 5);
-        trElement.append(...value);
-        const arrayEl = this.creater.getAllHTMLElement('th');
+        trElement.append(...arrayOfTh);
+        const arrayEl = document.querySelectorAll('th');
         const toArray = Array.from(arrayEl);
         this.creater.AddTextContentMultiple(toArray, ['Number', 'Car', 'Name', 'Winner', 'Best Time (second)']);
-        //
-        /*       this.creater.appendToChild(tableElement, tbodyElement);
-        this.creater.appendToChild(tbodyElement, tdElement);
-        this.creater.appendToChild(tbodyElement, tdElement);
-        this.creater.appendToChild(tbodyElement, tdElement);
-        this.creater.appendToChild(tbodyElement, tdElement);
-        this.creater.appendToChild(tbodyElement, tdElement); */
+        this.creater.appendToChild(tableElement, tbodyElement);
+    }
+
+    public renderDataOfWinners(data: any) {
+        console.log('data', data);
+        const element = data.map((item: any) => {
+            console.log(item.id);
+            return `<tr>
+                <td>${item.id}</td>
+                <td>${svgImage}</td>
+                <td>${item.name}</td>
+                <td>${item.wins}</td>
+                <td>${item.bestTime}</td>`;
+        });
+
+        const getTBody = document.querySelector('tbody') as HTMLElement;
+        const destArr: any = [...element];
+        getTBody.innerHTML = destArr;
     }
 }
 
@@ -76,110 +87,4 @@ export class Winners extends CreateWinners {
         this.createSectionWinners();
         this.createTable();
     }
-
-    //Перенести в роутинг
-    /*  public async getWinners() {
-        try {
-            const response = await fetch(`${this.garage}/${id}`, {
-                method: 'PUT',
-                cache: 'no-cache',
-                body: JSON.stringify(carObj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                err.message;
-            } else {
-                throw new Error('err');
-            }
-        }
-    }
-
-    public async getWinenr() {
-        try {
-            const response = await fetch(`${this.garage}/${id}`, {
-                method: 'PUT',
-                cache: 'no-cache',
-                body: JSON.stringify(carObj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                err.message;
-            } else {
-                throw new Error('err');
-            }
-        }
-    }
-
-    public async createWinner() {
-        try {
-            const response = await fetch(`${this.garage}/${id}`, {
-                method: 'PUT',
-                cache: 'no-cache',
-                body: JSON.stringify(carObj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                err.message;
-            } else {
-                throw new Error('err');
-            }
-        }
-    }
-
-    public async deleteWinner() {
-        try {
-            const response = await fetch(`${this.garage}/${id}`, {
-                method: 'PUT',
-                cache: 'no-cache',
-                body: JSON.stringify(carObj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                err.message;
-            } else {
-                throw new Error('err');
-            }
-        }
-    }
-
-    public async updateWinner() {
-        try {
-            const response = await fetch(`${this.garage}/${id}`, {
-                method: 'PUT',
-                cache: 'no-cache',
-                body: JSON.stringify(carObj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const res = (await this.errorHandler(response)) as unknown; //Переписать
-            console.log('update', res);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                err.message;
-            } else {
-                throw new Error('err');
-            }
-        }
-    } */
 }

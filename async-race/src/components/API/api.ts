@@ -114,7 +114,7 @@ class API {
 
     public async raceResetCar() {
         try {
-            console.log(await '123');
+            return;
         } catch (err) {}
     }
 
@@ -166,7 +166,7 @@ class API {
                 },
             });
             const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
-            console.log('update', res);
+            /* console.log('update', res); */
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;

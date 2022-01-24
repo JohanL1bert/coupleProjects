@@ -7,7 +7,7 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, TColorText, TVelocity } from './components/interfaces/interface';
+import { IcreateCar, IWinner, TColorText, TVelocity } from './components/interfaces/interface';
 
 let globalVariable = 0;
 const winner = true;
@@ -41,6 +41,24 @@ class Manager {
         this.templateUpdateColor = 'update__color';
     }
 
+    private filterState(id: number) {
+        const valueId = this.state.mainObject.winners.find((value) => value.id === id);
+        return valueId;
+    }
+
+    private filterStateBySpeed(newTime: number, objOfWins: IWinner) {
+        console.log(newTime);
+        console.log(objOfWins);
+        if (objOfWins.time > newTime) {
+            objOfWins.time = newTime;
+        }
+        console.log('____state');
+        console.log(this.state.mainObject.winners);
+        console.log('obj__wins');
+        console.log(objOfWins);
+        return objOfWins;
+    }
+
     public randomModelCar() {
         const brandCars = this.state.brandsCars;
         const modelCars = this.state.modelsCars;
@@ -61,7 +79,6 @@ class Manager {
     }
 
     private refereceEventCar = () => {
-        console.log(this);
         const textContent = this.updateManager.getInputFromInput(this.templateName);
         const getColor = this.updateManager.getColorFromInput(this.templateColor);
         const carObj: TColorText = {
@@ -159,10 +176,20 @@ class Manager {
                             const car = await this.api.getCar(number);
                             const carElement = this.api.errorHandlerUndefined(car);
                             const element = this.updateManager.getHTMLElement('span__winner');
-                            const { name }: Pick<IcreateCar, 'name'> = carElement;
-
-                            const splitData = `${name}, Time: ${time}`;
+                            const { name, id }: Pick<IcreateCar, 'name' | 'id'> = carElement;
+                            const timeToSeconds = time / 1000;
+                            const wins = 1;
+                            const splitData = `${name}, Time: ${timeToSeconds} s`;
                             this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                            const isExistInState = this.filterState(id);
+                            if (isExistInState === undefined) {
+                                await this.api.createWinner({ id, wins, time });
+                                this.state.mainObject.winners.push({ id, wins, time });
+                            } else {
+                                isExistInState.wins += 1;
+                                this.filterStateBySpeed(time, isExistInState);
+                                await this.api.updateWinner(isExistInState);
+                            }
                             flag = false;
                         }
                     }
@@ -241,10 +268,6 @@ class Manager {
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
-    public *generator(num: number) {
-        yield num;
-    }
-
     public startAnimation(element: SVGElement, time: number, distanceElement: number, num: number) {
         let start: any = null;
         let indexAnimation;
@@ -269,9 +292,7 @@ class Manager {
     }
 
     public returnToPositionAll() {
-        console.log(this);
         const getAllSvg: NodeListOf<Element> = document.querySelectorAll('svg');
-        console.log(getAllSvg);
         getAllSvg.forEach((item) => {
             const element = item as HTMLElement;
             element.style.transform = `translateX(${0}px`;

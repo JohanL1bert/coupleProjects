@@ -53,7 +53,7 @@ class CreatorGarage {
         ] = this.updateManager.createHTMLElementArray(arrayOfTags, arrayOfClassName);
 
         this.updateManager.AddTextContentToHTMLElement(spanRaceTextelement, 'Winner:');
-        this.updateManager.AddTextContentToHTMLElement(spanRaceWinnerElement, 'Number one');
+        this.updateManager.AddTextContentToHTMLElement(spanRaceWinnerElement, '');
 
         //Append
         const mainBorderElement = this.updateManager.getHTMLElement('main__border');
@@ -297,7 +297,6 @@ export class Garage extends CreatorGarage {
 
     public updateGarage() {
         const { garageCount, pageCount } = this.state.mainObject.currentData;
-        /*         const allEl = this.updateManager.getAllHTMLElement('car'); */
         const garage = this.updateManager.getHTMLElement('garage__count');
         garage.textContent = String(`(${garageCount})`);
         const page = this.updateManager.getHTMLElement('garage__page__count');

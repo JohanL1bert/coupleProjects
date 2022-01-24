@@ -34,3 +34,16 @@ export type TVelocity = {
     velocity: number;
     distance: number;
 };
+
+export interface IWinner {
+    id: number;
+    wins: number;
+    time: number;
+}
+
+export interface ICurrentData {
+    garageCount: number;
+    pageCount: number;
+    cars: Array<number>;
+    winnerState?: string;
+}

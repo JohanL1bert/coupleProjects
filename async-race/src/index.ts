@@ -9,6 +9,10 @@ import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
 import { IcreateCar, TColorText, TVelocity } from './components/interfaces/interface';
 
+let globalVariable = 0;
+const winner = true;
+let isWinRace = 0;
+
 class Manager {
     updateManager: UpdateManager;
     garagePage: Garage;
@@ -128,16 +132,40 @@ class Manager {
         const btnRaceCar = this.updateManager.getHTMLElement('race__button');
         btnRaceCar.addEventListener('click', () => {
             /*             void this.api.getCars(1, 1); */
-            void (async () => {
+            (() => {
                 const distanceElement = this.getDistanceBeetwenElement() - 20;
                 const svg: NodeListOf<Element> = document.querySelectorAll('svg');
-                svg.forEach(async (item): Promise<void> => {
+
+                const arayOfNumbers: Array<{ element: SVGElement; number: number }> = [];
+
+                for (const item of svg) {
                     const element = item as SVGElement;
                     const carElementWithDataValue = item.closest('.car') as HTMLElement;
                     const number = carElementWithDataValue.dataset.value;
+                    arayOfNumbers.push({ element: element, number: Number(number) });
+                }
+
+                let flag = true;
+                const timeWinner = arayOfNumbers.map(async (item) => {
+                    const { element, number } = item as { element: SVGElement; number: number };
                     const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
                     const time = Math.round(distance / velocity);
                     const id = this.startAnimation(element, time, distanceElement, Number(number));
+                    const { success } = (await this.api.driveMode(Number(number))) as { success: boolean };
+                    if (success === false) {
+                        window.cancelAnimationFrame(globalVariable);
+                    } else {
+                        if (flag === true) {
+                            const car = await this.api.getCar(number);
+                            const carElement = this.api.errorHandlerUndefined(car);
+                            const element = this.updateManager.getHTMLElement('span__winner');
+                            const { name }: Pick<IcreateCar, 'name'> = carElement;
+
+                            const splitData = `${name}, Time: ${time}`;
+                            this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                            flag = false;
+                        }
+                    }
                 });
             })();
         });
@@ -213,7 +241,11 @@ class Manager {
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
-    public async startAnimation(element: SVGElement, time: number, distanceElement: number, num: number) {
+    public *generator(num: number) {
+        yield num;
+    }
+
+    public startAnimation(element: SVGElement, time: number, distanceElement: number, num: number) {
         let start: any = null;
         let indexAnimation;
         const doAnimation = (timeStomp: number) => {
@@ -225,14 +257,15 @@ class Manager {
 
             element.style.transform = `translateX(${getVal}px`;
             if (passed < distanceElement) {
-                indexAnimation = requestAnimationFrame(doAnimation);
+                globalVariable = requestAnimationFrame(doAnimation);
+            } else {
+                if (winner === true) {
+                    isWinRace = num;
+                    JSON.stringify(isWinRace);
+                }
             }
         };
         const id = requestAnimationFrame(doAnimation);
-        const { success } = (await this.api.driveMode(num)) as { success: boolean };
-        if (success === false) {
-            window.cancelAnimationFrame(Number(indexAnimation));
-        }
     }
 
     public returnToPositionAll() {

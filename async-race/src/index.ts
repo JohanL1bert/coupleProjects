@@ -131,38 +131,15 @@ class Manager {
             void (async () => {
                 const distanceElement = this.getDistanceBeetwenElement() - 20;
                 const svg: NodeListOf<Element> = document.querySelectorAll('svg');
-                const countWinners: Array<number> = [];
+                /*                 const countWinners: Array<number> = []; */
                 svg.forEach(async (item): Promise<void> => {
-                    const element = item as HTMLElement;
+                    const element = item as SVGElement;
                     const carElementWithDataValue = item.closest('.car') as HTMLElement;
                     const number = carElementWithDataValue.dataset.value;
                     const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
                     const time = Math.round(distance / velocity);
                     const id = this.startAnimation(element, time, distanceElement, Number(number));
                 });
-                /*                 svg.forEach(async (num) => {
-                    const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
-                    const time = Math.round(distance / velocity);
-                    let start: any = null;
-                    const doAnimation = (timeStomp: number) => {
-                        if (!start) start = timeStomp;
-                        const getTime = timeStomp - start;
-                        const passed = Math.round(getTime * (distanceElement / time));
-
-                        const getVal = Math.min(passed, distanceElement);
-
-                        item.style.transform = `translateX(${getVal}px`;
-                        if (passed < distanceElement) {
-                            requestAnimationFrame(doAnimation);
-                        }
-                    };
-                    const id = requestAnimationFrame(doAnimation);
-                    console.log('id', id);
-                });
-
-
-                const { success } = (await this.api.driveMode(num)) as { success: boolean };
-                console.log(success); */
             })();
         });
     }
@@ -237,7 +214,7 @@ class Manager {
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
 
-    public async startAnimation(element: HTMLElement, time: number, distanceElement: number, num: number) {
+    public async startAnimation(element: SVGElement, time: number, distanceElement: number, num: number) {
         let start: any = null;
         let indexAnimation;
         const doAnimation = (timeStomp: number) => {
@@ -271,53 +248,18 @@ class Manager {
 
     private referenceCarMove = (event: PointerEvent) => {
         const element = event.target as HTMLElement;
-        const value = element.closest('.car');
+        const value = element.closest('.car') as HTMLElement;
         const number = value?.getAttribute('data-value');
         /*  this.state.mainObject.selectedCar = Number(number); */
         const num = Number(number);
         void (async () => {
-            const svg = document.querySelector('svg') as SVGElement;
+            const svg = value.querySelector('svg') as SVGElement;
             const distanceElement = this.getDistanceBeetwenElement() - 20;
             const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
             const time = Math.round(distance / velocity);
-            let start: any = null;
-            const doAnimation = (timeStomp: number) => {
-                if (!start) start = timeStomp;
-                const getTime = timeStomp - start;
-                /* console.log('getTime', getTime); */
-                const passed = Math.round(getTime * (distanceElement / time));
-                /*  console.log('passes', passed); */
-                /*  console.log('pass', passed); */
-                const getVal = Math.min(passed, distanceElement);
-                /* console.log(getVal); */
-                svg.style.transform = `translateX(${getVal}px`;
-                if (passed < distanceElement) {
-                    requestAnimationFrame(doAnimation);
-                }
-            };
-            const id = requestAnimationFrame(doAnimation);
-            console.log('id');
 
-            /*             const funArr = () => {
-                const newSpeed = speed + 50;
-                svg.style.transform = `translateX(${counter++}px`;
-            };
-            setInterval(funArr, speed); */
+            const id = this.startAnimation(svg, time, distanceElement, num);
         })();
-        /*         const callback = async () => {
-            const { velocity, distance } = (await this.api.getStartEngined(num)) as TVelocity;
-            console.log(velocity);
-            console.log(distance);
-            const { succes } = (await this.api.driveMode(num)) as { succes: boolean };
-
-            console.log(succes);
-        }; */
-
-        /*        this.api
-            .getStartEngined(num)
-            .then((velocity) => console.log(velocity))
-            .then((_) => this.api.driveMode(num).then((succes) => console.log(succes)))
-            .catch((err: Error) => err.message); */
     };
 
     public EventStartCarMove() {

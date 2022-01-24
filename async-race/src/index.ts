@@ -7,7 +7,7 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, IWinner, TColorText, TVelocity } from './components/interfaces/interface';
+import { IcreateCar, IWinner, TColorText, TVelocity, ICurrentData } from './components/interfaces/interface';
 
 let globalVariable = 0;
 const winner = true;
@@ -47,15 +47,9 @@ class Manager {
     }
 
     private filterStateBySpeed(newTime: number, objOfWins: IWinner) {
-        console.log(newTime);
-        console.log(objOfWins);
         if (objOfWins.time > newTime) {
             objOfWins.time = newTime;
         }
-        console.log('____state');
-        console.log(this.state.mainObject.winners);
-        console.log('obj__wins');
-        console.log(objOfWins);
         return objOfWins;
     }
 
@@ -173,6 +167,7 @@ class Manager {
                         window.cancelAnimationFrame(globalVariable);
                     } else {
                         if (flag === true) {
+                            flag = false;
                             const car = await this.api.getCar(number);
                             const carElement = this.api.errorHandlerUndefined(car);
                             const element = this.updateManager.getHTMLElement('span__winner');
@@ -190,7 +185,6 @@ class Manager {
                                 this.filterStateBySpeed(time, isExistInState);
                                 await this.api.updateWinner(isExistInState);
                             }
-                            flag = false;
                         }
                     }
                 });
@@ -261,9 +255,9 @@ class Manager {
         const finish = document.querySelector('.car__finish') as HTMLElement;
         const carElement = car as HTMLElement;
         const CarPosition = this.getPosition(carElement);
-        console.log('carPosition', CarPosition);
+        /*         console.log('carPosition', CarPosition); */
         const FinishPosition = this.getPosition(finish);
-        console.log('finish', FinishPosition);
+        /* console.log('finish', FinishPosition); */
 
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
@@ -458,14 +452,52 @@ class Manager {
         };
     }
 
+    private filterStateWinners(obj: IWinner[]) {
+        return obj.filter((item: IWinner) => item.id !== 0);
+    }
+
+    private splitWinnersData(winners: IWinner[], cars: any) {
+        const sortedWinners = winners.sort((a: any, b: any) => a.id - b.id);
+        const sortedCars = cars.sort((a: any, b: any) => a.id - b.id);
+        const arrayOfData = sortedCars.map(async (car: any, index: number) => {
+            if (car.id === sortedWinners[index].id) {
+                return {
+                    id: car.id,
+                    name: car.name,
+                    wins: winners[index].wins,
+                    bestTime: winners[index].time,
+                };
+            }
+        });
+        return arrayOfData;
+    }
+
+    /* data = this.splitWinnersData(getWinnersData, getCars); */
+
+    private referencePageWinner = () => {
+        this.getDataFromGarage();
+        this.winnersPage.renderWinners();
+        const objWinners = this.state.mainObject.winners;
+        const getWinners = this.filterStateWinners(objWinners);
+        if (getWinners.length !== 0) {
+            const callback = async () => {
+                const sortBy = 'id';
+                const orderBy = 'ASC';
+                const getWinnersData = (await this.api.getWinners(sortBy, orderBy)) as IWinner[];
+                const getLen = getWinnersData.length;
+                const getCars = (await this.api.getCars(getLen)) as IcreateCar[];
+                const data = this.splitWinnersData(getWinnersData, getCars);
+                void Promise.all(data).then((value) => this.winnersPage.renderDataOfWinners(value));
+            };
+            void callback();
+        } else {
+            return;
+        }
+    };
+
     public renderPageWinner() {
         const bntWinnerPage = this.updateManager.getHTMLElement('navigation__winners');
-        bntWinnerPage.addEventListener('click', () => {
-            this.getDataFromGarage();
-            this.winnersPage.renderWinners();
-            /* this.renderPageGarage(); */
-            //TODO: Рендерить листенеры на странице таблицы
-        });
+        bntWinnerPage.addEventListener('click', this.referencePageWinner);
     }
 
     public getCarListner() {

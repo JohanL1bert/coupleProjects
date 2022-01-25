@@ -112,12 +112,6 @@ class API {
         }
     }
 
-    public async raceResetCar() {
-        try {
-            return;
-        } catch (err) {}
-    }
-
     public async getStartEngined(id: number) {
         try {
             const response = await fetch(`${this.engine}/?id=${id}&status=started`, {
@@ -161,8 +155,8 @@ class API {
                     'Content-Type': 'application/json',
                 },
             });
-            const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
-            /* console.log('update', res); */
+            const res = (await this.errorHandler(response)) as IcreateCar;
+            return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
                 err.message;
@@ -226,8 +220,6 @@ export class AdvancedApi extends API {
         }
     }
 
-    public getWinner() {}
-
     public async createWinner({ id, wins, time }: IWinner) {
         try {
             const response = await fetch(`${this.winners}`, {
@@ -247,7 +239,6 @@ export class AdvancedApi extends API {
             }
         }
     }
-    public deleteWinner() {}
 
     public async updateWinner({ id, wins, time }: IWinner) {
         try {

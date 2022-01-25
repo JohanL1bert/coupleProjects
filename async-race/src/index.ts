@@ -254,7 +254,7 @@ class Manager {
     }
 
     public getDistanceBeetwenElement(parentELement: HTMLElement) {
-        console.log(parentELement);
+        /* console.log(parentELement); */
         const car = parentELement.querySelector('svg') as unknown;
         const finish = parentELement.querySelector('.car__finish') as HTMLElement;
         const carElement = car as HTMLElement;
@@ -486,6 +486,7 @@ class Manager {
                         name: carItem.name,
                         wins: winItem.wins,
                         bestTime: winItem.time,
+                        color: carItem.color,
                     });
                 }
             });
@@ -603,7 +604,7 @@ class Manager {
         try {
             const res = (await this.api.getCars(10000)) as IcreateCar[];
             this.state.mainObject.currentData.garageCount = Number(res.length);
-            console.log(this.state.mainObject.currentData);
+            /* console.log(this.state.mainObject.currentData); */
             for (const key of res) {
                 this.garagePage.renderCarItem(key);
             }

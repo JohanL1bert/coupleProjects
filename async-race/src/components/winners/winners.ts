@@ -1,7 +1,6 @@
 import { UpdateManager } from '../routing';
 import { TArrayClassName } from '../interfaces/interface';
 import { StateManager } from '../state';
-import svgImage from '../svgData';
 
 class CreateWinners {
     creater: UpdateManager;
@@ -59,12 +58,14 @@ class CreateWinners {
     }
 
     public renderDataOfWinners(data: any) {
+        console.log(data);
         /* console.log('data', data); */
+        /* console.log(data); */
         const element = data.map((item: any) => {
             /* console.log(item.id); */
             return `<tr>
                 <td>${item.id}</td>
-                <td>${svgImage}</td>
+                <td>${this.creater.createSVG(item.color)}</td>
                 <td>${item.name}</td>
                 <td>${item.wins}</td>
                 <td>${item.bestTime}</td>`;

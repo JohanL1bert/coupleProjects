@@ -46,10 +46,9 @@ class API {
         }
     }
 
-    //Testins Нужно подумать куда лучше это вынести
     public async createCar(carObj: Pick<IcreateCar, 'name' | 'color'>) {
         try {
-            const response = await fetch(`${this.garage}`, {
+            const response: Response = await fetch(`${this.garage}`, {
                 method: 'POST',
                 cache: 'no-cache',
                 body: JSON.stringify(carObj),
@@ -76,7 +75,7 @@ class API {
 
     public async updateCar(id: number, carObj: Pick<IcreateCar, 'name' | 'color'>) {
         try {
-            const response = await fetch(`${this.garage}/${id}`, {
+            const response: Response = await fetch(`${this.garage}/${id}`, {
                 method: 'PUT',
                 cache: 'no-cache',
                 body: JSON.stringify(carObj),
@@ -97,7 +96,7 @@ class API {
 
     public async getCars(page: number) {
         try {
-            const response = await fetch(`${this.garage}?_id=&_limit=${page}`, {
+            const response: Response = await fetch(`${this.garage}?_id=&_limit=${page}`, {
                 method: 'GET',
                 cache: 'no-cache',
             });
@@ -114,7 +113,7 @@ class API {
 
     public async getStartEngined(id: number) {
         try {
-            const response = await fetch(`${this.engine}/?id=${id}&status=started`, {
+            const response: Response = await fetch(`${this.engine}/?id=${id}&status=started`, {
                 method: 'PATCH',
                 cache: 'no-cache',
             });
@@ -131,7 +130,7 @@ class API {
 
     public async driveMode(id: number) {
         try {
-            const response = await fetch(`${this.engine}?id=${id}&status=drive`, {
+            const response: Response = await fetch(`${this.engine}?id=${id}&status=drive`, {
                 method: 'PATCH',
                 cache: 'no-cache',
             });
@@ -147,7 +146,7 @@ class API {
 
     public async getStopEngined(id: number) {
         try {
-            const response = await fetch(`${this.engine}?id=${id}&status=stopped`, {
+            const response: Response = await fetch(`${this.engine}?id=${id}&status=stopped`, {
                 method: 'PATCH',
                 cache: 'no-cache',
                 body: JSON.stringify(id),
@@ -168,7 +167,7 @@ class API {
 
     public async getCar(id: number) {
         try {
-            const response = await fetch(`${this.garage}/${id}`, {
+            const response: Response = await fetch(`${this.garage}/${id}`, {
                 method: 'GET',
             });
             const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
@@ -184,7 +183,7 @@ class API {
 
     public async removeCar(id: number) {
         try {
-            const response = await fetch(`${this.garage}/${id}`, {
+            const response: Response = await fetch(`${this.garage}/${id}`, {
                 method: 'DELETE',
             });
             const res = (await this.errorHandler(response)) as IcreateCar; //Переписать
@@ -206,7 +205,7 @@ export class AdvancedApi extends API {
 
     public async getWinners(sort: string, order: string) {
         try {
-            const response = await fetch(`${this.winners}?_sort=${sort}&_order=${order}`, {
+            const response: Response = await fetch(`${this.winners}?_sort=${sort}&_order=${order}`, {
                 method: 'GET',
             });
             const res = (await this.errorHandler(response)) as IWinner[];
@@ -222,7 +221,7 @@ export class AdvancedApi extends API {
 
     public async createWinner({ id, wins, time }: IWinner) {
         try {
-            const response = await fetch(`${this.winners}`, {
+            const response: Response = await fetch(`${this.winners}`, {
                 method: 'POST',
                 body: JSON.stringify({ id, wins, time }),
                 headers: {
@@ -242,7 +241,7 @@ export class AdvancedApi extends API {
 
     public async updateWinner({ id, wins, time }: IWinner) {
         try {
-            const response = await fetch(`${this.winners}/${id}`, {
+            const response: Response = await fetch(`${this.winners}/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify({ wins, time }),
                 headers: {

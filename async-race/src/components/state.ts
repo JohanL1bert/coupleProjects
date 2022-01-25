@@ -2,6 +2,9 @@ import { IcreateCar, ICurrentData } from './interfaces/interface';
 
 export class StateManager {
     mainObject: {
+        flagWinner: boolean;
+        flagTime: boolean;
+        currentWinner: Array<string>;
         currentData: ICurrentData;
         selectedCar: number;
         initialRender: number;
@@ -26,6 +29,9 @@ export class StateManager {
     modelsCars: Array<string>;
     constructor() {
         this.mainObject = {
+            flagWinner: true,
+            flagTime: true,
+            currentWinner: [],
             currentData: {
                 garageCount: 4,
                 pageCount: 1,

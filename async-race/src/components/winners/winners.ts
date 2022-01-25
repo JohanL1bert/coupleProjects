@@ -1,5 +1,5 @@
 import { UpdateManager } from '../routing';
-import { TArrayClassName } from '../interfaces/interface';
+import { ITableObject, TArrayClassName } from '../interfaces/interface';
 import { StateManager } from '../state';
 
 class CreateWinners {
@@ -52,17 +52,21 @@ class CreateWinners {
 
         trElement.append(...arrayOfTh);
         const arrayEl = document.querySelectorAll('th');
+        const getLast = arrayEl.length - 1;
+        const getPrev = arrayEl.length - 2;
+
+        const createI = this.creater.createHTMLElement('i', ['th__sort']);
+        const newCreator = createI.cloneNode();
+
         const toArray = Array.from(arrayEl);
         this.creater.AddTextContentMultiple(toArray, ['Number', 'Car', 'Name', 'Winner', 'Best Time (second)']);
         this.creater.appendToChild(tableElement, tbodyElement);
+        arrayEl[getPrev].appendChild(createI);
+        arrayEl[getLast].appendChild(newCreator);
     }
 
-    public renderDataOfWinners(data: any) {
-        console.log(data);
-        /* console.log('data', data); */
-        /* console.log(data); */
-        const element = data.map((item: any) => {
-            /* console.log(item.id); */
+    public renderDataOfWinners(data: ITableObject[]) {
+        const element = data.map((item) => {
             return `<tr>
                 <td>${item.id}</td>
                 <td>${this.creater.createSVG(item.color)}</td>
@@ -72,8 +76,8 @@ class CreateWinners {
         });
 
         const getTBody = document.querySelector('tbody') as HTMLElement;
-        const destArr: any = [...element];
-        getTBody.innerHTML = destArr;
+        const destArr = [...element];
+        getTBody.innerHTML = String(destArr);
     }
 }
 

@@ -145,7 +145,8 @@ class Manager {
 
     private referecneEventRaceCar = () => {
         (() => {
-            const distanceElement = this.getDistanceBeetwenElement() - 20;
+            const car = document.querySelector('.car') as HTMLElement;
+            const distanceElement = this.getDistanceBeetwenElement(car) - 20;
             const svg: NodeListOf<Element> = document.querySelectorAll('svg');
 
             const arayOfNumbers: Array<{ element: SVGElement; number: number }> = [];
@@ -252,14 +253,13 @@ class Manager {
         };
     }
 
-    public getDistanceBeetwenElement() {
-        const car = document.querySelector('svg') as unknown;
-        const finish = document.querySelector('.car__finish') as HTMLElement;
+    public getDistanceBeetwenElement(parentELement: HTMLElement) {
+        console.log(parentELement);
+        const car = parentELement.querySelector('svg') as unknown;
+        const finish = parentELement.querySelector('.car__finish') as HTMLElement;
         const carElement = car as HTMLElement;
         const CarPosition = this.getPosition(carElement);
-        /*         console.log('carPosition', CarPosition); */
         const FinishPosition = this.getPosition(finish);
-        /* console.log('finish', FinishPosition); */
 
         return Math.hypot(CarPosition.x - FinishPosition.x, CarPosition.y - FinishPosition.y);
     }
@@ -299,7 +299,7 @@ class Manager {
         const element = event.target as HTMLElement;
         const value = element.closest('.car') as HTMLElement;
         const number = value?.getAttribute('data-value');
-        const distanceElement = this.getDistanceBeetwenElement() - 20;
+        const distanceElement = this.getDistanceBeetwenElement(value) - 20;
 
         let flag = true;
         const dataSetLikeNumber = Number(number);

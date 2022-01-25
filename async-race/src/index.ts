@@ -7,13 +7,14 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, IWinner, TColorText, TVelocity } from './components/interfaces/interface';
-
-let globalVariable = 0;
-const winner = true;
-let isWinRace = 0;
-let toggleSortWinner = true;
-let toggleTime = true;
+import {
+    IcreateCar,
+    IWinner,
+    TColorText,
+    TVelocity,
+    ITableObject,
+    TDriveMode,
+} from './components/interfaces/interface';
 
 class Manager {
     updateManager: UpdateManager;
@@ -25,6 +26,9 @@ class Manager {
     templateName: string;
     templateNameUpdate: string;
     templateUpdateColor: string;
+    toggleTime: boolean;
+    toggleSortWinner: boolean;
+    globalIdAnimation: number;
     constructor(
         updateManager: UpdateManager,
         garagePage: Garage,
@@ -41,6 +45,9 @@ class Manager {
         this.templateName = 'input__name';
         this.templateNameUpdate = 'input__update';
         this.templateUpdateColor = 'update__color';
+        this.toggleTime = true;
+        this.toggleSortWinner = true;
+        this.globalIdAnimation = 0;
     }
 
     private filterState(id: number) {
@@ -166,7 +173,7 @@ class Manager {
                 const id = this.startAnimation(element, timeSeconds, distanceElement, Number(number));
                 const { success } = (await this.api.driveMode(Number(number))) as { success: boolean };
                 if (success === false) {
-                    window.cancelAnimationFrame(globalVariable);
+                    window.cancelAnimationFrame(this.globalIdAnimation);
                 } else {
                     if (flag === true) {
                         flag = false;
@@ -200,7 +207,6 @@ class Manager {
     }
 
     private referenceEventResetCar = () => {
-        void this.api.raceResetCar();
         this.returnToPositionAll();
         const spanWinner = this.updateManager.getHTMLElement('span__winner');
         spanWinner.innerHTML = '';
@@ -269,8 +275,7 @@ class Manager {
     }
 
     public startAnimation(element: SVGElement, time: number, distanceElement: number, num: number) {
-        let start: any = null;
-        let indexAnimation;
+        let start: number | null = null;
         const doAnimation = (timeStomp: number) => {
             if (!start) start = timeStomp;
             const getTime = timeStomp - start;
@@ -280,13 +285,13 @@ class Manager {
 
             element.style.transform = `translateX(${getVal}px`;
             if (passed < distanceElement) {
-                globalVariable = requestAnimationFrame(doAnimation);
-            } else {
+                this.globalIdAnimation = requestAnimationFrame(doAnimation);
+            } /* else {
                 if (winner === true) {
                     isWinRace = num;
                     JSON.stringify(isWinRace);
                 }
-            }
+            } */
         };
         const id = requestAnimationFrame(doAnimation);
     }
@@ -308,13 +313,13 @@ class Manager {
         let flag = true;
         const dataSetLikeNumber = Number(number);
         void (async () => {
-            const svg = value.querySelector('svg') as SVGElement;
+            const svg = <SVGElement>value.querySelector('svg');
             const { velocity, distance } = (await this.api.getStartEngined(Number(number))) as TVelocity;
             const timeSeconds = Math.round(distance / velocity);
             const id = this.startAnimation(svg, timeSeconds, distanceElement, Number(number));
-            const { success } = (await this.api.driveMode(dataSetLikeNumber)) as { success: boolean };
+            const { success } = (await this.api.driveMode(dataSetLikeNumber)) as TDriveMode;
             if (success === false) {
-                window.cancelAnimationFrame(globalVariable);
+                window.cancelAnimationFrame(this.globalIdAnimation);
             } else {
                 if (flag === true) {
                     flag = false;
@@ -357,7 +362,7 @@ class Manager {
                 const svg = value.querySelector('svg') as SVGElement;
                 svg.style.transform = `translateX(${0}px`;
                 this.api.getStopEngined(Number(number)).catch((err: Error) => console.warn(err));
-                cancelAnimationFrame(globalVariable);
+                cancelAnimationFrame(this.globalIdAnimation);
                 const spanWinner = this.updateManager.getHTMLElement('span__winner');
                 spanWinner.innerHTML = '';
             });
@@ -404,10 +409,10 @@ class Manager {
         const templateString = 'input__color';
         const getColorValue = this.updateManager.getHTMLElement(templateString);
 
-        getColorValue.addEventListener('change', () => {
+        /*         getColorValue.addEventListener('change', () => {
             const hexColor = this.updateManager.getColorFromInput(templateString);
             const colorRgb = this.updateManager.hexToRgbColor(hexColor);
-        });
+        }); */
     }
 
     public EventInputUpdateColor() {
@@ -436,7 +441,7 @@ class Manager {
         });
     }
 
-    private refereRenderPageGarage = (event: PointerEvent) => {
+    private refereRenderPageGarage = () => {
         this.garagePage.renderPageWithRemove();
         this.getSettingListener();
         const { cars } = this.state.mainObject.currentData;
@@ -457,7 +462,6 @@ class Manager {
     }
 
     public getDataFromGarage() {
-        const garage = this.updateManager.getHTMLElement('garage__count');
         const page = this.updateManager.getHTMLElement('garage__page__count');
         const cars = this.updateManager.getAllHTMLElement('car');
 
@@ -482,10 +486,10 @@ class Manager {
         return obj.filter((item: IWinner) => item.id !== 0);
     }
 
-    private sortByWinners(winners: IWinner[], cars: any) {
-        const data: any = [];
+    private sortByWinners(winners: IWinner[], cars: IcreateCar[]) {
+        const data: ITableObject[] = [];
         winners.map((winItem) => {
-            cars.map((carItem: any) => {
+            cars.map((carItem) => {
                 if (winItem.id === carItem.id) {
                     data.push({
                         id: winItem.id,
@@ -505,7 +509,6 @@ class Manager {
         this.winnersPage.renderWinners();
         const objWinners = this.state.mainObject.winners;
         this.winnerListener();
-        /* console.log(objWinners); */
         this.filterStateWinners(objWinners);
         const callback = async () => {
             const sortBy = 'id';
@@ -524,46 +527,64 @@ class Manager {
         bntWinnerPage.addEventListener('click', this.referencePageWinner);
     }
 
-    private winnerSoryByWins = () => {
+    private changeArrow(value: HTMLElement, toggle: boolean, flag: string) {
+        let iElement = value;
+        if (!value.classList.contains('th__sort')) {
+            iElement = value.querySelector('.th__sort') as HTMLElement;
+        }
+        if (!toggle) {
+            flag === 'win' ? (this.state.mainObject.flagWinner = true) : (this.state.mainObject.flagTime = true);
+            iElement.style.transform = `rotate(${45}deg`;
+        } else {
+            flag === 'win' ? (this.state.mainObject.flagWinner = false) : (this.state.mainObject.flagTime = false);
+            iElement.style.transform = `rotate(${225}deg`;
+        }
+    }
+
+    private winnerSoryByWins = (event: PointerEvent) => {
+        const toggleFlag = this.state.mainObject.flagWinner;
         const callback = async () => {
-            if (toggleSortWinner) {
+            const value = event.target as HTMLElement;
+            this.changeArrow(value, toggleFlag, 'win');
+
+            if (this.toggleSortWinner) {
                 const winnersBy = (await this.api.getWinners('wins', 'ASC')) as IWinner[];
-                /*  console.log('sortByASc', winnersBy) */ const getLen = winnersBy?.length;
-                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
-                const data = this.sortByWinners(winnersBy, getCars);
-                this.winnersPage.renderDataOfWinners(data);
-                toggleSortWinner = false;
-            } else {
-                const winnersBy = (await this.api.getWinners('wins', 'DESC')) as IWinner[];
-                /* console.log('winnerBy Desc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
                 this.winnersPage.renderDataOfWinners(data);
-                toggleSortWinner = true;
+                this.toggleSortWinner = false;
+            } else {
+                const winnersBy = (await this.api.getWinners('wins', 'DESC')) as IWinner[];
+                const getLen = winnersBy?.length;
+                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
+                const data = this.sortByWinners(winnersBy, getCars);
+                this.winnersPage.renderDataOfWinners(data);
+                this.toggleSortWinner = true;
             }
         };
         void callback();
     };
 
-    private winnerSortByBestTime = () => {
+    private winnerSortByBestTime = (event: PointerEvent) => {
+        const toggleFlag = this.state.mainObject.flagTime;
         const callback = async () => {
-            if (toggleTime) {
+            const value = event.target as HTMLElement;
+            this.changeArrow(value, toggleFlag, 'time');
+            if (this.toggleTime) {
                 const winnersBy = (await this.api.getWinners('time', 'ASC')) as IWinner[];
-                /*  console.log('sortByASc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
                 this.winnersPage.renderDataOfWinners(data);
-                toggleTime = false;
+                this.toggleTime = false;
             } else {
                 const winnersBy = (await this.api.getWinners('time', 'DESC')) as IWinner[];
-                /* console.log('winnerBy Desc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
                 this.winnersPage.renderDataOfWinners(data);
-                toggleTime = true;
+                this.toggleTime = true;
             }
         };
         void callback();
@@ -571,8 +592,8 @@ class Manager {
 
     public winnerListener() {
         const getAllTHElement = document.querySelectorAll('th');
-        getAllTHElement[3].addEventListener('click', this.winnerSoryByWins);
-        getAllTHElement[4].addEventListener('click', this.winnerSortByBestTime);
+        getAllTHElement[3].addEventListener('click', this.winnerSoryByWins as EventListener);
+        getAllTHElement[4].addEventListener('click', this.winnerSortByBestTime as EventListener);
     }
 
     public getCarListner() {
@@ -610,7 +631,6 @@ class Manager {
         try {
             const res = (await this.api.getCars(10000)) as IcreateCar[];
             this.state.mainObject.currentData.garageCount = Number(res.length);
-            /* console.log(this.state.mainObject.currentData); */
             for (const key of res) {
                 this.garagePage.renderCarItem(key);
             }
@@ -654,7 +674,6 @@ const app = new Manager(newApp, garage, winners, getInstanceOfStateManager, api)
 app.root();
 
 console.log(`
-Если есть возможность, то проверьте пожалуйста в среду. Постараюсь допилить еще что-то или пофиксить баги
 Чего нет: 
 1. пагинации на страницах
 2. состояние сохраняется (инпуты), кроме вывески победителя
@@ -664,6 +683,8 @@ console.log(`
 Баги: 
 вроде иногда вылетает листенер таблицы победителей
 Когда идет заезд из 100 машинок, то если перейти на таблиц будет ошибка
+Если запустить все 100 машинок, то победитель определяется очень долго. И после этого таблица может лагать. 
+Таблица иногда груится по 2-4 сек.
 Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
 
 

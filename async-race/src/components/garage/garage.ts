@@ -296,10 +296,12 @@ export class Garage extends CreatorGarage {
     }
 
     public updateGarage() {
-        const { garageCount, pageCount } = this.state.mainObject.currentData;
+        const { garageCount, pageCount, winnerState } = this.state.mainObject.currentData;
         const garage = this.updateManager.getHTMLElement('garage__count');
         garage.textContent = String(`(${garageCount})`);
         const page = this.updateManager.getHTMLElement('garage__page__count');
+        const spanWinner = this.updateManager.getHTMLElement('span__winner');
+        spanWinner.textContent = winnerState as string;
         page.textContent = String(`${pageCount}`);
     }
 }

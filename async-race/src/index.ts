@@ -12,6 +12,7 @@ import { IcreateCar, IWinner, TColorText, TVelocity, ICurrentData } from './comp
 let globalVariable = 0;
 const winner = true;
 let isWinRace = 0;
+let toggleSortWinner = true;
 
 class Manager {
     updateManager: UpdateManager;
@@ -173,6 +174,7 @@ class Manager {
                         const wins = 1;
                         const splitData = `${name}, Time: ${time} s`;
                         this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                        this.state.mainObject.currentWinner = [splitData];
                         const isExistInState = this.filterState(id);
                         if (isExistInState === undefined) {
                             await this.api.createWinner({ id, wins, time });
@@ -441,6 +443,8 @@ class Manager {
             }
             this.garagePage.updateGarage();
             this.getAllListener();
+            console.log('in file');
+            console.log(this.state.mainObject.currentData);
             /*             cars.forEach((item) => {
                 const result = this.api.getCar(item);
                 result
@@ -488,7 +492,7 @@ class Manager {
     private splitWinnersData(winners: IWinner[], cars: any) {
         const sortedWinners = winners.sort((a: any, b: any) => a.id - b.id);
         const sortedCars = cars.sort((a: any, b: any) => a.id - b.id);
-        const arrayOfData = sortedCars.map(async (car: any, index: number) => {
+        const arrayOfData = sortedCars.map((car: any, index: number) => {
             if (car.id === sortedWinners[index].id) {
                 return {
                     id: car.id,
@@ -501,12 +505,30 @@ class Manager {
         return arrayOfData;
     }
 
+    private sortByWinners(winners: IWinner[], cars: any) {
+        const data: any = [];
+        winners.map((winItem) => {
+            cars.map((carItem: any) => {
+                if (winItem.id === carItem.id) {
+                    data.push({
+                        id: winItem.id,
+                        name: carItem.name,
+                        wins: winItem.wins,
+                        bestTime: winItem.time,
+                    });
+                }
+            });
+        });
+        return data;
+    }
+
     private referencePageWinner = () => {
         this.getDataFromGarage();
         this.winnersPage.renderWinners();
         const objWinners = this.state.mainObject.winners;
+        this.winnerListener();
         /* console.log(objWinners); */
-        const getWinners = this.filterStateWinners(objWinners);
+        this.filterStateWinners(objWinners);
         const callback = async () => {
             const sortBy = 'id';
             const orderBy = 'ASC';
@@ -522,6 +544,38 @@ class Manager {
     public renderPageWinner() {
         const bntWinnerPage = this.updateManager.getHTMLElement('navigation__winners');
         bntWinnerPage.addEventListener('click', this.referencePageWinner);
+    }
+
+    private winnerSoryByWins = () => {
+        console.log(toggleSortWinner);
+        const callback = async () => {
+            if (toggleSortWinner) {
+                const winnersBy = (await this.api.getWinners('wins', 'ASC')) as IWinner[];
+                console.log('sortByASc', winnersBy);
+                const getLen = winnersBy?.length;
+                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
+                const data = this.sortByWinners(winnersBy, getCars);
+                this.winnersPage.renderDataOfWinners(data);
+                toggleSortWinner = false;
+            } else {
+                const winnersBy = (await this.api.getWinners('wins', 'DESC')) as IWinner[];
+                console.log('winnerBy Desc', winnersBy);
+                const getLen = winnersBy?.length;
+                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
+                const data = this.sortByWinners(winnersBy, getCars);
+                this.winnersPage.renderDataOfWinners(data);
+                toggleSortWinner = true;
+            }
+        };
+        void callback();
+    };
+
+    private winnerSortByBestTime() {}
+
+    public winnerListener() {
+        const getAllTHElement = document.querySelectorAll('th');
+        getAllTHElement[3].addEventListener('click', this.winnerSoryByWins);
+        getAllTHElement[4].addEventListener('click', this.winnerSortByBestTime);
     }
 
     public getCarListner() {
@@ -616,10 +670,11 @@ console.log(`
 
 Баги: вроде иногда вылетает листенер таблицы победителей. 
 Есть баг если делать много запросов, анимация начинает очень медлено работать
-Если кто-то на финише и нажать еще раз заезд, то анимация и гонка не сработают. Нужно всех расставить на начало
 Если вовремя гонки перейти на другую страницу и назад то гараж не отрендерится. Нужно дожидатся пока все приедут
 Изначально 4 байка рендерится из массива из 4 элементов по ид, поэтому если удалить 
 кого-то из 1-4 и перегрузить(не перейти, а именно перегрузить страницу), то байки не отренедирятся. Так как не будет чему
+Есть еще странный баг, что после первого заезда другие байки могут очень медленно двигатся. 
+При этом это фиксится тем, что можно расставить все байки на начало, но можно жать несколько байков и такого не будет
 Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
 
 `);

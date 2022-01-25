@@ -27,8 +27,6 @@ class HTMLManager {
         });
     }
 
-    public classListRemoveFromElement() {}
-
     public appendToChild(elementToAppend: HTMLElement, appendChildElement: HTMLElement) {
         elementToAppend.insertAdjacentElement('beforeend', appendChildElement);
     }
@@ -70,8 +68,6 @@ class HTMLManager {
     public removeChildNode(node: HTMLElement) {
         node.replaceChildren();
     }
-
-    public replaceTwoNode(parent: HTMLElement, child: HTMLElement) {}
 
     public cloneNodeCustom(node: HTMLElement, times: number) {
         const arr: Node[] = [];
@@ -240,10 +236,6 @@ class HTMLManager {
         return rgbColor;
     }
 
-    public changeColor() {
-        const getElement = this.getHTMLElement('car__item');
-    }
-
     private createHeader() {
         const arrayOfTags: Array<string> = ['header', 'div', 'div', 'nav', 'ul', 'li', 'a', 'li', 'a'];
         const arrayOfClassName: TArrayClassName = [
@@ -269,17 +261,6 @@ class HTMLManager {
             liElementWinners,
             aElementWinners,
         ] = this.createHTMLElementArray(arrayOfTags, arrayOfClassName);
-
-        //FIXME: Remove later
-        /*         const headerElement = this.createHTMLElement('header', ['header']);
-        const containerElement = this.createHTMLElement('div', ['container']);
-        const headerInnerElement = this.createHTMLElement('div', ['header__inner']);
-        const navElement = this.createHTMLElement('nav', ['navigation']);
-        const ulElement = this.createHTMLElement('ul', ['navigation__menu']);
-        const liElement = this.createHTMLElement('li', ['navigation__garage']);
-        const aElement = this.createHTMLElement('a', ['navigation__garage__link']);
-        const liElementWinners = this.createHTMLElement('li', ['navigation__winners']);
-        const aElementWinners = this.createHTMLElement('a', ['navigation__winners__link']); */
 
         //textContent
         this.AddTextContentToHTMLElement(aElement, 'Go to Garage');

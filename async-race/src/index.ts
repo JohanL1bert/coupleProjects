@@ -204,6 +204,8 @@ class Manager {
         btnRaceReset.addEventListener('click', () => {
             void this.api.raceResetCar();
             this.returnToPositionAll();
+            const spanWinner = this.updateManager.getHTMLElement('span__winner');
+            spanWinner.innerHTML = '';
         });
     }
 
@@ -354,6 +356,8 @@ class Manager {
                 svg.style.transform = `translateX(${0}px`;
                 this.api.getStopEngined(Number(number)).catch((err: Error) => console.warn(err));
                 cancelAnimationFrame(globalVariable);
+                const spanWinner = this.updateManager.getHTMLElement('span__winner');
+                spanWinner.innerHTML = '';
             });
         });
     }

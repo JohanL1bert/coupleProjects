@@ -145,6 +145,7 @@ class Manager {
 
     private referecneEventRaceCar = () => {
         (() => {
+            console.log('start');
             const car = document.querySelector('.car') as HTMLElement;
             const distanceElement = this.getDistanceBeetwenElement(car) - 20;
             const svg: NodeListOf<Element> = document.querySelectorAll('svg');
@@ -180,11 +181,14 @@ class Manager {
                         this.updateManager.AddTextContentToHTMLElement(element, splitData);
                         this.state.mainObject.currentWinner = [splitData];
                         const isExistInState = this.filterState(id);
+                        console.log('0');
                         if (isExistInState === undefined) {
                             await this.api.createWinner({ id, wins, time });
                             this.state.mainObject.winners.push({ id, wins, time });
+                            console.log('1');
                         } else {
                             isExistInState.wins += 1;
+                            console.log('2');
                             this.filterStateBySpeed(time, isExistInState);
                             await this.api.updateWinner(isExistInState);
                         }
@@ -199,14 +203,16 @@ class Manager {
         btnRaceCar.addEventListener('click', this.referecneEventRaceCar);
     }
 
+    private referenceEventResetCar = () => {
+        void this.api.raceResetCar();
+        this.returnToPositionAll();
+        const spanWinner = this.updateManager.getHTMLElement('span__winner');
+        spanWinner.innerHTML = '';
+    };
+
     public EventResetCar() {
         const btnRaceReset = this.updateManager.getHTMLElement('race__reset');
-        btnRaceReset.addEventListener('click', () => {
-            void this.api.raceResetCar();
-            this.returnToPositionAll();
-            const spanWinner = this.updateManager.getHTMLElement('span__winner');
-            spanWinner.innerHTML = '';
-        });
+        btnRaceReset.addEventListener('click', this.referenceEventResetCar);
     }
 
     private refereceEventGenerateManyCar = (event: PointerEvent) => {
@@ -330,8 +336,8 @@ class Manager {
                         this.state.mainObject.winners.push({ id, wins, time });
                     } else {
                         isExistInState.wins += 1;
-                        this.filterStateBySpeed(time, isExistInState);
-                        await this.api.updateWinner(isExistInState);
+                        const newSpeedData = this.filterStateBySpeed(time, isExistInState);
+                        await this.api.updateWinner(newSpeedData);
                     }
                 }
             }
@@ -659,9 +665,8 @@ console.log(`
 3. Кнопки не дисейблится когда идет анимация
 4. Есть возможность остановить движения, но тогда байк попадает сразу в начальное положения
 
-Баги: вроде иногда вылетает листенер таблицы победителей. 
-Есть еще странный баг, что после первого заезда другие байки могут очень медленно двигатся. 
-При этом это фиксится тем, что можно расставить все байки на начало, но можно жать несколько байков и такого не будет
+Баги: 
+вроде иногда вылетает листенер таблицы победителей
 Когда идет заезд из 100 машинок, то если перейти на таблиц будет ошибка
 Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
 

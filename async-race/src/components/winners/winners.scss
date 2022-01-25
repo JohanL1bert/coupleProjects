@@ -7,7 +7,30 @@
     margin-left: 100px;
 }
 
+th {
+    width: 200px;
+    height: 50px;
+    &:nth-child(4) {
+        cursor: pointer;
+    }
+    &:nth-child(5) {
+        cursor: pointer;
+    }
+}
+
+.th__sort {
+    content: '';
+    position: relative;
+    left: 20px;
+    display: inline-block;
+    border: solid #0f0f0e;
+    border-width: 0 3px 3px 0;
+    padding: 4px;
+    transform: rotate(45deg);
+}
+
 td {
     text-align: center;
     vertical-align: middle;
+    color: white;
 }

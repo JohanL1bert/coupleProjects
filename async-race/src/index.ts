@@ -13,6 +13,7 @@ let globalVariable = 0;
 const winner = true;
 let isWinRace = 0;
 let toggleSortWinner = true;
+let toggleTime = true;
 
 class Manager {
     updateManager: UpdateManager;
@@ -546,8 +547,9 @@ class Manager {
         bntWinnerPage.addEventListener('click', this.referencePageWinner);
     }
 
+    private winnerSortByBest = () => {};
+
     private winnerSoryByWins = () => {
-        console.log(toggleSortWinner);
         const callback = async () => {
             if (toggleSortWinner) {
                 const winnersBy = (await this.api.getWinners('wins', 'ASC')) as IWinner[];
@@ -570,7 +572,28 @@ class Manager {
         void callback();
     };
 
-    private winnerSortByBestTime() {}
+    private winnerSortByBestTime = () => {
+        const callback = async () => {
+            if (toggleTime) {
+                const winnersBy = (await this.api.getWinners('time', 'ASC')) as IWinner[];
+                console.log('sortByASc', winnersBy);
+                const getLen = winnersBy?.length;
+                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
+                const data = this.sortByWinners(winnersBy, getCars);
+                this.winnersPage.renderDataOfWinners(data);
+                toggleTime = false;
+            } else {
+                const winnersBy = (await this.api.getWinners('time', 'DESC')) as IWinner[];
+                console.log('winnerBy Desc', winnersBy);
+                const getLen = winnersBy?.length;
+                const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
+                const data = this.sortByWinners(winnersBy, getCars);
+                this.winnersPage.renderDataOfWinners(data);
+                toggleTime = true;
+            }
+        };
+        void callback();
+    };
 
     public winnerListener() {
         const getAllTHElement = document.querySelectorAll('th');

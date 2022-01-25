@@ -52,3 +52,7 @@ export interface ITableObject extends IcreateCar {
     wins: number;
     bestTime: number;
 }
+
+export type TDriveMode = {
+    success: boolean;
+};

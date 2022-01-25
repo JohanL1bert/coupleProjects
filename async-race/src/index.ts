@@ -7,7 +7,7 @@ import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
 import { AdvancedApi } from './components/API/api';
-import { IcreateCar, IWinner, TColorText, TVelocity, ICurrentData } from './components/interfaces/interface';
+import { IcreateCar, IWinner, TColorText, TVelocity } from './components/interfaces/interface';
 
 let globalVariable = 0;
 const winner = true;
@@ -233,10 +233,6 @@ class Manager {
         const value = element.closest('.car');
         const number = value?.getAttribute('data-value');
         this.state.mainObject.selectedCar = Number(number);
-        /*         this.api
-            .getStartEngined(Number(number))
-            .then((value) => console.log(value))
-            .catch((err: Error) => err.message); */
     };
 
     public EventSelectCar() {
@@ -490,22 +486,6 @@ class Manager {
         return obj.filter((item: IWinner) => item.id !== 0);
     }
 
-    private splitWinnersData(winners: IWinner[], cars: any) {
-        const sortedWinners = winners.sort((a: any, b: any) => a.id - b.id);
-        const sortedCars = cars.sort((a: any, b: any) => a.id - b.id);
-        const arrayOfData = sortedCars.map((car: any, index: number) => {
-            if (car.id === sortedWinners[index].id) {
-                return {
-                    id: car.id,
-                    name: car.name,
-                    wins: winners[index].wins,
-                    bestTime: winners[index].time,
-                };
-            }
-        });
-        return arrayOfData;
-    }
-
     private sortByWinners(winners: IWinner[], cars: any) {
         const data: any = [];
         winners.map((winItem) => {
@@ -536,7 +516,7 @@ class Manager {
             const getWinnersData = (await this.api.getWinners(sortBy, orderBy)) as IWinner[];
             const getLen = getWinnersData.length;
             const getCars = (await this.api.getCars(getLen)) as IcreateCar[];
-            const data = this.splitWinnersData(getWinnersData, getCars);
+            const data = this.sortByWinners(getWinnersData, getCars);
             void Promise.all(data).then((value) => this.winnersPage.renderDataOfWinners(value));
         };
         void callback();
@@ -546,8 +526,6 @@ class Manager {
         const bntWinnerPage = this.updateManager.getHTMLElement('navigation__winners');
         bntWinnerPage.addEventListener('click', this.referencePageWinner);
     }
-
-    private winnerSortByBest = () => {};
 
     private winnerSoryByWins = () => {
         const callback = async () => {

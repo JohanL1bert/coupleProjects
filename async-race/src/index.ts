@@ -145,7 +145,6 @@ class Manager {
 
     private referecneEventRaceCar = () => {
         (() => {
-            console.log('start');
             const car = document.querySelector('.car') as HTMLElement;
             const distanceElement = this.getDistanceBeetwenElement(car) - 20;
             const svg: NodeListOf<Element> = document.querySelectorAll('svg');
@@ -181,16 +180,13 @@ class Manager {
                         this.updateManager.AddTextContentToHTMLElement(element, splitData);
                         this.state.mainObject.currentWinner = [splitData];
                         const isExistInState = this.filterState(id);
-                        console.log('0');
                         if (isExistInState === undefined) {
                             await this.api.createWinner({ id, wins, time });
                             this.state.mainObject.winners.push({ id, wins, time });
-                            console.log('1');
                         } else {
                             isExistInState.wins += 1;
-                            console.log('2');
-                            this.filterStateBySpeed(time, isExistInState);
-                            await this.api.updateWinner(isExistInState);
+                            const newSpeedData = this.filterStateBySpeed(time, isExistInState);
+                            await this.api.updateWinner(newSpeedData);
                         }
                     }
                 }

@@ -47,3 +47,8 @@ export interface ICurrentData {
     cars: Array<number>;
     winnerState?: string;
 }
+
+export interface ITableObject extends IcreateCar {
+    wins: number;
+    bestTime: number;
+}

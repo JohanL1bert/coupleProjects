@@ -118,10 +118,6 @@ class API {
         } catch (err) {}
     }
 
-    public async generateCar() {
-        /* const response = await fetch(`${this.baseUrl}`); */
-    }
-
     public async getStartEngined(id: number) {
         try {
             const response = await fetch(`${this.engine}/?id=${id}&status=started`, {
@@ -216,7 +212,7 @@ export class AdvancedApi extends API {
 
     public async getWinners(sort: string, order: string) {
         try {
-            const response = await fetch(`${this.winners}?_sort${sort}=&_order${order}`, {
+            const response = await fetch(`${this.winners}?_sort=${sort}&_order=${order}`, {
                 method: 'GET',
             });
             const res = (await this.errorHandler(response)) as IWinner[];

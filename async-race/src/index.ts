@@ -105,40 +105,42 @@ class Manager {
         btnCreateCar.addEventListener('click', this.refereceEventCar);
     }
 
+    private referenceUpdateButton = () => {
+        const textContent = this.updateManager.getInputFromInput(this.templateNameUpdate);
+        const getColor = this.updateManager.getColorFromInput(this.templateUpdateColor);
+        const carObj: TColorText = {
+            name: textContent,
+            color: getColor,
+        };
+
+        this.state.mainObject.updateColorName = {
+            name: textContent,
+            color: getColor,
+        };
+
+        const id = this.state.mainObject.selectedCar;
+        const element = document.querySelector(`[data-value="${id}"]`);
+        if (element === null || element === undefined) {
+            return;
+        }
+
+        const parent = this.updateManager.getHTMLElement('garage__items');
+
+        this.api
+            .updateCar(id, carObj)
+            .then((value) => this.api.errorHandlerUndefined(value))
+            .then((value) => {
+                this.garagePage.renderCarItem(value);
+                const lastChild = parent.lastElementChild as HTMLElement;
+                parent.replaceChild(lastChild, element);
+            })
+            .then((_) => this.getCarListner())
+            .catch((err: Error) => err);
+    };
+
     public EventUpdateCar() {
         const btnUpdateCar = this.updateManager.getHTMLElement('update__button');
-        btnUpdateCar.addEventListener('click', () => {
-            const textContent = this.updateManager.getInputFromInput(this.templateNameUpdate);
-            const getColor = this.updateManager.getColorFromInput(this.templateUpdateColor);
-            const carObj: TColorText = {
-                name: textContent,
-                color: getColor,
-            };
-
-            this.state.mainObject.updateColorName = {
-                name: textContent,
-                color: getColor,
-            };
-
-            const id = this.state.mainObject.selectedCar;
-            const element = document.querySelector(`[data-value="${id}"]`);
-            if (element === null || element === undefined) {
-                return;
-            }
-
-            const parent = this.updateManager.getHTMLElement('garage__items');
-
-            this.api
-                .updateCar(id, carObj)
-                .then((value) => this.api.errorHandlerUndefined(value))
-                .then((value) => {
-                    this.garagePage.renderCarItem(value);
-                    const lastChild = parent.lastElementChild as HTMLElement;
-                    parent.replaceChild(lastChild, element);
-                })
-                .then((_) => this.getCarListner())
-                .catch((err: Error) => err);
-        });
+        btnUpdateCar.addEventListener('click', this.referenceUpdateButton);
     }
 
     private referecneEventRaceCar = () => {
@@ -440,19 +442,7 @@ class Manager {
             }
             this.garagePage.updateGarage();
             this.getAllListener();
-            console.log('in file');
-            console.log(this.state.mainObject.currentData);
-            /*             cars.forEach((item) => {
-                const result = this.api.getCar(item);
-                result
-                    .then((value) => this.api.errorHandlerUndefined(value))
-                    .then((item) => this.garagePage.renderCarItem(item))
-                    .catch((err: Error) => console.warn(err));
-            }); */
         })();
-        /*         this.garagePage.updateGarage();
-        this.getAllListener(); */
-        /* this.getCarListner(); */
     };
 
     public renderPageGarage() {
@@ -531,15 +521,14 @@ class Manager {
         const callback = async () => {
             if (toggleSortWinner) {
                 const winnersBy = (await this.api.getWinners('wins', 'ASC')) as IWinner[];
-                console.log('sortByASc', winnersBy);
-                const getLen = winnersBy?.length;
+                /*  console.log('sortByASc', winnersBy) */ const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
                 this.winnersPage.renderDataOfWinners(data);
                 toggleSortWinner = false;
             } else {
                 const winnersBy = (await this.api.getWinners('wins', 'DESC')) as IWinner[];
-                console.log('winnerBy Desc', winnersBy);
+                /* console.log('winnerBy Desc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
@@ -554,7 +543,7 @@ class Manager {
         const callback = async () => {
             if (toggleTime) {
                 const winnersBy = (await this.api.getWinners('time', 'ASC')) as IWinner[];
-                console.log('sortByASc', winnersBy);
+                /*  console.log('sortByASc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
@@ -562,7 +551,7 @@ class Manager {
                 toggleTime = false;
             } else {
                 const winnersBy = (await this.api.getWinners('time', 'DESC')) as IWinner[];
-                console.log('winnerBy Desc', winnersBy);
+                /* console.log('winnerBy Desc', winnersBy); */
                 const getLen = winnersBy?.length;
                 const getCars = (await this.api.getCars(Number(getLen))) as IcreateCar[];
                 const data = this.sortByWinners(winnersBy, getCars);
@@ -610,16 +599,15 @@ class Manager {
         this.EventInputCreateColor();
     }
 
-    public preloadCarItem() {
+    public async preloadCarItem() {
         try {
-            const arr: Array<number> = [1, 2, 3, 4];
-            const arrObj: Promise<IcreateCar>[] = arr.map(async (item) => {
-                const res = await this.api.getCar(item);
-                const getObj = this.api.errorHandlerUndefined(res);
-                this.garagePage.renderCarItem(getObj);
-                return getObj;
-            });
-            Promise.all(arrObj)
+            const res = (await this.api.getCars(10000)) as IcreateCar[];
+            this.state.mainObject.currentData.garageCount = Number(res.length);
+            console.log(this.state.mainObject.currentData);
+            for (const key of res) {
+                this.garagePage.renderCarItem(key);
+            }
+            Promise.all(res)
                 .then((_) => {
                     this.renderPageGarage();
                     this.renderPageWinner();
@@ -640,8 +628,7 @@ class Manager {
             this.garagePage.renderGarageUpdate();
             this.garagePage.renderGarageSettingsBtn();
             this.garagePage.renderCarGarage();
-            this.garagePage.updateGarage();
-            this.preloadCarItem();
+            void this.preloadCarItem().then((_) => this.garagePage.updateGarage()); //initial render state
         });
     }
 
@@ -660,22 +647,18 @@ const app = new Manager(newApp, garage, winners, getInstanceOfStateManager, api)
 app.root();
 
 console.log(`
-Если есть возможность, то проверьте в среду. Постараюсь допилить таблицу полностью
+Если есть возможность, то проверьте пожалуйста в среду. Постараюсь допилить еще что-то или пофиксить баги
 Чего нет: 
 1. пагинации на страницах
 2. состояние сохраняется (инпуты), кроме вывески победителя
-3. Удаления пока не удаляет из таблицы победителей
-4. Кнопки не дисейблится когда идет анимация
-5. Нет возможности сортировать таблицу
-6. Есть возможность остановить движения, но тогда байк попадает сразу в начальное положения
+3. Кнопки не дисейблится когда идет анимация
+4. Есть возможность остановить движения, но тогда байк попадает сразу в начальное положения
 
 Баги: вроде иногда вылетает листенер таблицы победителей. 
-Есть баг если делать много запросов, анимация начинает очень медлено работать
-Если вовремя гонки перейти на другую страницу и назад то гараж не отрендерится. Нужно дожидатся пока все приедут
-Изначально 4 байка рендерится из массива из 4 элементов по ид, поэтому если удалить 
-кого-то из 1-4 и перегрузить(не перейти, а именно перегрузить страницу), то байки не отренедирятся. Так как не будет чему
 Есть еще странный баг, что после первого заезда другие байки могут очень медленно двигатся. 
 При этом это фиксится тем, что можно расставить все байки на начало, но можно жать несколько байков и такого не будет
+Когда идет заезд из 100 машинок, то если перейти на таблиц будет ошибка
 Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
+
 
 `);

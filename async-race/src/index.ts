@@ -29,6 +29,9 @@ class Manager {
     toggleTime: boolean;
     toggleSortWinner: boolean;
     globalIdAnimation: number;
+    allAnimation: number[];
+    checkerStop: boolean;
+    checkerStopAll: boolean;
     constructor(
         updateManager: UpdateManager,
         garagePage: Garage,
@@ -48,6 +51,9 @@ class Manager {
         this.toggleTime = true;
         this.toggleSortWinner = true;
         this.globalIdAnimation = 0;
+        this.allAnimation = [];
+        this.checkerStop = false;
+        this.checkerStopAll = false;
     }
 
     private filterState(id: number) {
@@ -184,6 +190,14 @@ class Manager {
                         const time = timeSeconds / 1000;
                         const wins = 1;
                         const splitData = `${name}, Time: ${time} s`;
+                        if (this.checkerStopAll === true) {
+                            this.updateManager.AddTextContentToHTMLElement(element, '');
+                            this.checkerStopAll = false;
+                        } else {
+                            this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                            this.state.mainObject.currentWinner = [splitData];
+                            this.checkerStopAll = false;
+                        }
                         this.updateManager.AddTextContentToHTMLElement(element, splitData);
                         this.state.mainObject.currentWinner = [splitData];
                         const isExistInState = this.filterState(id);
@@ -207,7 +221,8 @@ class Manager {
     }
 
     private referenceEventResetCar = () => {
-        cancelAnimationFrame(this.globalIdAnimation);
+        this.checkerStopAll = true;
+        this.allAnimation.forEach((item) => cancelAnimationFrame(item));
         this.returnToPositionAll();
         const spanWinner = this.updateManager.getHTMLElement('span__winner');
         spanWinner.innerHTML = '';
@@ -294,6 +309,8 @@ class Manager {
             element.style.transform = `translateX(${getVal}px`;
             if (passed < distanceElement) {
                 this.globalIdAnimation = requestAnimationFrame(doAnimation);
+                const value = this.globalIdAnimation;
+                this.allAnimation.push(value);
             }
         };
         const id = requestAnimationFrame(doAnimation);
@@ -333,7 +350,16 @@ class Manager {
                     const time = timeSeconds / 1000;
                     const wins = 1;
                     const splitData = `${name}, Time: ${time} s`;
-                    this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                    if (this.checkerStop === true) {
+                        /* console.log('1'); */
+                        this.updateManager.AddTextContentToHTMLElement(element, '');
+                        this.checkerStop = false;
+                    } else {
+                        /* console.log('2'); */
+                        this.updateManager.AddTextContentToHTMLElement(element, splitData);
+                        this.checkerStop = false;
+                    }
+                    /* this.updateManager.AddTextContentToHTMLElement(element, splitData); */
                     const isExistInState = this.filterState(id);
                     if (isExistInState === undefined) {
                         await this.api.createWinner({ id, wins, time });
@@ -359,6 +385,7 @@ class Manager {
         const getBtnCarToPrevPosition = this.updateManager.getAllHTMLElement('car__back');
         getBtnCarToPrevPosition.forEach((item) => {
             item.addEventListener('click', (event: Event) => {
+                this.checkerStop = true;
                 const element = event.target as HTMLElement;
                 const value = element.closest('.car') as HTMLElement;
                 const number = value.dataset.value;
@@ -377,11 +404,9 @@ class Manager {
         getBtnCarRemove.forEach((item) => {
             item.addEventListener('click', () => {
                 //FIXME: порефакторить
-                /*                 console.log('eventRemovCar', item); */
                 const value = item.closest('.car');
                 const number = value?.getAttribute('data-value');
                 const id = Number(number);
-                /*  console.log('id', id); */
                 this.api.removeCar(id).catch((err: Error) => err.message);
                 const element = document.querySelector(`[data-value="${id}"]`) as HTMLElement;
                 if (element === null || element === undefined) {
@@ -460,24 +485,28 @@ class Manager {
     }
 
     public getDataFromGarage() {
-        const page = this.updateManager.getHTMLElement('garage__page__count');
+        const page = document.querySelector('.garage__page__count');
         const cars = this.updateManager.getAllHTMLElement('car');
 
-        const getPageInfo = page.textContent;
-        const arrayOfId: Array<number> = [];
+        if (page === null) {
+            return;
+        } else {
+            const getPageInfo = page.textContent;
+            const arrayOfId: Array<number> = [];
 
-        cars.forEach((element) => {
-            const el = element as HTMLElement;
-            const value = el.dataset.value;
-            arrayOfId.push(Number(value));
-        });
+            cars.forEach((element) => {
+                const el = element as HTMLElement;
+                const value = el.dataset.value;
+                arrayOfId.push(Number(value));
+            });
 
-        const getGarageInfo = cars.length;
-        this.state.mainObject.currentData = {
-            garageCount: Number(getGarageInfo),
-            pageCount: Number(getPageInfo),
-            cars: arrayOfId,
-        };
+            const getGarageInfo = cars.length;
+            this.state.mainObject.currentData = {
+                garageCount: Number(getGarageInfo),
+                pageCount: Number(getPageInfo),
+                cars: arrayOfId,
+            };
+        }
     }
 
     private filterStateWinners(obj: IWinner[]) {
@@ -670,30 +699,3 @@ const garage: Garage = new Garage(newApp, getInstanceOfStateManager);
 const winners: Winners = new Winners(newApp, getInstanceOfStateManager);
 const app = new Manager(newApp, garage, winners, getInstanceOfStateManager, api);
 app.root();
-
-console.log(`
-Из не сделанного полностью/частично
-1. Нет пагинации на страницах: гараж и таблица (-15 баллов)
-2. Состояние сохраняет название и количество машин, сами машины. 
-Не сохраняет: состояния при движении машин, отсортировану таблицу и победителя(сохраняет в таблицу, но не в поле победителя на странице гараж). 
-До конца не уверен. Учитывал ли автор таска все состояния(-5 баллов)
-3. Кнопки не отключается при анимации. Никакие кнопки (-5 баллов)
-4. Остановить глобально все поездки. Когда запускаются несколько машин и по нажатию ресет. На сервер отправляется запрос про остановку, но анимация прекращается только для одной машины
-При этом если запускать каждую машинку отдельно, то анимация и остановка работает.
-Дополнительно. По этому вопросу не знаю. По сути машинки возвращаются назад, но только когда все доедут на финиш(Касается только массового заезда)
-There should be a button to reset race. After user clicks this button all the cars return to it's initial places. (-5 баллов)
-
-Ошибки сервера выбрасываю в console: PUT, PATH, POST etc. Сообственные ошибки - тоже. 
-По сути они будут желтыми и будут иметь описание, наверное. Не обработанные ошибки возможны если какой-то элемент не подловит
-
-Все остальные найденные баги, ошибки и не соответствия с тз оценивать по собственному рассуждению
-
-Баги про которые известно: 
-- когда идет заезд из 100 машинок, то если перейти на таблиц будет ошибка
-- если запустить все 100 машинок, то победитель определяется очень долго. И после этого таблица может лагать. Если количество машин меньше. Примерно 7-15, то вполне нормально. 
-Это главный баг из-за отсуствия пагинации очень долго обрабатывается всё
-- таблица иногда грузится несколько секунд. Зависит от количество машин, которые сгенерились и запустили
-Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
-
-
-`);

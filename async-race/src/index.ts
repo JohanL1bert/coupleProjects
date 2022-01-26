@@ -207,9 +207,17 @@ class Manager {
     }
 
     private referenceEventResetCar = () => {
+        cancelAnimationFrame(this.globalIdAnimation);
         this.returnToPositionAll();
         const spanWinner = this.updateManager.getHTMLElement('span__winner');
         spanWinner.innerHTML = '';
+        const callback = async () => {
+            const allCars = (await this.api.getCars(1000)) as IcreateCar[];
+            for (const key of allCars) {
+                await this.api.getStopEngined(key.id);
+            }
+        };
+        void callback();
     };
 
     public EventResetCar() {
@@ -286,12 +294,7 @@ class Manager {
             element.style.transform = `translateX(${getVal}px`;
             if (passed < distanceElement) {
                 this.globalIdAnimation = requestAnimationFrame(doAnimation);
-            } /* else {
-                if (winner === true) {
-                    isWinRace = num;
-                    JSON.stringify(isWinRace);
-                }
-            } */
+            }
         };
         const id = requestAnimationFrame(doAnimation);
     }
@@ -408,11 +411,6 @@ class Manager {
         //FIXME: Переписать
         const templateString = 'input__color';
         const getColorValue = this.updateManager.getHTMLElement(templateString);
-
-        /*         getColorValue.addEventListener('change', () => {
-            const hexColor = this.updateManager.getColorFromInput(templateString);
-            const colorRgb = this.updateManager.hexToRgbColor(hexColor);
-        }); */
     }
 
     public EventInputUpdateColor() {
@@ -672,20 +670,3 @@ const garage: Garage = new Garage(newApp, getInstanceOfStateManager);
 const winners: Winners = new Winners(newApp, getInstanceOfStateManager);
 const app = new Manager(newApp, garage, winners, getInstanceOfStateManager, api);
 app.root();
-
-console.log(`
-Чего нет: 
-1. пагинации на страницах
-2. состояние сохраняется (инпуты), кроме вывески победителя
-3. Кнопки не дисейблится когда идет анимация
-4. Есть возможность остановить движения, но тогда байк попадает сразу в начальное положения
-
-Баги: 
-вроде иногда вылетает листенер таблицы победителей
-Когда идет заезд из 100 машинок, то если перейти на таблиц будет ошибка
-Если запустить все 100 машинок, то победитель определяется очень долго. И после этого таблица может лагать. 
-Таблица иногда груится по 2-4 сек.
-Остальные если найдите -  пишите. Буду рад фидбеку и подсказам как можно сделать по другому
-
-
-`);

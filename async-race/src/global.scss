@@ -13,8 +13,6 @@ body {
 
 .header {
     height: 100px;
-    &__inner {
-    }
 }
 
 .navigation {
@@ -43,36 +41,21 @@ body {
             font-family: 'Box2';
         }
     }
-    &__link {
-        /*  @include centerButtonText; */
-    }
 }
 
 .main {
     height: 75%;
     display: block;
-    &__border {
-    }
 }
 
 .footer {
     display: block;
     height: 70px;
-    &__inner {
-    }
     &__creator {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-    &__logo {
-    }
-}
-
-.copyright {
-}
-
-.year__create {
 }
 
 .github__link {

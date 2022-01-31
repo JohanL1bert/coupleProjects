@@ -19,8 +19,6 @@
         border-radius: 25px;
     }
     &__settings {
-        &__name {
-        }
     }
     &__wrapper {
         display: flex;
@@ -161,9 +159,6 @@
             box-shadow: colorBoxShadow(rgb(242, 170, 48), rgb(242, 170, 48), rgb(255, 217, 150), rgba(0, 0, 0, 0.2));
         }
         &:active {
-            //rgb(255, 192, 84
-            // rgb(255, 217, 150)
-            // rgb(242, 170, 48)
             box-shadow: colorBoxShadowActive(rgb(255, 192, 84), rgb(255, 217, 150), rgb(242, 170, 48));
         }
     }

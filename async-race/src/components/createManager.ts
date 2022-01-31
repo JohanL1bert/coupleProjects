@@ -357,9 +357,11 @@ export class UpdateManager extends HTMLManager {
     }
 
     public randomColor() {
-        const COLOR_SPECTRUM_UPPER_BOUNDARY = 2e24;
+        const COLOR_MAX_NUMBER = 256;
         const HEX_STRING_RADIX = 16;
-        const randomColor = Math.floor(Math.random() * COLOR_SPECTRUM_UPPER_BOUNDARY).toString(HEX_STRING_RADIX);
+        const randomColor = Math.floor(
+            Math.random() * (COLOR_MAX_NUMBER * COLOR_MAX_NUMBER * COLOR_MAX_NUMBER)
+        ).toString(HEX_STRING_RADIX);
         return '#' + randomColor;
     }
 

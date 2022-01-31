@@ -1,22 +1,16 @@
 @import '../scssSettings/globalSetting.scss';
 
 .garage {
-    &__inner {
-    }
     &__info {
         font-family: 'INVASION2000';
         font-size: 25px;
         padding-left: 25px;
         margin: 10px 0 10px 0;
     }
-    &__count {
-    }
     &__page {
         font-family: 'INVASION2000';
         padding-left: 25px;
         font-size: 25px;
-        &__count {
-        }
     }
     &__border {
         display: block;
@@ -36,8 +30,6 @@
 }
 
 .input {
-    &__color {
-    }
     &__button {
         @include buttonCar;
         &:hover {
@@ -50,8 +42,6 @@
 }
 
 .update {
-    &__color {
-    }
     &__button {
         @include buttonCar;
         &:hover {
@@ -118,8 +108,6 @@
         font-size: 26px;
         margin-left: 20px;
     }
-    &__winner {
-    }
 }
 
 .car {
@@ -173,6 +161,9 @@
             box-shadow: colorBoxShadow(rgb(242, 170, 48), rgb(242, 170, 48), rgb(255, 217, 150), rgba(0, 0, 0, 0.2));
         }
         &:active {
+            //rgb(255, 192, 84
+            // rgb(255, 217, 150)
+            // rgb(242, 170, 48)
             box-shadow: colorBoxShadowActive(rgb(255, 192, 84), rgb(255, 217, 150), rgb(242, 170, 48));
         }
     }

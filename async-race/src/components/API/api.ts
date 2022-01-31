@@ -29,19 +29,7 @@ class API {
             return res.json();
         }
 
-        if (res.status === 404) {
-            throw new Error(res.statusText);
-        }
-
-        if (res.status === 400) {
-            throw new Error(res.statusText);
-        }
-
-        if (res.status === 429) {
-            throw new Error(res.statusText);
-        }
-
-        if (res.status === 500) {
+        if ([400, 404, 429, 500].includes(res.status)) {
             throw new Error(res.statusText);
         }
     }

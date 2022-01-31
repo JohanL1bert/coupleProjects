@@ -4,11 +4,9 @@ import { StateManager } from '../state';
 
 class CreatorGarage {
     updateManager: UpdateManager;
-    baseUrl: string;
     state: StateManager;
     constructor(updateManager: UpdateManager, state: StateManager) {
         this.updateManager = updateManager;
-        this.baseUrl = `http://127.0.0.1:3000`;
         this.state = state;
     }
 

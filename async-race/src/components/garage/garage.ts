@@ -1,4 +1,4 @@
-import { UpdateManager } from '../routing';
+import { UpdateManager } from '../createManager';
 import { TArrayClassName, TCarItem, TGarageSet, TColorText, IcreateCar } from '../interfaces/interface';
 import { StateManager } from '../state';
 

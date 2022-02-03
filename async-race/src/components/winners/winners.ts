@@ -1,4 +1,4 @@
-import { UpdateManager } from '../routing';
+import { UpdateManager } from '../createManager';
 import { ITableObject, TArrayClassName } from '../interfaces/interface';
 import { StateManager } from '../state';
 

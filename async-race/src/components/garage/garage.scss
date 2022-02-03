@@ -18,8 +18,6 @@
         border: 2px solid $full-black-color;
         border-radius: 25px;
     }
-    &__settings {
-    }
     &__wrapper {
         display: flex;
         justify-content: space-between;
@@ -181,7 +179,7 @@
     }
 }
 
-svg {
+.car__svg {
     display: block;
     width: 100px;
     height: 60px;

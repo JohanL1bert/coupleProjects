@@ -2,7 +2,7 @@ import './components/scssSettings/fonts.scss';
 import './components/garage/garage.scss';
 import './components/winners/winners.scss';
 import './global.scss';
-import { UpdateManager } from './components/routing';
+import { UpdateManager } from './components/createManager';
 import { Garage } from './components/garage/garage';
 import { Winners } from './components/winners/winners';
 import { SingletonReproducer, StateManager } from './components/state';
@@ -141,7 +141,7 @@ class Manager {
 
         this.api
             .updateCar(id, carObj)
-            .then((value) => this.api.errorHandlerUndefined(value))
+            .then((value: IcreateCar) => this.api.errorHandlerUndefined(value))
             .then((value) => {
                 this.garagePage.renderCarItem(value);
                 const lastChild = parent.lastElementChild as HTMLElement;

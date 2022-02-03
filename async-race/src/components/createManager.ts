@@ -79,11 +79,11 @@ class HTMLManager {
         return arr;
     }
 
-    public createSVG(color: string) {
+    public createSVG(color: string): string {
         return `<?xml version="1.0" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
          "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+        <svg class="car__svg" version="1.0" xmlns="http://www.w3.org/2000/svg"
          width="100.000000pt" height="100.000000pt" viewBox="0 0 1280.000000 869.000000"
          preserveAspectRatio="xMidYMid meet">
         <metadata>
@@ -243,7 +243,7 @@ class HTMLManager {
             ['container'],
             ['header__inner'],
             ['navigation'],
-            ['navigation__menu'],
+            ['navigation__inner'],
             ['navigation__garage'],
             ['navigation__garage__link'],
             ['navigation__winners'],

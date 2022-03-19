@@ -63,7 +63,7 @@ class Router {
     }
 
     public defaultRender() {
-        this.toysPage.prerender().catch((err) => console.warn(err, 'promise prerender err')); //можно написать void перед this.toyPage. Насколько понял, в независимо что вернется мы делает его undefined
+        this.toysPage.prerender().catch((err) => console.warn(err, 'promise prerender err')); 
         this.toysPage.prerenderSlider();
         this.newSetting.cycleSettings();
         this.playPage.cycleToys();

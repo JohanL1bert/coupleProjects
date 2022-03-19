@@ -70,7 +70,6 @@ export class ToysPage {
             return dataJSON;
         } catch (err) {
             console.warn('getData fetch error');
-            //ts заставляет вернуть что-то даже если выбросилась ошибка, при условие если мы возвращает что-то явно
         }
     }
 

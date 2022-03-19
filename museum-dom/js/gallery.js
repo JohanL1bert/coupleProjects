@@ -1,7 +1,5 @@
 const itemScroll = document.querySelectorAll(".gallery__img");
 
-//Нужно зафиксить высоту и анимацию
-
 let firstArray = [itemScroll[0], itemScroll[4], itemScroll[8]];
 let secondArray = [itemScroll[1], itemScroll[5], itemScroll[9]];
 let preLastArray = [itemScroll[2], itemScroll[6], itemScroll[10]];

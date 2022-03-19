@@ -5,7 +5,6 @@ const slider = document.querySelector(".explore__slider");
 
 let isActive = false;
 
-//через z-index как-то сделать
 const activePosition = (x) => {
   let position = Math.max(0, Math.min(x, wrapperSlider.offsetWidth));
   //Ширина для дива

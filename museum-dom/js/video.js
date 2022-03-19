@@ -9,9 +9,6 @@ const soundButton = playerVideo.querySelector(".img__btn-sound");
 const fullScreenButton = playerVideo.querySelector(".img__exit");
 const getThumb = document.getElementById("track");
 
-//FIXME: Пока не нужна эта секция
-//const sectionVideo = document.querySelector('.video');
-
 const docElement = document.documentElement;
 
 const togglePlay = () => {

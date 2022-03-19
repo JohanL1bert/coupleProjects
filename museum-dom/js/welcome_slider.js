@@ -1,6 +1,5 @@
 const numberItem = document.querySelector(".num__item");
 const welcomeWrapper = document.querySelector(".welcome__img-wrapper");
-//Текст контент работает
 
 let numberSlide = 1;
 

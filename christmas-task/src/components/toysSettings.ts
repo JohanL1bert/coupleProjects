@@ -271,15 +271,13 @@ class ValueFilter extends SwitchValue {
         const mainObject = this.mainObject;
         const dataFromMainObject = this.filterArray(mainObject);
         const filterData = this.secondFilteredData(dataFromMainObject);
-        /*      const valueFilteredFromData = this.getFilteredData(dataFromMainObject); //если приходит пустой массив, отдаем целый объект Пока не нужно, как и то что ниже
-        const arrayDataFiltered = this.returnData(valueFilteredFromData); */
         const dataFromJson = await data;
 
         if (dataFromJson === undefined) {
             throw new Error('data from JSON is Undefined');
         }
 
-        //Разобраться
+
         function filterPlainArray(array: IdataMain[], filters: IshapeColorSize) {
             const getValue = (value: string) => (typeof value === 'string' ? value.toUpperCase() : value);
             const filterKeys = Object.keys(filters);

@@ -351,11 +351,9 @@ class Manager {
                     const wins = 1;
                     const splitData = `${name}, Time: ${time} s`;
                     if (this.checkerStop === true) {
-                        /* console.log('1'); */
                         this.updateManager.AddTextContentToHTMLElement(element, '');
                         this.checkerStop = false;
                     } else {
-                        /* console.log('2'); */
                         this.updateManager.AddTextContentToHTMLElement(element, splitData);
                         this.checkerStop = false;
                     }
